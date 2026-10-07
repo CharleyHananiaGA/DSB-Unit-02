@@ -4213,6 +4213,38 @@ _Concept_
 
 **Spreadsheets** (XLS/CSV): familiar, but often messy and limited in size. **SQL databases**: handle millions of rows, the industry standard for company data. **APIs** (JSON): structured, clean and real-time, but not every dataset has one and some cost money. **Web scraping** (HTML): saves copy-pasting from websites, but comes with ethical caveats and fragile pages.
 
+<a id="finding-map-coordinates"></a>
+
+### Map Coordinates using the geopy Library
+
+_Python_
+
+When looking for coordinates of a location using an address or point of interest you can use the geopy library to get the latitude and longitude coordinates of the location.
+
+Google maps also has this capability but requires an API key, so this approach is generally easier to use, although it may have lower limits on usage. Read the documentation to get more information.
+
+```python
+# !Pip install geopy
+from geopy.geocoders import Nominatim
+
+# Initialize OpenStreetMap geolocator (requires a unique user_agent string)
+geopygeolocator = Nominatim(user_agent="Charleys_geo_app")
+
+location_phrase = "Piccadilly Circus, London, UK"
+location_phrase = "Buckingham Palace, London, UK"
+
+geopylocation = geopygeolocator.geocode(location_phrase)
+
+geopylat=geopylocation.latitude
+geopylon=geopylocation.longitude
+
+if geopylocation:
+    print(f"Geopy Latitude: {geopylat}")
+    print(f"Geopy Longitude: {geopylon}")
+else:
+    print("Location not found.")
+```
+
 ---
 
 <a id="a-z-index"></a>
@@ -4419,6 +4451,7 @@ _Concept_
 
 - [Magic commands](#magic-commands)
 - [.map()](#map)
+- [Map Coordinates (Lat, Long)](#finding-map-coordinates)
 - [MAR (Missing At Random)](#mar-missing-at-random)
 - [Math functions (np.log, np.exp, np.sqrt, np.abs)](#math-functions-np-log-np-exp-np-sqrt-np-abs)
 - [matplotlib](#matplotlib)
