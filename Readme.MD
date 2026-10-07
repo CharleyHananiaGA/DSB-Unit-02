@@ -387,6 +387,46 @@ sum(counts.values())                 # 10
 counts.get("court-result", 0)        # 0
 ```
 
+Example of looping through an irregular or nested disctionary to flatten the structure:
+
+```python
+import json
+import pandas as pd
+
+# 1. An unbalanced JSON payload (varying structures, nested dictionaries, missing keys)
+json_payload = """
+[
+    {"id": 1, "name": "Alice", "info": {"city": "New York", "age": 28}},
+    {"id": 2, "name": "Bob"},
+    {"id": 3, "name": "Charlie", "info": {"city": "Chicago"}, "skills": ["Python", "SQL"]}
+]
+"""
+
+# 2. Parse the JSON string
+data_list = json.loads(json_payload)
+
+# 3. Loop through the unbalanced payload to safely extract data
+rows = []
+for item in data_list:
+    # Use .get() to avoid KeyError if a key is missing
+    info_dict = item.get("info", {})
+
+    row_data = {
+        "ID": item.get("id"),
+        "Name": item.get("name"),
+        # Extracting from nested dictionary with default fallbacks
+        "City": info_dict.get("city", "Unknown"),
+        "Age": info_dict.get("age", None),
+        # Handling a nested list by joining elements, or defaulting to empty string
+        "Skills": ", ".join(item.get("skills", [])) if "skills" in item else "None"
+    }
+    rows.append(row_data)
+
+# 4. Display in a DataFrame
+df = pd.DataFrame(rows)
+print(df)
+```
+
 <a id="nested-data"></a>
 
 ### Nested data
