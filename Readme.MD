@@ -2,6 +2,8 @@
 
 # Data Science Glossary: Python, pandas and Exploratory Data Analysis
 
+[Repository guide and slide-deck completeness tracker](UNIT_GUIDE.md) — unit contents, PDF slide decks, and missing materials.
+
 Key terms, functions and methods from the EDA unit (Unit 2), running from Python basics to APIs. Each of the 440 entries says what the term means, where it appears in the course, and (where relevant) shows working code you can copy into your own notebooks. The [Unit 3 glossary](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD) (machine learning) continues the numbering from section 12 and links back to entries here.
 
 <a id="how-to-read-the-examples"></a>
