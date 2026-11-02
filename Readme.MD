@@ -2,7 +2,7 @@
 
 # Data Science Glossary: Python, pandas and Exploratory Data Analysis
 
-Key terms, functions and methods from the EDA unit (Unit 2), running from Python basics to APIs. Each of the 440 entries says what the term means, where it appears in the course, and (where relevant) shows working code you can copy into your own notebooks. The [Unit 3 glossary](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD) (machine learning) continues the numbering from section 12 and links back to entries here.
+Key terms, functions and methods from the EDA unit (Unit 2), running from Python basics to APIs. Each of the 476 entries says what the term means, where it appears in the course, and (where relevant) shows working code you can copy into your own notebooks. The [Unit 3 glossary](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD) (machine learning) continues the numbering from section 12 and links back to entries here.
 
 <a id="how-to-read-the-examples"></a>
 
@@ -76,7 +76,7 @@ A few entries build a small table on the spot (such as the four-customer table f
 
 <a id="for-your-capstone"></a>
 
-**For your capstone.** Every section opens with an **In your capstone** line saying when to reach for its methods. Section 00, the [Capstone playbook: the data stage](#s00-capstone-playbook-the-data-stage) (placed after section 11), walks the data stage of a project from question to model-ready table. It includes a tested EDA template notebook and a common-mistakes checklist. Unit 3's [Capstone playbook](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#s38-capstone-playbook) picks up from there with modelling.
+**For your capstone.** Every section opens with an **In your capstone** line saying when to reach for its methods. Section 00, the [Capstone playbook: the data stage](#s00-capstone-playbook-the-data-stage) (placed after section 11), walks the data stage of a project from question to model-ready table. It includes a tested EDA template notebook and a common-mistakes checklist. Unit 3's [Capstone playbook](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#s38-capstone-playbook) picks up from there with modelling. Section 00b, the [Capstone code cookbook](#s00b-capstone-code-cookbook), has complete, tested recipes for every step of the data stage, from importing every sheet of an Excel workbook, through fixing misspelled categories, validation rules and outliers, to charting the target against each feature; its [code finder](#find-the-code-you-need) maps the task you have to the recipe you need.
 
 <a id="audio-summary"></a>
 
@@ -106,7 +106,9 @@ A few entries build a small table on the spot (such as the four-customer table f
 
 **00. [Capstone playbook: the data stage](#s00-capstone-playbook-the-data-stage)** (placed after section 11)
 
-[Audio summary](#audio-summary) · [Concept map](#concept-map) · [Course materials map](#course-materials-map) · [A–Z index](#a-z-index)
+**00b. [Capstone code cookbook](#s00b-capstone-code-cookbook)**: copy-paste recipes for importing, profiling, cleaning text and dates, validation rules, outliers, filtering, reshaping, joining, duplicates, missing values, encoding, group summaries and charts. Start with the [code finder](#find-the-code-you-need).
+
+[Code finder](#find-the-code-you-need) · [Audio summary](#audio-summary) · [Concept map](#concept-map) · [Course materials map](#course-materials-map) · [A–Z index](#a-z-index)
 
 ---
 
@@ -293,7 +295,7 @@ title.strip().upper()           # 'DEBT CONSOLIDATION'
 
 > **Watch out:** In the product data, `'R '` has a trailing space, so `== 'R'` matches nothing. Always check for stray whitespace with `len()` or `.strip()`.
 
-See also: [.str accessor](#str-accessor)
+See also: [.str accessor](#str-accessor), [Cookbook: Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation)
 
 <a id="raw-string-r"></a>
 
@@ -933,7 +935,7 @@ pd.testing.assert_series_equal(lego["Year"], merged["Year"])   # passes silently
 
 > **Watch out:** assertions are for checking your own assumptions, not for handling expected problems in user input. Python skips them entirely when run with the `-O` flag.
 
-See also: [try / except](#try-except), [.duplicated()](#duplicated), [.merge()](#merge)
+See also: [try / except](#try-except), [.duplicated()](#duplicated), [.merge()](#merge), [Cookbook: Define validation rules and check your data](#define-validation-rules-and-check-your-data)
 
 <a id="module-package-and-library"></a>
 
@@ -1137,6 +1139,8 @@ line = re.sub(r"u'", "'", line)
 line = re.sub(r"['\[\]]", "", line)
 line.split(", ")      # ['Tim Robbins', 'Morgan Freeman']
 ```
+
+See also: [Cookbook: Split and extract values from text](#split-and-extract-values-from-text)
 
 <a id="random-module"></a>
 
@@ -1437,6 +1441,8 @@ np.maximum(0, np.array([-2, 5]))         # array([0, 5])
 np.clip(np.array([-5, 50, 120]), 0, 100) # array([  0,  50, 100])
 ```
 
+See also: [Cookbook: Detect and treat outliers](#detect-and-treat-outliers)
+
 <a id="np-where-and-np-select"></a>
 
 ### np.where() and np.select()
@@ -1457,7 +1463,7 @@ lego["price_band"].value_counts(dropna=False)
 
 > **Watch out:** a missing value fails every comparison, so `np.select` sends NaN rows to `default`. Decide what missing values should become and set that explicitly, as the last line above does.
 
-See also: [if / elif / else](#if-elif-else), [Vectorized operation](#vectorized-operation), [Binning (discretization)](#binning-discretization)
+See also: [if / elif / else](#if-elif-else), [Vectorized operation](#vectorized-operation), [Binning (discretization)](#binning-discretization), [Cookbook: Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups)
 
 <a id="np-concatenate-and-np-append"></a>
 
@@ -1542,7 +1548,7 @@ See also: [np.polyfit()](#np-polyfit), [Scatter plot](#scatter-plot), [Simple li
 
 _pandas is the main tool of the course. This section covers getting data in, looking at it, and picking out the rows and columns you want. Most examples use the LEGO dataset from the course repo. pandas 3 changed two things you'll meet at once: text columns have their own `str` dtype, and Copy-on-Write decides when a selection is a separate copy._
 
-**In your capstone:** this is the first hour of every project. Load the raw file with explicit options (separator, missing-value markers, dates), then run `.shape`, `.info()`, `.describe()`, `.head()` and `.value_counts()` on every column you plan to use. Write down what each column means and its unit before you change anything.
+**In your capstone:** this is the first hour of every project. Load the raw file with explicit options (separator, missing-value markers, dates), then run `.shape`, `.info()`, `.describe()`, `.head()` and `.value_counts()` on every column you plan to use. Write down what each column means and its unit before you change anything. Copy-paste recipes: [Import CSV and TSV files](#import-csv-and-tsv-files), [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook), [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory), [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns), [Profile a dataset quickly](#profile-a-dataset-quickly), [Build a data dictionary from your data](#build-a-data-dictionary-from-your-data), [Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet).
 
 <a id="pandas"></a>
 
@@ -1626,6 +1632,8 @@ lego.dtypes
 
 > **Watch out:** A number column showing as `object` usually means some value isn't a number (e.g. `"?"` in the auto MPG data). Find it before converting.
 
+See also: [Cookbook: Better-than-default data types](#better-than-default-data-types)
+
 <a id="string-dtype-str-in-pandas-3"></a>
 
 ### String dtype (str) in pandas 3
@@ -1669,7 +1677,7 @@ numeric_cols, text_cols
 
 > **Watch out:** in pandas 3, `include="object"` still returns text columns for backward compatibility but gives a `Pandas4Warning`, and a future version will stop including them. Use `include="str"`, or `include=["object", "str"]` if you also want mixed-type object columns.
 
-See also: [String dtype (str) in pandas 3](#string-dtype-str-in-pandas-3), [dtype](#dtype), [Classifying variables in code](#classifying-variables-in-code)
+See also: [String dtype (str) in pandas 3](#string-dtype-str-in-pandas-3), [dtype](#dtype), [Classifying variables in code](#classifying-variables-in-code), [Cookbook: Select, drop and reorder columns](#select-drop-and-reorder-columns)
 
 <a id="pd-read-csv"></a>
 
@@ -1688,6 +1696,8 @@ rock.head(2)
 ```
 
 > **Watch out:** `na_filter=False` matters for the drinks data: the continent code for North America is `"NA"`, which pandas would otherwise turn into missing values.
+
+See also: [Cookbook: Import CSV and TSV files](#import-csv-and-tsv-files)
 
 <a id="read-csv-options-for-messy-files"></a>
 
@@ -1723,7 +1733,7 @@ raw.dtypes
 
 > **Watch out:** `delim_whitespace=True` was removed in pandas 3. For files separated by spaces, use `sep=r"\s+"`. For dates, `date_format=` replaces the removed `date_parser=` and `infer_datetime_format=`.
 
-See also: [pd.read_csv()](#pd-read-csv), [Placeholder values for missing data](#placeholder-values-for-missing-data), [pd.to_datetime()](#pd-to-datetime)
+See also: [pd.read_csv()](#pd-read-csv), [Placeholder values for missing data](#placeholder-values-for-missing-data), [pd.to_datetime()](#pd-to-datetime), [Cookbook: Import CSV and TSV files](#import-csv-and-tsv-files)
 
 <a id="pd-read-json"></a>
 
@@ -1739,6 +1749,8 @@ cpi = pd.read_json("https://raw.githubusercontent.com/CharleyHananiaGA/DSB-Unit-
 
 > **Watch out:** check what a column really measures before you trust its name. The course's `cpi.json` has a column called `avg_cpi`, but according to the course notes each value is the **March** index for that year (80.1 for 1980, 312.332 for 2024), not the annual average. That's fine for practising joins, but describe it accurately in any analysis.
 
+See also: [Cookbook: Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats)
+
 <a id="to-csv"></a>
 
 ### .to_csv()
@@ -1752,6 +1764,8 @@ filtered = lego[lego["Pieces"] > 1000]
 filtered.to_csv("lego_filtered.csv", index=False)   # index=False: don't write 0, 1, 2, ... as a column
 pd.read_csv("lego_filtered.csv").shape == filtered.shape   # True: the round trip worked
 ```
+
+See also: [Cookbook: Export clean data and figures](#export-clean-data-and-figures)
 
 <a id="excel-files-read-excel-and-to-excel"></a>
 
@@ -1774,7 +1788,7 @@ pd.read_excel("lego_summary.xlsx", sheet_name="by_theme_group").head(3)
 
 > **Watch out:** if `read_excel` fails with `ImportError: Missing optional dependency 'openpyxl'`, install it (`%pip install openpyxl`) and restart the kernel. Excel can't hold more than 1,048,576 rows on a sheet, so keep large tables as CSV.
 
-See also: [.to_csv()](#to-csv), [pd.read_csv()](#pd-read-csv), [Data dictionary](#data-dictionary)
+See also: [.to_csv()](#to-csv), [pd.read_csv()](#pd-read-csv), [Data dictionary](#data-dictionary), [Cookbook: Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook)
 
 <a id="head-and-tail"></a>
 
@@ -1804,7 +1818,7 @@ ufo_10pct = ufo.sample(frac=0.1, random_state=42)
 len(ufo_10pct)                       # 8054 of 80543 rows
 ```
 
-See also: [.head() and .tail()](#head-and-tail), [random_state](#random-state)
+See also: [.head() and .tail()](#head-and-tail), [random_state](#random-state), [Cookbook: Work with large files and reduce memory](#work-with-large-files-and-reduce-memory)
 
 <a id="shape"></a>
 
@@ -1831,6 +1845,8 @@ Prints a summary of a DataFrame: number of rows, each column's name, its count o
 lego.info()
 ```
 
+See also: [Cookbook: List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns), [Cookbook: Work with large files and reduce memory](#work-with-large-files-and-reduce-memory)
+
 <a id="data-dictionary"></a>
 
 ### Data dictionary
@@ -1851,7 +1867,7 @@ data_dictionary["meaning"] = ""          # fill in by hand: what does each colum
 data_dictionary.head(6)
 ```
 
-See also: [.info()](#info), [Data quality assessment](#data-quality-assessment), [Missingness table](#missingness-table)
+See also: [.info()](#info), [Data quality assessment](#data-quality-assessment), [Missingness table](#missingness-table), [Cookbook: Build a data dictionary from your data](#build-a-data-dictionary-from-your-data)
 
 <a id="describe"></a>
 
@@ -1871,6 +1887,8 @@ lego.describe(include="str")          # text columns: count, unique, top, freq
 
 `count` is the number of **non-missing** values, not the number of rows. For `USD_MSRP` it's 5,837 out of 14,936 rows, which is how `.describe()` quietly reveals missing data.
 
+See also: [Cookbook: Profile a dataset quickly](#profile-a-dataset-quickly)
+
 <a id="columns"></a>
 
 ### .columns
@@ -1883,6 +1901,8 @@ The column labels of a DataFrame. Use `.tolist()` to get a plain list. You can r
 lego.columns.tolist()
 bonds.columns = [c.strip() for c in bonds.columns]   # clean all names
 ```
+
+See also: [Cookbook: Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns)
 
 <a id="values-to-numpy"></a>
 
@@ -1927,6 +1947,8 @@ lego[["Name", "Theme", "Pieces"]]      # DataFrame
 
 > **Watch out:** `lego["Name", "Theme"]` (single brackets, two names) raises a `KeyError`. The inner brackets make the list.
 
+See also: [Cookbook: Select, drop and reorder columns](#select-drop-and-reorder-columns)
+
 <a id="boolean-mask-filtering"></a>
 
 ### Boolean mask (filtering)
@@ -1941,7 +1963,7 @@ lego[is_expensive]
 lego[lego["Theme"] == "Star Wars"]
 ```
 
-See also: [Combining conditions (& | ~)](#combining-conditions)
+See also: [Combining conditions (& | ~)](#combining-conditions), [Cookbook: Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet)
 
 <a id="comparison-methods-and-between"></a>
 
@@ -1957,7 +1979,7 @@ lego[lego["Pieces"].ge(1000) & lego["Theme"].eq("Star Wars")].shape
 lego[lego["USD_MSRP"].between(10, 20, inclusive="left")].shape   # 10 <= price < 20
 ```
 
-See also: [Boolean mask (filtering)](#boolean-mask-filtering), [Combining conditions (& | ~)](#combining-conditions), [.isin()](#isin)
+See also: [Boolean mask (filtering)](#boolean-mask-filtering), [Combining conditions (& | ~)](#combining-conditions), [.isin()](#isin), [Cookbook: Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet)
 
 <a id="combining-conditions"></a>
 
@@ -1976,6 +1998,8 @@ lego[~lego["Theme"].isin(["Star Wars", "Technic"])]
 
 > **Watch out:** Python's `and`/`or` raise "The truth value of a Series is ambiguous". Swap them for `&` and `|`.
 
+See also: [Cookbook: Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet)
+
 <a id="isin"></a>
 
 ### .isin()
@@ -1987,6 +2011,8 @@ Checks each value against a list and returns a boolean mask. Cleaner than chaini
 ```python
 ufo[ufo["State"].isin(["NY", "CA", "WA"])]
 ```
+
+See also: [Cookbook: Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet)
 
 <a id="loc"></a>
 
@@ -2002,6 +2028,8 @@ lego.loc[:, lego.isnull().mean() < 0.3]               # columns under 30% missin
 bonds.loc[bonds["country_code"] == "EL", "Country"] = "Greece"   # set a value where a condition holds
 bonds.loc[bonds["country_code"] == "EL", ["country_code", "Country"]]
 ```
+
+See also: [Cookbook: Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet)
 
 <a id="iloc"></a>
 
@@ -2070,7 +2098,7 @@ lego["Theme_Group"].unique()
 
 > **Watch out:** `.nunique()` ignores `NaN` by default; `.unique()` includes it.
 
-See also: [Cardinality](#cardinality)
+See also: [Cardinality](#cardinality), [Cookbook: Profile a dataset quickly](#profile-a-dataset-quickly)
 
 <a id="nlargest-and-nsmallest"></a>
 
@@ -2100,6 +2128,8 @@ lego.duplicated().sum()                  # fully duplicated rows
 movies[movies["title"].duplicated()]     # repeated titles
 ```
 
+See also: [Cookbook: Find and handle duplicates](#find-and-handle-duplicates)
+
 <a id="pd-set-option"></a>
 
 ### pd.set_option()
@@ -2120,7 +2150,7 @@ pd.set_option("display.max_columns", None)
 
 _Turning raw data into the shape your question needs: fixing columns, summarising by group, switching between wide and long formats, combining tables and working with dates. The Module 2.2, 2.3 and 2.5 stepped code-alongs extend this with validation checks, `assign`/`pipe` chains, pivot tables and window calculations._
 
-**In your capstone:** do all cleaning in one ordered, re-runnable chain or function, not scattered edits, so you can rerun it on a fresh download. Check row counts before and after every merge and filter, and make sure the final table has exactly one row per thing you want to predict.
+**In your capstone:** do all cleaning in one ordered, re-runnable chain or function, not scattered edits, so you can rerun it on a fresh download. Check row counts before and after every merge and filter, and make sure the final table has exactly one row per thing you want to predict. Copy-paste recipes: [Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation), [Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories), [Split and extract values from text](#split-and-extract-values-from-text), [Clean and validate dates and times](#clean-and-validate-dates-and-times), [Reshape between wide and long formats](#reshape-between-wide-and-long-formats), [Join DataFrames safely](#join-dataframes-safely), [Find and handle duplicates](#find-and-handle-duplicates), [Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups), [Summarise by group](#summarise-by-group).
 
 <a id="grain-of-a-table"></a>
 
@@ -2209,7 +2239,7 @@ titanic_unique = titanic.drop_duplicates()                         # exact dupli
 lego.drop_duplicates(subset=["Name"], keep="first").shape
 ```
 
-See also: [.duplicated()](#duplicated), [Duplicate rows and leakage](#duplicate-rows-and-leakage)
+See also: [.duplicated()](#duplicated), [Duplicate rows and leakage](#duplicate-rows-and-leakage), [Cookbook: Find and handle duplicates](#find-and-handle-duplicates)
 
 <a id="axis"></a>
 
@@ -2237,6 +2267,8 @@ Renames columns (or index labels) using a dictionary of `{old: new}`. Only the n
 rock = rock.rename(columns={"Song Clean": "song", "ARTIST CLEAN": "artist"})
 ```
 
+See also: [Cookbook: Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns)
+
 <a id="astype"></a>
 
 ### .astype()
@@ -2251,7 +2283,7 @@ auto["horsepower"] = auto["horsepower"].astype(float)
 titanic["Age_missing"] = titanic["Age"].isnull().astype(int)   # True/False -> 1/0
 ```
 
-See also: [pd.to_numeric()](#pd-to-numeric)
+See also: [pd.to_numeric()](#pd-to-numeric), [Cookbook: Better-than-default data types](#better-than-default-data-types)
 
 <a id="pd-to-numeric"></a>
 
@@ -2367,6 +2399,8 @@ Calling several methods one after another, each working on the result of the pre
 )
 ```
 
+See also: [Cookbook: Keep a cleaning log](#keep-a-cleaning-log)
+
 <a id="pipe"></a>
 
 ### .pipe()
@@ -2403,6 +2437,8 @@ movies["content_rating"] = movies["content_rating"].replace(
     ["NOT RATED", "APPROVED", "PASSED", "GP"], "UNRATED")
 ```
 
+See also: [Cookbook: Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation)
+
 <a id="map"></a>
 
 ### .map()
@@ -2416,7 +2452,7 @@ condition_map = {"Poor": 0, "Fair": 1, "Good": 2, "Excellent": 3}
 housing["condition_encoded"] = housing["condition"].map(condition_map)
 ```
 
-See also: [Label encoding](#label-encoding)
+See also: [Label encoding](#label-encoding), [Cookbook: Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups)
 
 <a id="apply"></a>
 
@@ -2434,6 +2470,8 @@ movies["actor_0"] = movies["cleanlist"].apply(lambda actors: actors[0])
 movies[["title", "actor_0"]].head(3)
 ```
 
+See also: [Cookbook: Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups)
+
 <a id="str-accessor"></a>
 
 ### .str accessor
@@ -2450,6 +2488,8 @@ bonds_raw["country_code"].head(3).tolist()                         # ['AT', 'BE'
 ```
 
 > **Watch out:** `.str.contains()` returns `NaN` for missing text, which breaks filtering. Drop or fill missing values first, or pass `na=False`.
+
+See also: [Cookbook: Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation)
 
 <a id="cleaning-text-categories"></a>
 
@@ -2480,7 +2520,7 @@ ids = pd.Series(["APT-0001", "APT-12", "apt-0003"])
 ids.str.fullmatch(r"APT-\d{4}")                     # True, False, False
 ```
 
-See also: [.str accessor](#str-accessor), [.replace()](#replace), [Raw string (r"...")](#raw-string-r)
+See also: [.str accessor](#str-accessor), [.replace()](#replace), [Raw string (r"...")](#raw-string-r), [Cookbook: Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation), [Cookbook: Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories)
 
 <a id="groupby"></a>
 
@@ -2496,7 +2536,7 @@ lego.groupby("Theme_Group")["Current_Price"].describe()
 titanic.groupby(["Pclass", "Sex"])["Age"].mean()
 ```
 
-See also: [Split-apply-combine](#split-apply-combine), [.agg()](#agg), [.transform()](#transform)
+See also: [Split-apply-combine](#split-apply-combine), [.agg()](#agg), [.transform()](#transform), [Cookbook: Summarise by group](#summarise-by-group)
 
 <a id="split-apply-combine"></a>
 
@@ -2520,6 +2560,8 @@ lego.groupby("Theme_Group").agg({"USD_MSRP": "median", "Pieces": "max"})
 movies.groupby("genre")["star_rating"].agg(["count", "mean"])
 ```
 
+See also: [Cookbook: Summarise by group](#summarise-by-group)
+
 <a id="named-aggregation"></a>
 
 ### Named aggregation
@@ -2538,7 +2580,7 @@ theme_summary = (lego.groupby("Theme_Group")
 theme_summary.head()
 ```
 
-See also: [.agg()](#agg), [groupby()](#groupby), [MultiIndex](#multiindex)
+See also: [.agg()](#agg), [groupby()](#groupby), [MultiIndex](#multiindex), [Cookbook: Summarise by group](#summarise-by-group)
 
 <a id="transform"></a>
 
@@ -2641,6 +2683,8 @@ pd.crosstab(lego["Theme_Group"], lego["Category"])
 pd.crosstab(lego["Theme_Group"], lego["Category"], normalize="index") * 100
 ```
 
+See also: [Cookbook: EDA charts: categories and the target](#eda-charts-categories-and-the-target)
+
 <a id="pivot-table-and-pivot"></a>
 
 ### .pivot_table() and .pivot()
@@ -2659,7 +2703,7 @@ bonds_long = bonds.melt(id_vars=["Country", "country_code"], var_name="month", v
 bonds_long.pivot(index="country_code", columns="month", values="rate").shape   # back to one row per code
 ```
 
-See also: [pd.crosstab()](#pd-crosstab), [.melt()](#melt), [Wide vs long (tidy) format](#wide-vs-long-tidy-format), [groupby()](#groupby)
+See also: [pd.crosstab()](#pd-crosstab), [.melt()](#melt), [Wide vs long (tidy) format](#wide-vs-long-tidy-format), [groupby()](#groupby), [Cookbook: Reshape between wide and long formats](#reshape-between-wide-and-long-formats)
 
 <a id="set-index-and-reset-index"></a>
 
@@ -2683,7 +2727,7 @@ _pandas, Concept_
 
 In **wide** format, one variable is spread across many columns (one column per month). In **long** (or narrow, or tidy) format, each row is a single observation: one country, one month, one rate. Long format makes grouping and seaborn plotting much easier; wide format suits line plots with one line per column.
 
-See also: [.stack() and .unstack()](#stack-and-unstack), [.melt()](#melt)
+See also: [.stack() and .unstack()](#stack-and-unstack), [.melt()](#melt), [Cookbook: Reshape between wide and long formats](#reshape-between-wide-and-long-formats)
 
 <a id="stack-and-unstack"></a>
 
@@ -2704,6 +2748,8 @@ ufo["Year"] = pd.to_datetime(ufo["Time"], format="%m/%d/%Y %H:%M").dt.year
 state_year = ufo.groupby("State")["Year"].value_counts()
 state_year.unstack()      # one column per year
 ```
+
+See also: [Cookbook: Reshape between wide and long formats](#reshape-between-wide-and-long-formats)
 
 <a id="multiindex"></a>
 
@@ -2739,6 +2785,8 @@ long = bonds.melt(id_vars=["Country", "country_code"], var_name="month", value_n
 long.head()
 ```
 
+See also: [Cookbook: Reshape between wide and long formats](#reshape-between-wide-and-long-formats)
+
 <a id="t-transpose"></a>
 
 ### .T (transpose)
@@ -2772,6 +2820,8 @@ pd.concat([lego[["Name", "Year"]], extra], axis=1).head(3)   # add columns side 
 ```
 
 > **Watch out:** Unlike `merge`, `concat` doesn't match on a key column. Side-by-side concatenation lines rows up by index, so the indexes must correspond.
+
+See also: [Cookbook: Join DataFrames safely](#join-dataframes-safely)
 
 <a id="join"></a>
 
@@ -2833,6 +2883,8 @@ pandas' join method. `on=` names the shared key column; use `left_on=` and `righ
 merged = lego.merge(cpi, on="Year", how="left")
 ```
 
+See also: [Cookbook: Join DataFrames safely](#join-dataframes-safely)
+
 <a id="adding-rows-with-loc"></a>
 
 ### Adding rows with .loc
@@ -2868,7 +2920,7 @@ merged = merged.drop(columns="_merge")
 
 > **Watch out:** if the right-hand table has **duplicate keys**, every matching left row is copied once per duplicate, so the row count grows. `validate="many_to_one"` catches this immediately.
 
-See also: [.merge()](#merge), [Checking join keys](#checking-join-keys), [Left / right join](#left-right-join), [assert](#assert)
+See also: [.merge()](#merge), [Checking join keys](#checking-join-keys), [Left / right join](#left-right-join), [assert](#assert), [Cookbook: Join DataFrames safely](#join-dataframes-safely)
 
 <a id="checking-join-keys"></a>
 
@@ -2891,7 +2943,7 @@ named = bonds.merge(codes, left_on="iso_code", right_on="Alpha-2 code", how="lef
 named.loc[named["Alpha-2 code"].isna(), "country_code"].tolist()   # ['EA', '19', '28']: aggregates
 ```
 
-See also: [Validating a merge](#validating-a-merge), [Join](#join), [.str accessor](#str-accessor)
+See also: [Validating a merge](#validating-a-merge), [Join](#join), [.str accessor](#str-accessor), [Cookbook: Join DataFrames safely](#join-dataframes-safely)
 
 <a id="pd-to-datetime"></a>
 
@@ -2907,6 +2959,8 @@ ufo["Time"] = pd.to_datetime(ufo["Time"], format="%m/%d/%Y %H:%M")
 ```
 
 > **Watch out:** if a column mixes date formats (`"2024-01-05"` and `"05/02/2024"`), pandas 2 and 3 raise a `ValueError` rather than guessing row by row. Pass the exact `format=` when you know it, `format="mixed"` if the formats really are mixed, and `errors="coerce"` to turn unparseable values into `NaT` (missing). Then count the `NaT`s.
+
+See also: [Cookbook: Clean and validate dates and times](#clean-and-validate-dates-and-times)
 
 <a id="timestamp-timedelta-and-date-arithmetic"></a>
 
@@ -2924,7 +2978,7 @@ ufo["Time"].min() + pd.Timedelta(days=30)          # 30 days after the first sig
 pd.Timestamp("2024-03-01") - pd.Timestamp("2024-02-01")   # Timedelta('29 days'): 2024 is a leap year
 ```
 
-See also: [pd.to_datetime()](#pd-to-datetime), [.dt accessor](#dt-accessor), [Features from dates](#features-from-dates)
+See also: [pd.to_datetime()](#pd-to-datetime), [.dt accessor](#dt-accessor), [Features from dates](#features-from-dates), [Cookbook: Clean and validate dates and times](#clean-and-validate-dates-and-times)
 
 <a id="dt-accessor"></a>
 
@@ -2940,6 +2994,8 @@ ufo["Year"] = ufo["Time"].dt.year
 ufo["Month"] = ufo["Time"].dt.month
 ufo["Weekday"] = ufo["Time"].dt.day_name()
 ```
+
+See also: [Cookbook: Clean and validate dates and times](#clean-and-validate-dates-and-times)
 
 <a id="resample"></a>
 
@@ -3006,7 +3062,7 @@ lego["decade"] = lego["Year"].floordiv(10).mul(10)   # 1987 -> 1980
 
 _The vocabulary for describing a dataset: what a typical value is, how much values vary, and what shape the data takes. The running example is the four-customer table from the slides, with ages 55, 43, 36 and 31._
 
-**In your capstone:** report the median and IQR (not only the mean and standard deviation) for skewed columns such as prices and counts. Use the shape of each distribution to decide on transformations and on how to treat outliers. Every number in your write-up should say which statistic it is.
+**In your capstone:** report the median and IQR (not only the mean and standard deviation) for skewed columns such as prices and counts. Use the shape of each distribution to decide on transformations and on how to treat outliers. Every number in your write-up should say which statistic it is. Copy-paste recipes: [Detect and treat outliers](#detect-and-treat-outliers), [Summarise by group](#summarise-by-group).
 
 <a id="exploratory-data-analysis-eda"></a>
 
@@ -3033,6 +3089,8 @@ lego["USD_MSRP"].hist(bins=50)
 ```
 
 In the LEGO data, the first exploration question already turns something up: only **5,837 of 14,936** sets have a US retail price. In practice you always explore before you model, because you can't judge relationships in data you don't yet trust. The unit follows that order: lessons 02–05 cover exploration, and lessons 06–07 cover EDA for modeling and feature engineering.
+
+See also: [Cookbook: Profile a dataset quickly](#profile-a-dataset-quickly)
 
 <a id="statistic"></a>
 
@@ -3308,6 +3366,8 @@ q1, q3 = lego["Pieces"].quantile([0.25, 0.75])
 iqr = q3 - q1
 ```
 
+See also: [Cookbook: Detect and treat outliers](#detect-and-treat-outliers)
+
 <a id="iqr-outlier-fences"></a>
 
 ### IQR outlier fences
@@ -3327,7 +3387,7 @@ flagged = price[(price < lower) | (price > upper)]
 print(f"fences: {lower:.2f} to {upper:.2f}; {len(flagged)} of {len(price)} prices flagged")
 ```
 
-See also: [Interquartile range (IQR)](#interquartile-range-iqr), [Box plot](#box-plot), [Outlier](#outlier), [Outlier decisions](#outlier-decisions)
+See also: [Interquartile range (IQR)](#interquartile-range-iqr), [Box plot](#box-plot), [Outlier](#outlier), [Outlier decisions](#outlier-decisions), [Cookbook: Detect and treat outliers](#detect-and-treat-outliers)
 
 <a id="five-number-summary"></a>
 
@@ -3351,6 +3411,8 @@ iqr = q3 - q1
 is_outlier = (lego["USD_MSRP"] < q1 - 1.5 * iqr) | (lego["USD_MSRP"] > q3 + 1.5 * iqr)
 is_outlier.sum()
 ```
+
+See also: [Cookbook: Detect and treat outliers](#detect-and-treat-outliers)
 
 <a id="robust-statistic"></a>
 
@@ -3495,7 +3557,7 @@ SciPy's statistics module, imported with `from scipy import stats`. The course u
 
 _Choosing the right chart, and making it with pandas, matplotlib, seaborn or plotly. Rule of thumb from the slides: bar charts for categorical comparisons, scatter plots for correlations, line charts for trends over time, heatmaps for multi-dimensional relationships. The Module 2.4 stepped code-along builds a full visual EDA in this style._
 
-**In your capstone:** plot every variable you model (histogram or bar chart) and the target against each strong candidate feature. Use the object-oriented `fig, ax = plt.subplots()` style so you can title, label and save each figure. Every chart in your presentation needs a title that states the finding, labelled axes with units, and a source.
+**In your capstone:** plot every variable you model (histogram or bar chart) and the target against each strong candidate feature. Use the object-oriented `fig, ax = plt.subplots()` style so you can title, label and save each figure. Every chart in your presentation needs a title that states the finding, labelled axes with units, and a source. Copy-paste recipes: [EDA charts: distributions](#eda-charts-distributions), [EDA charts: categories and the target](#eda-charts-categories-and-the-target), [EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time), [Reusable EDA plotting helpers](#reusable-eda-plotting-helpers).
 
 <a id="choosing-a-chart-type"></a>
 
@@ -3583,6 +3645,8 @@ axes[0].hist(lego["USD_MSRP"], bins=30)
 axes[1].hist(np.log(lego["USD_MSRP"].dropna()), bins=30)
 plt.tight_layout()
 ```
+
+See also: [Cookbook: Reusable EDA plotting helpers](#reusable-eda-plotting-helpers)
 
 <a id="subplot-grids-subplot-add-subplot-delaxes-and-suptitle"></a>
 
@@ -3818,6 +3882,8 @@ Bars whose length shows a number for each category. Use it to compare groups (sa
      .plot(kind="barh", xlabel="Median retail price ($)"))
 ```
 
+See also: [Cookbook: EDA charts: categories and the target](#eda-charts-categories-and-the-target)
+
 <a id="scatter-plot"></a>
 
 ### Scatter plot
@@ -3838,6 +3904,8 @@ both = lego.dropna(subset=["USD_MSRP", "Current_Price"])
 ratio = both["Current_Price"] / both["USD_MSRP"]
 len(both), round(ratio.median(), 2), round(ratio.between(0.8, 1.2).mean() * 100, 1)   # 3612, 1.5, 22.5
 ```
+
+See also: [Cookbook: EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time)
 
 <a id="line-chart"></a>
 
@@ -3868,6 +3936,8 @@ lego["USD_MSRP"].hist(bins=50)
 lego["USD_MSRP"].plot(kind="hist", bins=20)
 lego.hist(column="Pieces", by="Theme_Group", sharex=True)   # one per group
 ```
+
+See also: [Cookbook: EDA charts: distributions](#eda-charts-distributions)
 
 <a id="choosing-histogram-bins"></a>
 
@@ -3928,6 +3998,8 @@ sns.boxplot(data=lego, x="USD_MSRP", y="Theme_Group")
 >
 > With seaborn 0.13.2 and matplotlib 3.11, every `sns.boxplot()` call shows the `vert` deprecation warning even when your code doesn't use `vert`, because seaborn passes it internally. It's harmless and you can ignore it. Check whether your installed seaborn version still does this. pandas' horizontal `.boxplot()` can likewise print a harmless `set_ticklabels()` warning from inside pandas.
 
+See also: [Cookbook: EDA charts: distributions](#eda-charts-distributions)
+
 <a id="density-plot-kde"></a>
 
 ### Density plot / KDE
@@ -3957,6 +4029,8 @@ sns.heatmap(corr, annot=True, cmap="coolwarm", center=0, fmt=".2f")
 counts = pd.crosstab(lego["Category"], lego["Year"])
 sns.heatmap(counts, cmap="Blues")
 ```
+
+See also: [Cookbook: EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time)
 
 <a id="colormap-palette"></a>
 
@@ -4022,7 +4096,9 @@ g.set_axis_labels("Age", "Passengers")
 
 See also: [seaborn](#seaborn), [Small multiples](#small-multiples), [plt.subplots()](#plt-subplots)
 
-### sweetvis EDA Visualisation Library
+<a id="sweetviz-eda-visualisation-library"></a>
+
+### sweetviz EDA visualisation library
 
 _sweetviz_
 
@@ -4043,6 +4119,8 @@ edareport.show_html("titanic_eda_report.html")
 > **Watch out:** sweetviz can be slow on large datasets. If you have a large dataset, consider sampling it before generating the report.
 > It should not be used as a default for EDA, but it can be a useful tool to quickly get an overview of the dataset and identify potential issues or areas for further investigation.
 > Nothing beats careful EDA with the methods and tools you know!
+
+See also: [Cookbook: Profile a dataset quickly](#profile-a-dataset-quickly)
 
 <a id="small-multiples"></a>
 
@@ -4706,7 +4784,7 @@ The ability of a study to detect an effect that really exists. Power rises with 
 
 _Finding missing values, understanding why they're missing, and choosing how to handle them. The course priority order: find the real data if you can, otherwise impute, and delete only as a last resort. Examples use the Titanic dataset._
 
-**In your capstone:** build a missingness table (count and percentage per column) on day one, and ask why each gap exists before you fill it. Decide per column (drop, impute, flag, or recover), write the reason down, and do any imputation inside a scikit-learn pipeline fitted on the training data only.
+**In your capstone:** build a missingness table (count and percentage per column) on day one, and ask why each gap exists before you fill it. Decide per column (drop, impute, flag, or recover), write the reason down, and do any imputation inside a scikit-learn pipeline fitted on the training data only. Copy-paste recipes: [Audit missing values by field type](#audit-missing-values-by-field-type), [Visualise missing data with missingno](#visualise-missing-data-with-missingno), [Fill gaps by field type](#fill-gaps-by-field-type), [Fill gaps with models](#fill-gaps-with-models).
 
 <a id="missing-data"></a>
 
@@ -4734,6 +4812,8 @@ titanic.isnull().mean() * 100      # % missing per column
 titanic[titanic["Age"].isnull()]   # rows missing Age
 ```
 
+See also: [Cookbook: Audit missing values by field type](#audit-missing-values-by-field-type)
+
 <a id="missingness-table"></a>
 
 ### Missingness table
@@ -4750,7 +4830,7 @@ missing = (pd.DataFrame({"n_missing": titanic.isnull().sum(),
 missing
 ```
 
-See also: [.isnull() / .isna()](#isnull-isna), [Column deletion](#column-deletion), [Missingness heatmap](#missingness-heatmap)
+See also: [.isnull() / .isna()](#isnull-isna), [Column deletion](#column-deletion), [Missingness heatmap](#missingness-heatmap), [Cookbook: Audit missing values by field type](#audit-missing-values-by-field-type)
 
 <a id="missingness-heatmap"></a>
 
@@ -4766,7 +4846,7 @@ sns.heatmap(titanic.isnull(), cbar=False, yticklabels=False, cmap="viridis", ax=
 ax.set_title("Titanic: missing values (light = missing)")
 ```
 
-See also: [missingno](#missingno), [Patterns of missingness](#patterns-of-missingness), [Missingness table](#missingness-table)
+See also: [missingno](#missingno), [Patterns of missingness](#patterns-of-missingness), [Missingness table](#missingness-table), [Cookbook: Visualise missing data with missingno](#visualise-missing-data-with-missingno)
 
 <a id="placeholder-values-for-missing-data"></a>
 
@@ -4812,6 +4892,8 @@ msno.matrix(titanic, figsize=(10, 6))
 msno.bar(titanic)
 msno.heatmap(titanic)
 ```
+
+See also: [Cookbook: Visualise missing data with missingno](#visualise-missing-data-with-missingno)
 
 <a id="mcar-missing-completely-at-random"></a>
 
@@ -4964,6 +5046,8 @@ _Concept_
 
 Filling in missing values with estimates. **Simple imputation** uses straightforward rules (mean, constant, last value); **advanced imputation** uses models such as regression, KNN or multiple imputation (beyond the scope of this course). Every method has trade-offs.
 
+See also: [Cookbook: Fill gaps by field type](#fill-gaps-by-field-type)
+
 <a id="fillna"></a>
 
 ### .fillna()
@@ -4977,6 +5061,8 @@ titanic["Age"] = titanic["Age"].fillna(titanic["Age"].mean())
 titanic["Cabin"] = titanic["Cabin"].fillna("Unknown")
 titanic = titanic.fillna({"Embarked": "S", "Age": 28})
 ```
+
+See also: [Cookbook: Fill gaps by field type](#fill-gaps-by-field-type)
 
 <a id="mean-median-mode-imputation"></a>
 
@@ -4994,6 +5080,8 @@ titanic["Embarked"] = titanic["Embarked"].fillna(mode_port)
 ```
 
 > **Watch out:** simple imputation is only acceptable when a wrong guess is harmless. Imputing a patient's **blood type** with the most common type would be dangerous, because transfusions must be cross-matched. It's an example of where imputation is inappropriate, not of good practice. Also check that each imputation cell fills the column it means to: copying the mean cell to make a median cell and forgetting to change the variable leaves the gaps unfilled. A final `.isna().sum()` check catches this.
+
+See also: [Cookbook: Fill gaps by field type](#fill-gaps-by-field-type)
 
 <a id="constant-value-imputation"></a>
 
@@ -5033,6 +5121,8 @@ group_means = titanic.groupby(["Pclass", "Sex"])["Age"].transform("mean")
 titanic["Age"] = titanic["Age"].fillna(group_means)
 ```
 
+See also: [Cookbook: Fill gaps by field type](#fill-gaps-by-field-type)
+
 <a id="missing-indicator"></a>
 
 ### Missing indicator
@@ -5045,6 +5135,8 @@ A new 0/1 column flagging which rows _were_ missing before you imputed them. It 
 titanic["Age_missing"] = titanic["Age"].isnull().astype(int)
 titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median())
 ```
+
+See also: [Cookbook: Fill gaps by field type](#fill-gaps-by-field-type)
 
 <a id="missing-data-decision-order"></a>
 
@@ -5085,6 +5177,8 @@ X_test[["sqft"]] = imputer.transform(X_test[["sqft"]])          # reuse it on th
 imputer.statistics_                                              # the learned median
 ```
 
+See also: [Cookbook: Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline)
+
 <a id="knnimputer-and-iterativeimputer"></a>
 
 ### KNNImputer and IterativeImputer
@@ -5110,7 +5204,7 @@ np.isnan(knn_filled).sum(), np.isnan(iter_filled).sum()       # (0, 0)
 
 > **Watch out:** no imputer fixes MNAR data, because the information needed is the missing value itself. Imputed values are estimates. Treating them as real observations makes your results look more certain than they are.
 
-See also: [SimpleImputer](#simpleimputer), [MAR (Missing At Random)](#mar-missing-at-random), [Pipeline with imputation](#pipeline-with-imputation)
+See also: [SimpleImputer](#simpleimputer), [MAR (Missing At Random)](#mar-missing-at-random), [Pipeline with imputation](#pipeline-with-imputation), [Cookbook: Fill gaps with models](#fill-gaps-with-models)
 
 ---
 
@@ -5120,7 +5214,7 @@ See also: [SimpleImputer](#simpleimputer), [MAR (Missing At Random)](#mar-missin
 
 _Exploring data with a machine learning model in mind: random variables, distributions and model choice, correlation, standardization, correlation vs causation, plus the handful of scikit-learn basics the notebooks use to show why all this matters._
 
-**In your capstone:** this is the bridge from cleaning to modelling. Identify the target and decide regression or classification, check class balance, look for features that are suspiciously strong (leakage) or redundant (multicollinearity), and let what you find decide the model family and the preprocessing. Fit a simple baseline before anything clever.
+**In your capstone:** this is the bridge from cleaning to modelling. Identify the target and decide regression or classification, check class balance, look for features that are suspiciously strong (leakage) or redundant (multicollinearity), and let what you find decide the model family and the preprocessing. Fit a simple baseline before anything clever. Copy-paste recipes: [Profile a dataset quickly](#profile-a-dataset-quickly), [Define validation rules and check your data](#define-validation-rules-and-check-your-data), [Detect and treat outliers](#detect-and-treat-outliers), [Summarise by group](#summarise-by-group).
 
 <a id="eda-for-modeling"></a>
 
@@ -5152,6 +5246,8 @@ titanic.duplicated().sum()                      # exact duplicate rows
 titanic.dtypes
 titanic["Survived"].value_counts(normalize=True)   # class balance of the target
 ```
+
+See also: [Cookbook: Define validation rules and check your data](#define-validation-rules-and-check-your-data), [Cookbook: Profile a dataset quickly](#profile-a-dataset-quickly)
 
 <a id="classifying-variables-in-code"></a>
 
@@ -5215,7 +5311,7 @@ cap = housing_df["median_house_value"].max()
 housing_df["median_house_value"].plot(kind="hist", bins=50, title="Spike at the $500,001 cap")
 ```
 
-See also: [Histogram](#histogram), [Outlier decisions](#outlier-decisions), [Data quality assessment](#data-quality-assessment)
+See also: [Histogram](#histogram), [Outlier decisions](#outlier-decisions), [Data quality assessment](#data-quality-assessment), [Cookbook: Detect and treat outliers](#detect-and-treat-outliers)
 
 <a id="class-imbalance"></a>
 
@@ -5236,6 +5332,8 @@ The number of unique values in a categorical variable. Low cardinality (3 garage
 ```python
 lego["Theme"].nunique()
 ```
+
+See also: [Cookbook: Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories)
 
 <a id="random-variable"></a>
 
@@ -5417,6 +5515,8 @@ corr = housing_df.corr(numeric_only=True)
 corr["median_house_value"].sort_values(ascending=False)
 sns.heatmap(corr, annot=True, cmap="coolwarm", center=0)
 ```
+
+See also: [Cookbook: EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time)
 
 <a id="correlation-with-the-target"></a>
 
@@ -5820,7 +5920,7 @@ X.shape, np.bincount(y)            # (500, 6) and two roughly equal classes
 
 _Transforming raw columns into features a model can use well: encoding categories, binning, scaling and reshaping distributions, then wrapping it all in a pipeline so it's repeatable and leak-free. Examples use the synthetic housing data from the feature engineering notebook._
 
-**In your capstone:** split into train and test first, then build every learned transformation (imputers, encoders, scalers) inside a `Pipeline` with a `ColumnTransformer`. Hand-made features that use only the row itself (ratios, ages, flags) are safe to create beforehand. Keep a short table of every feature you built and why.
+**In your capstone:** split into train and test first, then build every learned transformation (imputers, encoders, scalers) inside a `Pipeline` with a `ColumnTransformer`. Hand-made features that use only the row itself (ratios, ages, flags) are safe to create beforehand. Keep a short table of every feature you built and why. Copy-paste recipes: [Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline), [One-hot encoding done right](#one-hot-encoding-done-right), [Split and extract values from text](#split-and-extract-values-from-text), [Clean and validate dates and times](#clean-and-validate-dates-and-times).
 
 <a id="feature-engineering"></a>
 
@@ -5870,7 +5970,7 @@ dated[["Time", "month", "weekday", "is_weekend", "hour"]].head(3)
 
 > **Watch out:** an age computed from today's date (`datetime.now().year - df["Year"]`) changes every year, so filters such as "sets less than 10 years old" return different rows each time the notebook runs. Fix the reference year (for example, the last year in the data) so results are reproducible, and say which year you used.
 
-See also: [.dt accessor](#dt-accessor), [Timestamp, Timedelta and date arithmetic](#timestamp-timedelta-and-date-arithmetic), [Leakage check: known at prediction time?](#leakage-check-known-at-prediction-time)
+See also: [.dt accessor](#dt-accessor), [Timestamp, Timedelta and date arithmetic](#timestamp-timedelta-and-date-arithmetic), [Leakage check: known at prediction time?](#leakage-check-known-at-prediction-time), [Cookbook: Clean and validate dates and times](#clean-and-validate-dates-and-times)
 
 <a id="encoding-categorical-data"></a>
 
@@ -5879,6 +5979,8 @@ See also: [.dt accessor](#dt-accessor), [Timestamp, Timedelta and date arithmeti
 _Concept_
 
 Most ML algorithms only understand numbers, so categories must be converted. How you convert matters: the two main approaches are **label encoding** (one number per category) and **one-hot encoding** (one 0/1 column per category).
+
+See also: [Cookbook: One-hot encoding done right](#one-hot-encoding-done-right)
 
 <a id="label-encoding"></a>
 
@@ -5938,7 +6040,7 @@ encoded = ohe.fit_transform(housing[["neighborhood"]])
 pd.DataFrame(encoded, columns=ohe.get_feature_names_out(["neighborhood"]))
 ```
 
-See also: [pd.get_dummies()](#pd-get-dummies), [Dummy variable trap](#dummy-variable-trap)
+See also: [pd.get_dummies()](#pd-get-dummies), [Dummy variable trap](#dummy-variable-trap), [Cookbook: One-hot encoding done right](#one-hot-encoding-done-right)
 
 <a id="pd-get-dummies"></a>
 
@@ -5951,6 +6053,8 @@ pandas' quick one-hot encoder: it replaces the listed columns with 0/1 dummy col
 ```python
 housing_dummies = pd.get_dummies(housing, columns=["neighborhood", "garage"], drop_first=True)
 ```
+
+See also: [Cookbook: One-hot encoding done right](#one-hot-encoding-done-right)
 
 <a id="onehotencoder-options"></a>
 
@@ -6037,6 +6141,8 @@ ufo["city_grouped"] = ufo["City"].where(~ufo["City"].isin(rare), "Other")   # gr
 ufo["city_freq"] = ufo["City"].map(counts)                                  # frequency encoding
 ufo["city_grouped"].nunique()
 ```
+
+See also: [Cookbook: Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories)
 
 <a id="binning-discretization"></a>
 
@@ -6269,6 +6375,8 @@ pipeline.score(X_test, y_test)           # R² on the test set
 
 **In Unit 3:** [Pipeline with ColumnTransformer](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#pipeline-with-columntransformer), [Pipeline + GridSearchCV](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#pipeline-gridsearchcv), [Pipelines in tuning](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#pipelines-in-tuning)
 
+See also: [Cookbook: Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline)
+
 <a id="columntransformer"></a>
 
 ### ColumnTransformer
@@ -6289,6 +6397,8 @@ preprocessor = ColumnTransformer([
 preprocessor.fit_transform(housing).shape         # (1000, 12): 4 numeric + 8 dummy columns
 preprocessor.get_feature_names_out()[:6]
 ```
+
+See also: [Cookbook: Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline)
 
 <a id="pipeline-with-imputation"></a>
 
@@ -6314,6 +6424,8 @@ preprocessor = ColumnTransformer([("num", numeric_pipe, numeric_features),
                                   ("cat", categorical_pipe, categorical_features)])
 preprocessor.fit_transform(housing).shape
 ```
+
+See also: [Cookbook: Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline)
 
 <a id="custom-transformer"></a>
 
@@ -6885,7 +6997,7 @@ See also: [Query parameters](#query-parameters), [Rate limit](#rate-limit), [API
 
 _The data stage of a capstone, from question to a clean, model-ready table, in the order you'll do it. Each step links back to the entries that explain the methods. Section 00 is placed after section 11 because it uses all of them. Unit 3's [Capstone playbook](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#s38-capstone-playbook) takes over at modelling._
 
-**In your capstone:** work through these steps in order, keep the checklist answers in your notebook as markdown, and start from the [EDA template notebook](#eda-template-notebook). The decisions you write down here (what you dropped, imputed, capped or engineered, and why) become the methods section of your write-up.
+**In your capstone:** work through these steps in order, keep the checklist answers in your notebook as markdown, and start from the [EDA template notebook](#eda-template-notebook). The decisions you write down here (what you dropped, imputed, capped or engineered, and why) become the methods section of your write-up. For the code itself, use the [Capstone code cookbook](#s00b-capstone-code-cookbook), starting with a [cleaning log](#keep-a-cleaning-log) and [validation rules](#define-validation-rules-and-check-your-data).
 
 <a id="frame-the-question-and-the-target"></a>
 
@@ -6925,7 +7037,7 @@ Answer these before you change anything, and keep the answers in markdown cells.
 9. **Collection artefacts:** caps, gaps or sudden changes over time (such as the 500-sets-per-year cap in the LEGO data).
 10. **Target:** its distribution, balance and any leakage-prone neighbours.
 
-See also: [EDA for exploration](#eda-for-exploration), [Data quality assessment](#data-quality-assessment), [.info()](#info), [.describe()](#describe)
+See also: [EDA for exploration](#eda-for-exploration), [Data quality assessment](#data-quality-assessment), [.info()](#info), [.describe()](#describe), [Cookbook: Profile a dataset quickly](#profile-a-dataset-quickly), [Cookbook: Build a data dictionary from your data](#build-a-data-dictionary-from-your-data)
 
 <a id="cleaning-workflow"></a>
 
@@ -6964,7 +7076,7 @@ assert clean["age"].dropna().between(0, 100).all()
 len(titanic), len(clean)
 ```
 
-See also: [Cleaning text categories](#cleaning-text-categories), [.drop_duplicates()](#drop-duplicates), [Method chaining](#method-chaining)
+See also: [Cleaning text categories](#cleaning-text-categories), [.drop_duplicates()](#drop-duplicates), [Method chaining](#method-chaining), [Cookbook: Keep a cleaning log](#keep-a-cleaning-log)
 
 <a id="missing-data-decisions"></a>
 
@@ -7011,7 +7123,7 @@ lego.loc[price > upper, ["Name", "Theme", "USD_MSRP"]].nlargest(5, "USD_MSRP")  
 lego["log_price"] = np.log1p(price)                    # one option: reduce the skew instead of deleting
 ```
 
-See also: [Outlier](#outlier), [Worked example: mean vs median with an outlier](#worked-example-mean-vs-median-with-an-outlier), [Log transformation](#log-transformation), [Capped values](#capped-values)
+See also: [Outlier](#outlier), [Worked example: mean vs median with an outlier](#worked-example-mean-vs-median-with-an-outlier), [Log transformation](#log-transformation), [Capped values](#capped-values), [Cookbook: Detect and treat outliers](#detect-and-treat-outliers)
 
 <a id="leakage-check-known-at-prediction-time"></a>
 
@@ -7310,6 +7422,1870 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 
 ---
 
+<a id="s00b-capstone-code-cookbook"></a>
+
+## 00b. Capstone code cookbook
+
+_Complete, copy-paste recipes for the data stage of a capstone, named by the job you're trying to do rather than by the function that does it. They run in the order you'll need them: set up the notebook and a cleaning log; import the data (CSV, TSV, Parquet, Excel with every sheet, large files); see and profile what you've loaded; standardise text and fix misspelled categories; extract values from text; clean dates; check the data against validation rules; handle outliers; filter, reshape and join; find duplicates; audit and fill missing values; apply functions; encode categories; summarise by group; and chart everything. Every block runs as written after the [setup block](#how-to-read-the-examples); the entries in sections 3–10 explain the methods behind each line._
+
+**In your capstone:** start from the [code finder](#find-the-code-you-need) below, copy the recipe that matches your task, then change the file names and column names to your own. Keep the helper functions (the Excel importer, the reports and the chart helpers) in one cell near the top of your notebook, or in a `helpers.py` file you import.
+
+<a id="find-the-code-you-need"></a>
+
+### Find the code you need
+
+_Concept_
+
+| I want to… | Recipe | Background entries |
+| --- | --- | --- |
+| Set up a capstone notebook (imports, display options, folders, seed) | [Capstone notebook setup](#capstone-notebook-setup) | [Jupyter notebook](#jupyter-notebook), [Random seed](#random-seed) |
+| Record every cleaning step and how many rows it removed | [Keep a cleaning log](#keep-a-cleaning-log) | [Cleaning workflow](#cleaning-workflow), [Method chaining](#method-chaining) |
+| Load a CSV or TSV file, or a whole folder of them | [Import CSV and TSV files](#import-csv-and-tsv-files) | [pd.read_csv()](#pd-read-csv), [read_csv() options for messy files](#read-csv-options-for-messy-files) |
+| Load Parquet, JSON, SQL or a web table | [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats) | [pd.read_json()](#pd-read-json), [pd.json_normalize()](#pd-json-normalize) |
+| Load a file that's too big, or make a table use less memory | [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory) | [.info()](#info), [.sample()](#sample) |
+| Load **every sheet** of an Excel workbook into its own DataFrame | [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook) | [Excel files](#excel-files-read-excel-and-to-excel) |
+| Make sheet and column names Python-style (no spaces) | [Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns) | [.rename()](#rename), [.columns](#columns) |
+| Fix "everything is text" columns: numbers, dates, yes/no, categories | [Better-than-default data types](#better-than-default-data-types) | [.astype()](#astype), [dtype](#dtype) |
+| See every DataFrame I've created and the columns in each | [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns) | [.info()](#info), [.describe()](#describe) |
+| Get a quick list of likely problems in every column | [Profile a dataset quickly](#profile-a-dataset-quickly) | [.describe()](#describe), [sweetviz](#sweetviz-eda-visualisation-library) |
+| Write a data dictionary for my dataset | [Build a data dictionary from your data](#build-a-data-dictionary-from-your-data) | [Data dictionary](#data-dictionary) |
+| Fix spacing, capitalisation and odd characters in text | [Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation) | [String methods](#string-methods), [.str accessor](#str-accessor) |
+| Fix misspelled categories, abbreviations and rare labels | [Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories) | [Cleaning text categories](#cleaning-text-categories), [Cardinality](#cardinality) |
+| Split combined columns; pull codes, numbers and units out of text | [Split and extract values from text](#split-and-extract-values-from-text) | [re (regular expressions)](#re-regular-expressions) |
+| Parse messy dates, find impossible ones, and get date parts | [Clean and validate dates and times](#clean-and-validate-dates-and-times) | [pd.to_datetime()](#pd-to-datetime), [.dt accessor](#dt-accessor) |
+| Set boundaries and rules for columns, and find rows that break them | [Define validation rules and check your data](#define-validation-rules-and-check-your-data) | [assert](#assert), [Data quality assessment](#data-quality-assessment) |
+| Find outliers and decide what to do with them | [Detect and treat outliers](#detect-and-treat-outliers) | [Outlier](#outlier), [IQR outlier fences](#iqr-outlier-fences) |
+| Keep only the rows I want (conditions, lists, ranges, text, dates) | [Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet) | [Boolean mask (filtering)](#boolean-mask-filtering), [.isin()](#isin), [.loc[]](#loc) |
+| Pick, drop or reorder columns | [Select, drop and reorder columns](#select-drop-and-reorder-columns) | [Selecting columns](#selecting-columns), [.select_dtypes()](#select-dtypes) |
+| Turn columns into rows (wide → long) or back again | [Reshape between wide and long formats](#reshape-between-wide-and-long-formats) | [.melt()](#melt), [Wide vs long (tidy) format](#wide-vs-long-tidy-format) |
+| Join two tables without losing or duplicating rows | [Join DataFrames safely](#join-dataframes-safely) | [.merge()](#merge), [Validating a merge](#validating-a-merge) |
+| Find and deal with duplicate rows or keys | [Find and handle duplicates](#find-and-handle-duplicates) | [.duplicated()](#duplicated), [.drop_duplicates()](#drop-duplicates) |
+| See how much is missing, by column and by type, including "N/A" text | [Audit missing values by field type](#audit-missing-values-by-field-type) | [Missingness table](#missingness-table), [Placeholder values](#placeholder-values-for-missing-data) |
+| Draw missing-data charts | [Visualise missing data with missingno](#visualise-missing-data-with-missingno) | [missingno](#missingno), [Patterns of missingness](#patterns-of-missingness) |
+| Fill gaps sensibly (median, group median, mode, flags, time series) | [Fill gaps by field type](#fill-gaps-by-field-type) | [.fillna()](#fillna), [Missing indicator](#missing-indicator) |
+| Fill gaps with a model (KNN, iterative, random forest) | [Fill gaps with models](#fill-gaps-with-models) | [KNNImputer and IterativeImputer](#knnimputer-and-iterativeimputer) |
+| Impute and encode without leakage, ready for modelling | [Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline) | [Pipeline](#pipeline), [ColumnTransformer](#columntransformer), [Data leakage](#data-leakage) |
+| Create or transform columns with functions | [Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups) | [.apply()](#apply), [.map()](#map), [Split-apply-combine](#split-apply-combine) |
+| Turn categories into numbers (one-hot, ordinal) | [One-hot encoding done right](#one-hot-encoding-done-right) | [One-hot encoding](#one-hot-encoding), [pd.get_dummies()](#pd-get-dummies) |
+| Compare groups in a summary table | [Summarise by group](#summarise-by-group) | [groupby()](#groupby), [Named aggregation](#named-aggregation) |
+| Plot distributions of every column | [EDA charts: distributions](#eda-charts-distributions) | [Histogram](#histogram), [Box plot](#box-plot) |
+| Plot categories and how the target varies | [EDA charts: categories and the target](#eda-charts-categories-and-the-target) | [Bar chart](#bar-chart), [pd.crosstab()](#pd-crosstab) |
+| Plot relationships, correlations and trends over time | [EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time) | [Scatter plot](#scatter-plot), [Heatmap](#heatmap) |
+| Make every chart in one go with reusable functions | [Reusable EDA plotting helpers](#reusable-eda-plotting-helpers) | [plt.subplots()](#plt-subplots) |
+| Save clean data and figures | [Export clean data and figures](#export-clean-data-and-figures) | [.to_csv()](#to-csv) |
+
+<a id="capstone-notebook-setup"></a>
+
+### Capstone notebook setup
+
+_Python, pandas_
+
+One cell at the top of the notebook that every later cell relies on: imports, readable display settings, a fixed random seed and folders for raw data and outputs. Keep raw files untouched in `data/` and write everything you create to `outputs/`, so you can always rerun from scratch.
+
+```python
+from pathlib import Path
+import re
+import keyword
+import math
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+pd.set_option("display.max_columns", 50)        # show every column, not "..."
+pd.set_option("display.width", 120)
+sns.set_theme(style="whitegrid")                # cleaner chart defaults
+
+RANDOM_STATE = 42                               # use everywhere you sample, split or model
+np.random.seed(RANDOM_STATE)
+
+DATA_DIR = Path("data")                         # raw inputs: never edit these files
+OUT_DIR = Path("outputs")                       # everything you create goes here
+OUT_DIR.mkdir(exist_ok=True)
+```
+
+> **Watch out:** restart the kernel and run the notebook top to bottom before you share it. Cells run out of order are the most common reason a capstone notebook "worked yesterday".
+
+See also: [Reproducibility habits](#reproducibility-habits), [Random seed](#random-seed)
+
+<a id="keep-a-cleaning-log"></a>
+
+### Keep a cleaning log
+
+_pandas_
+
+Every cleaning step changes the data, and your write-up has to say what you did and what it cost. A cleaning log records the table's size after each step, so you can see exactly where rows went and report it. `log_step()` returns the DataFrame unchanged, so it slots into a method chain with `.pipe()`.
+
+```python
+cleaning_log = []
+
+
+def log_step(df, step, note=""):
+    """Record rows, columns and missing cells after a cleaning step; return df unchanged."""
+    cleaning_log.append({"step": step, "rows": len(df), "columns": df.shape[1],
+                         "missing_cells": int(df.isna().sum().sum()), "note": note})
+    return df
+
+
+titanic_clean = (
+    titanic
+    .pipe(log_step, "loaded", "titanic-adj.csv from the course repository")
+    .drop_duplicates()
+    .pipe(log_step, "dropped exact duplicate rows")
+    .dropna(subset=["Embarked"])
+    .pipe(log_step, "dropped rows with no port", "2 passengers")
+    .drop(columns=["Cabin"])
+    .pipe(log_step, "dropped Cabin", "77% missing")
+)
+
+log = pd.DataFrame(cleaning_log)
+log["rows_removed"] = (-log["rows"].diff()).fillna(0).astype(int)
+log
+```
+
+The log table goes straight into your methods section (or an appendix), and comparing first and last rows shows at a glance how much data the cleaning cost.
+
+> **Watch out:** reset `cleaning_log = []` when you rerun the notebook from the top, or steps are logged twice. Log the **reason** for each decision in `note`, not just the action: "dropped Cabin" is a fact, "77% missing; kept a was-missing flag instead" is a justification.
+
+See also: [Cleaning workflow](#cleaning-workflow), [Method chaining](#method-chaining), [Reproducibility habits](#reproducibility-habits)
+
+<a id="import-csv-and-tsv-files"></a>
+
+### Import CSV and TSV files
+
+_pandas_
+
+`pd.read_csv()` reads comma-separated files, and with `sep="\t"` it reads tab-separated (TSV) files. Spend a minute on the options: telling pandas the separator, the missing-value markers, the date columns and the ID columns up front saves an hour of cleaning later.
+
+```python
+df = pd.read_csv(
+    DATA_DIR / "your_file.csv",
+    sep=",",                                   # "\t" for TSV, ";" for many European CSVs
+    encoding="utf-8",                          # try "latin-1" if you get UnicodeDecodeError
+    na_values=["", "NA", "N/A", "n/a", "-", "?", "missing"],   # extra markers to treat as missing
+    thousands=",",                             # "1,234" -> 1234
+    parse_dates=["order_date"],                # parse date columns while loading
+    dtype={"zip_code": "string"},              # keep codes with leading zeros as text
+)
+
+bonds_raw = pd.read_csv(JOIN + "eu-govt-bonds.tsv", sep="\t")   # a TSV from the course
+loans = pd.read_csv(JOIN + "rejections.csv.gz")                 # .gz and .zip are read directly
+```
+
+To load a **folder** of files with the same columns (one per month, say) into one table, keep track of which file each row came from:
+
+```python
+files = sorted((DATA_DIR / "monthly").glob("*.csv"))
+sales = pd.concat(
+    [pd.read_csv(f).assign(source_file=f.name) for f in files],
+    ignore_index=True,
+)
+sales["source_file"].value_counts()            # rows per file: spot a missing or empty month
+```
+
+For a **large** file, load only the columns you need and check the size before loading everything:
+
+```python
+pd.read_csv(DATA_DIR / "your_file.csv", nrows=1000)                         # peek first
+pd.read_csv(DATA_DIR / "your_file.csv", usecols=["order_id", "order_date", "amount"])
+```
+
+> **Watch out:** if every column arrives as one long text column, the separator is wrong (`sep="\t"` or `sep=";"`). If codes such as ZIP codes or IDs lose their leading zeros, read them with `dtype={"col": "string"}`. Check `df.shape` and `df.head()` straight after loading.
+
+See also: [pd.read_csv()](#pd-read-csv), [read_csv() options for messy files](#read-csv-options-for-messy-files), [pd.to_datetime()](#pd-to-datetime)
+
+<a id="import-parquet-json-and-other-formats"></a>
+
+### Import Parquet, JSON and other formats
+
+_pandas_
+
+**Parquet** is a compressed, column-based file format: it's much smaller and faster than CSV and, unlike CSV, it remembers each column's data type (dates stay dates, categories stay categories). It's the best format for saving your cleaned data between notebooks. pandas needs the `pyarrow` package for it (`%pip install pyarrow`).
+
+```python
+lego.to_parquet(OUT_DIR / "lego.parquet", index=False)
+lego_pq = pd.read_parquet(OUT_DIR / "lego.parquet")
+lego_pq.dtypes.equals(lego.dtypes)                                      # True: types survive
+pd.read_parquet(OUT_DIR / "lego.parquet", columns=["Set_ID", "Theme", "USD_MSRP"])   # only some columns
+```
+
+Other sources you're likely to meet:
+
+```python
+cpi = pd.read_json(DATA + "cpi.json")                         # JSON array of records
+# pd.read_json("events.jsonl", lines=True)                     # JSON Lines: one record per line
+# pd.json_normalize(api_response["results"])                   # nested JSON from an API
+
+import sqlite3                                                # SQL databases
+with sqlite3.connect(OUT_DIR / "capstone.db") as con:
+    lego.to_sql("lego", con, if_exists="replace", index=False)
+    star_wars = pd.read_sql("SELECT Name, Year, Pieces FROM lego WHERE Theme = 'Star Wars'", con)
+
+# tables = pd.read_html("https://en.wikipedia.org/wiki/...")  # every <table> on a web page (needs lxml)
+```
+
+> **Watch out:** a file saved with `to_parquet` reloads exactly as it was saved, so use it (not CSV) to pass clean data from your cleaning notebook to your modelling notebook. CSV loses data types, and you'd have to parse dates and categories again.
+
+See also: [pd.read_json()](#pd-read-json), [pd.json_normalize()](#pd-json-normalize), [Export clean data and figures](#export-clean-data-and-figures)
+
+<a id="work-with-large-files-and-reduce-memory"></a>
+
+### Work with large files and reduce memory
+
+_pandas_
+
+When a file is big enough to make your laptop struggle, load less, store it more compactly, or process it in pieces. Converting repetitive text to `category` and downcasting numbers often cuts memory by more than half.
+
+```python
+def memory_mb(df):
+    """Memory used by a DataFrame, in megabytes (deep=True counts the text too)."""
+    return round(df.memory_usage(deep=True).sum() / 1e6, 1)
+
+
+def shrink(df, max_category_ratio=0.5):
+    """Smaller dtypes: downcast whole numbers, repetitive text -> category."""
+    out = df.copy()
+    for col in out.select_dtypes("integer").columns:
+        out[col] = pd.to_numeric(out[col], downcast="integer")
+    for col in out.select_dtypes(include=["object", "string"]).columns:
+        if out[col].nunique() / max(len(out), 1) <= max_category_ratio:
+            out[col] = out[col].astype("category")
+    return out
+
+
+ufo_small = shrink(ufo)
+memory_mb(ufo), memory_mb(ufo_small)                  # about 5.9 MB -> 2.5 MB
+
+# process a file in chunks: aggregate each chunk, then combine the results
+per_state = []
+for chunk in pd.read_csv(VIZ + "ufo.csv", chunksize=20_000, usecols=["State"]):
+    per_state.append(chunk["State"].value_counts())
+sightings_by_state = pd.concat(per_state).groupby(level=0).sum().sort_values(ascending=False)
+
+# explore on a random sample, then run the final analysis on everything
+ufo_sample = ufo.sample(frac=0.1, random_state=RANDOM_STATE)
+```
+
+Other levers: `usecols=` and `dtype=` in `read_csv` (load only what you need, with compact types from the start), and saving to Parquet, which loads far faster than CSV.
+
+> **Watch out:** downcasting floats to `float32` loses precision, so only do it when you're sure it doesn't matter (this helper leaves floats alone). Results from a sample are estimates: say so, and confirm key numbers on the full data.
+
+See also: [.info()](#info), [.sample()](#sample), [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats), [Better-than-default data types](#better-than-default-data-types)
+
+<a id="python-style-names-for-sheets-and-columns"></a>
+
+### Python-style names for sheets and columns
+
+_Python, pandas_
+
+Labels from spreadsheets ("Unit Price ($)", "Order ID", "1st Quarter") are awkward in code: you can't use dot access, they break `.query()`, and a stray trailing space makes `df["Region"]` fail. These two helpers turn any label into a **snake_case** name: lowercase, words joined by underscores, no punctuation, never starting with a digit and never a Python keyword. The second one also makes names unique, which matters when a sheet has two columns with the same header. The Excel importer below uses both.
+
+```python
+def to_snake_case(label, prefix="col"):
+    """'Unit Price ($)' -> 'unit_price', 'OrderID' -> 'order_id', '1st Quarter' -> 'col_1st_quarter'."""
+    text = str(label).strip()
+    text = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", text)    # split camelCase: OrderID -> Order_ID
+    text = re.sub(r"[^0-9a-zA-Z]+", "_", text)              # spaces and punctuation -> _
+    text = re.sub(r"_+", "_", text).strip("_").lower()
+    if not text:
+        text = prefix
+    if text[0].isdigit():
+        text = f"{prefix}_{text}"                           # names can't start with a digit
+    if keyword.iskeyword(text):
+        text = f"{text}_"                                   # 'class' -> 'class_'
+    return text
+
+
+def unique_snake_names(labels, prefix="col"):
+    """Snake-case a list of labels and de-duplicate them: ['Qty', 'qty '] -> ['qty', 'qty_2']."""
+    used, names = set(), []
+    for label in labels:
+        base = name = to_snake_case(label, prefix)
+        n = 2
+        while name in used:
+            name = f"{base}_{n}"
+            n += 1
+        used.add(name)
+        names.append(name)
+    return names
+
+
+unique_snake_names(["Order ID", "Unit Price ($)", "Qty", "qty ", "1st Quarter", "class"])
+# ['order_id', 'unit_price', 'qty', 'qty_2', 'col_1st_quarter', 'class_']
+
+lego_snake = lego.copy()                                # the rest of this cookbook keeps lego's original names
+lego_snake.columns = unique_snake_names(lego_snake.columns)
+lego_snake.columns[:5].tolist()                         # ['set_id', 'name', 'year', 'theme', 'theme_group']
+```
+
+> **Watch out:** rename columns once, straight after loading, and use the new names everywhere after that. Renaming halfway through a notebook breaks every earlier cell when you rerun it.
+
+See also: [.rename()](#rename), [.columns](#columns), [re (regular expressions)](#re-regular-expressions)
+
+<a id="better-than-default-data-types"></a>
+
+### Better-than-default data types
+
+_pandas_
+
+Files often arrive with everything as text: prices like "$1,234.50", flags like "Yes"/"No", dates as strings, and repetitive labels stored as long text. This helper converts each text column to the most useful type it can **without losing any values**:
+
+- **yes/no, true/false** → `boolean`;
+- **numbers stored as text** (commas, currency symbols, % signs) → numbers;
+- **dates stored as text** → `datetime64`;
+- **repetitive labels** (few distinct values) → `category`, which is smaller and faster and sorts in a fixed order;
+- everything else → pandas' **nullable** types (`Int64`, `Float64`, `string`, `boolean`), which keep missing values without turning whole-number columns into floats.
+
+A column is only converted if **every** non-missing value converts; otherwise it's left as text for you to inspect. Codes with leading zeros ("02134") are deliberately left as text.
+
+```python
+BOOL_MAP = {"yes": True, "no": False, "y": True, "n": False, "true": True, "false": False}
+
+
+def better_dtypes(df, max_category_levels=50, max_category_ratio=0.5):
+    """Convert text columns to boolean, numeric, datetime or category where every value fits."""
+    df = df.copy()
+    for col in df.columns:
+        s = df[col]
+        if not (pd.api.types.is_object_dtype(s) or pd.api.types.is_string_dtype(s)):
+            continue                                           # already numeric, date or bool
+        text = s.dropna().astype(str).str.strip()
+        if text.empty:
+            continue
+        if text.str.lower().isin(list(BOOL_MAP)).all():        # 1. yes/no flags
+            df[col] = s.astype("string").str.strip().str.lower().map(BOOL_MAP).astype("boolean")
+            continue
+        leading_zero = text.str.match(r"^0\d").any()           # IDs like '02134' stay as text
+        number_text = text.str.replace(r"[,$£€%\s]", "", regex=True)
+        if not leading_zero and pd.to_numeric(number_text, errors="coerce").notna().all():
+            df[col] = pd.to_numeric(                           # 2. numbers stored as text
+                s.astype("string").str.replace(r"[,$£€%\s]", "", regex=True), errors="coerce")
+            continue
+        looks_like_date = text.str.contains(r"\d{1,4}[-/.]\d{1,2}[-/.]\d{1,4}").all()
+        if looks_like_date and pd.to_datetime(text, errors="coerce", format="mixed").notna().all():
+            df[col] = pd.to_datetime(s, errors="coerce", format="mixed")   # 3. dates stored as text
+            continue
+        n_unique = text.nunique()                              # 4. repetitive text -> category
+        if n_unique <= max_category_levels and n_unique / len(text) <= max_category_ratio:
+            df[col] = s.astype("string").str.strip().astype("category")
+    return df.convert_dtypes()                                 # 5. nullable Int64, Float64, string, boolean
+
+
+titanic_typed = better_dtypes(titanic)
+pd.DataFrame({"before": titanic.dtypes, "after": titanic_typed.dtypes})
+```
+
+On the Titanic data, `Sex` and `Embarked` become categories, the whole-number columns become `Int64`, and `Age` and `Fare` become `Float64`.
+
+> **Watch out:** "12%" becomes 12, not 0.12, so divide by 100 yourself if a column holds percentages. Dates written day-first ("03/04/2024" meaning 3 April) need `pd.to_datetime(..., dayfirst=True)` or an explicit `format=`; always spot-check converted dates. Nullable types use `pd.NA` for missing values; a few older libraries prefer plain floats, so if one complains, use `.astype(float)` on that column.
+
+See also: [.astype()](#astype), [dtype](#dtype), [String dtype (str) in pandas 3](#string-dtype-str-in-pandas-3), [Encoding categorical data](#encoding-categorical-data)
+
+<a id="import-every-sheet-from-an-excel-workbook"></a>
+
+### Import every sheet from an Excel workbook
+
+_pandas_
+
+Capstone data often arrives as one workbook with several sheets. This function reads **every sheet** in one call and, for each one: gives it a Python-style name (`"Sales 2023"` → `df_sales_2023`); cleans the column headers to snake_case and makes them unique; drops completely empty rows and columns (common in spreadsheets); treats placeholder text such as "N/A", "-" and "?" as missing; and applies [better-than-default data types](#better-than-default-data-types). It reads each cell exactly as stored in Excel (`dtype=object`), so codes such as postcode "02134" keep their leading zero; by default `read_excel` would quietly turn them into the number 2134. It returns a dictionary of DataFrames and, if you pass `namespace=globals()`, also creates **one variable per sheet** so you can use `df_sales_2023` directly. The original sheet name and column headers are kept in each DataFrame's `.attrs`, so you can always trace a column back to the spreadsheet.
+
+It uses `to_snake_case`, `unique_snake_names` and `better_dtypes` from the two entries above, so run those cells first. pandas needs `openpyxl` to read `.xlsx` files (`%pip install openpyxl`).
+
+```python
+MISSING_MARKERS = ["", "N/A", "NA", "n/a", "#N/A", "-", "?", "missing", "null"]
+
+
+def load_excel_workbook(path, prefix="df", header=0, na_values=MISSING_MARKERS,
+                        namespace=None, verbose=True):
+    """Read every sheet of an Excel workbook into its own cleaned DataFrame.
+
+    Sheet 'Sales 2023' becomes 'df_sales_2023'; headers become unique snake_case names;
+    empty rows/columns are dropped; placeholder text becomes missing; columns get better dtypes.
+    Returns {name: DataFrame}. Pass namespace=globals() to also create one variable per sheet.
+    """
+    sheets = pd.read_excel(path, sheet_name=None, header=header,     # {sheet name: DataFrame}
+                           dtype=object,                             # keep each cell as stored
+                           na_values=na_values)                      # 'N/A', '-' ... -> missing
+    names = [f"{prefix}_{n}" for n in unique_snake_names(sheets, prefix="sheet")]
+    frames = {}
+    for name, (sheet_name, raw) in zip(names, sheets.items()):
+        df = raw.dropna(how="all").dropna(axis=1, how="all")           # blank rows and columns
+        original_columns = [str(c) for c in df.columns]
+        df.columns = unique_snake_names(df.columns)
+        df = better_dtypes(df).reset_index(drop=True)
+        df.attrs["sheet_name"] = sheet_name                            # where it came from
+        df.attrs["original_columns"] = dict(zip(df.columns, original_columns))
+        frames[name] = df
+        if verbose:
+            print(f"{sheet_name!r:>20} -> {name:<28} {df.shape[0]:>6} rows x {df.shape[1]:>3} columns")
+    if namespace is not None:
+        namespace.update(frames)                                       # creates the variables
+    return frames
+```
+
+**Try it** on a deliberately messy practice workbook (or point it at your own file):
+
+```python
+with pd.ExcelWriter(DATA_DIR / "your_workbook.xlsx") as writer:      # build a messy example
+    pd.DataFrame({
+        "Order ID": [1001, 1002, 1003, 1004],
+        "Order Date": ["2024-01-05", "2024-01-06", "2024-02-11", None],
+        "Unit Price ($)": ["$1,234.50", "$99.00", "$45.10", "$12.00"],
+        "Qty": [2, 1, "N/A", 5],
+        "Region ": ["North", "South", "North", "North"],
+        "Is Member?": ["Yes", "No", "yes", "No"],
+    }).to_excel(writer, sheet_name="Sales 2023", index=False)
+    pd.DataFrame({
+        "CustomerID": [1, 2, 3],
+        "Post Code": ["02134", "10001", "94105"],
+        "Sign-up Date": ["2023-11-01", "2023-12-15", "2024-01-20"],
+    }).to_excel(writer, sheet_name="Customer List", index=False)
+    pd.DataFrame({"Month": ["Jan", "Feb", "Mar"], "Target": [100, 120, 150]}).to_excel(
+        writer, sheet_name="1st Quarter", index=False)
+
+workbook = load_excel_workbook(DATA_DIR / "your_workbook.xlsx", namespace=globals())
+#         'Sales 2023' -> df_sales_2023                     4 rows x   6 columns
+#      'Customer List' -> df_customer_list                  3 rows x   3 columns
+#        '1st Quarter' -> df_sheet_1st_quarter              3 rows x   2 columns
+
+df_sales_2023.dtypes
+# order_id: Int64 | order_date: datetime64 | unit_price: Float64 | qty: Int64 ("N/A" -> <NA>)
+# region: category | is_member: boolean
+df_customer_list["post_code"].tolist()                     # ['02134', '10001', '94105']: zeros kept
+df_sales_2023.attrs["original_columns"]["unit_price"]      # 'Unit Price ($)'
+```
+
+Then use [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns) to see everything that was loaded.
+
+> **Watch out:** if a sheet has a title or notes above the real header row, pass `header=` (e.g. `header=2` for headers in row 3), or read that sheet on its own with `skiprows=`. Merged cells in Excel come through as one value followed by blanks; fill them with `.ffill()` after loading. Creating variables with `globals()` is convenient in a notebook, but the returned dictionary (`workbook["df_sales_2023"]`) is easier to loop over and safer in reusable code. Excel stores dates as numbers internally, so a column that mixes dates and text may arrive as text; check it with the column report.
+
+See also: [Excel files: read_excel() and to_excel()](#excel-files-read-excel-and-to-excel), [Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns), [Better-than-default data types](#better-than-default-data-types)
+
+<a id="list-the-dataframes-you-ve-created-and-their-columns"></a>
+
+### List the DataFrames you've created and their columns
+
+_pandas_
+
+After importing several files or sheets, it's easy to lose track of what exists. `list_dataframes()` lists every DataFrame in your notebook (or in a dictionary such as the one the Excel importer returns) with its size, missing cells and memory. `column_report()` gives one row per column: type, non-missing count, % missing, number of distinct values and an example value. Together they're your inventory of "what have I imported, and what's in it?"
+
+```python
+def list_dataframes(namespace):
+    """Every DataFrame in a namespace (globals() or a dict): rows, columns, missing cells, memory."""
+    rows = [
+        {"name": name, "rows": obj.shape[0], "columns": obj.shape[1],
+         "missing_cells": int(obj.isna().sum().sum()),
+         "memory_mb": round(obj.memory_usage(deep=True).sum() / 1e6, 2)}
+        for name, obj in dict(namespace).items()
+        if isinstance(obj, pd.DataFrame) and not name.startswith("_")   # skip Jupyter's _ variables
+    ]
+    return pd.DataFrame(rows).sort_values("name", ignore_index=True)
+
+
+def column_report(df):
+    """One row per column: dtype, non-missing count, % missing, distinct values and an example."""
+    return pd.DataFrame({
+        "dtype": df.dtypes.astype(str),
+        "non_missing": df.notna().sum(),
+        "missing_pct": (df.isna().mean() * 100).round(1),
+        "n_unique": df.nunique(),
+        "example": [df[c].dropna().iloc[0] if df[c].notna().any() else None for c in df.columns],
+    })
+
+
+list_dataframes(globals())              # every DataFrame in the notebook
+list_dataframes(workbook)               # just the sheets from the Excel import
+
+for name, frame in workbook.items():    # the columns inside each one
+    print(f"\n{name}  ({frame.attrs.get('sheet_name', '')}): {frame.shape[0]} rows x {frame.shape[1]} columns")
+    display(column_report(frame))
+```
+
+> **Watch out:** `display()` shows a formatted table inside a loop in Jupyter (a bare expression only shows the last result of a cell). In a plain Python script, use `print(column_report(frame).to_string())` instead.
+
+See also: [.info()](#info), [.describe()](#describe), [Data dictionary](#data-dictionary), [Missingness table](#missingness-table)
+
+<a id="profile-a-dataset-quickly"></a>
+
+### Profile a dataset quickly
+
+_pandas, sweetviz_
+
+A profile is a fast first pass over every column that flags the problems worth investigating: constant columns, ID-like columns, high missingness, high cardinality, hidden leading or trailing spaces, inconsistent case, and numbers stored as text. Use `describe(include="all")` for the numbers, `quick_profile()` for the flags, and an automated report such as sweetviz for an interactive overview.
+
+```python
+titanic.describe(include="all").T          # every column: count, unique, top, mean, quartiles
+
+
+def quick_profile(df, high_cardinality=50, id_ratio=0.95):
+    """One row per column with a list of likely data-quality issues."""
+    rows, n = [], len(df)
+    for col in df.columns:
+        s = df[col]
+        n_unique = s.nunique(dropna=True)
+        issues = []
+        if n_unique <= 1:
+            issues.append("constant")
+        if s.isna().mean() > 0.3:
+            issues.append(f"{s.isna().mean():.0%} missing")
+        if n_unique > 1 and n_unique / n >= id_ratio:
+            issues.append("looks like an ID")
+        if pd.api.types.is_object_dtype(s) or pd.api.types.is_string_dtype(s):
+            text = s.dropna().astype(str)
+            if n_unique > high_cardinality:
+                issues.append("high cardinality")
+            if (text != text.str.strip()).any():
+                issues.append("leading/trailing spaces")
+            if text.str.strip().str.lower().nunique() < text.nunique():
+                issues.append("case or spacing variants")
+            numbers = pd.to_numeric(text.str.replace(r"[,$£€%\s]", "", regex=True), errors="coerce")
+            if len(text) and numbers.notna().mean() > 0.9:
+                issues.append("numbers stored as text")
+        top_share = s.value_counts(normalize=True, dropna=False).iloc[0] if n else 0
+        if 0.95 <= top_share < 1:
+            issues.append(f"one value is {top_share:.0%} of rows")
+        rows.append({"column": col, "dtype": str(s.dtype), "n_unique": n_unique,
+                     "missing_pct": round(s.isna().mean() * 100, 1), "issues": ", ".join(issues)})
+    return pd.DataFrame(rows)
+
+
+quick_profile(titanic)       # PassengerId and Name look like IDs; 2 names have stray spaces; Cabin 77% missing
+quick_profile(bonds_raw)     # every value column: spaces and numbers stored as text
+[c for c in bonds_raw.columns if c != c.strip()]   # column NAMES with stray spaces, too
+```
+
+For an interactive HTML report of every column and its relationship with a target, see [sweetviz](#sweetviz-eda-visualisation-library):
+
+```python
+# report = sv.analyze(titanic, target_feat="Survived")
+# report.show_html(str(OUT_DIR / "titanic_sweetviz.html"))
+```
+
+> **Watch out:** a profile tells you **where to look**, not what to do. A column flagged "looks like an ID" might be a genuine ID (drop it from modelling) or a precise measurement that happens to be unique; a column flagged "constant" might be constant only in this extract. Check each flag against what the column means.
+
+See also: [.describe()](#describe), [.unique() and .nunique()](#unique-and-nunique), [Cardinality](#cardinality), [Data quality assessment](#data-quality-assessment), [EDA for exploration](#eda-for-exploration)
+
+<a id="build-a-data-dictionary-from-your-data"></a>
+
+### Build a data dictionary from your data
+
+_pandas_
+
+A data dictionary describes every column: what it means, its units, its type, its range or allowed values, and how much is missing. Most of it can be generated from the data; you add the meanings and units. It uses `column_report()` from [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns).
+
+```python
+def data_dictionary(df, descriptions=None, units=None, max_listed=8):
+    """A data dictionary skeleton: generated facts plus your descriptions and units."""
+    descriptions, units = descriptions or {}, units or {}
+    dd = column_report(df).rename_axis("column").reset_index()
+    numeric = df.select_dtypes("number")
+    dd["description"] = dd["column"].map(descriptions).fillna("TODO: describe")
+    dd["units"] = dd["column"].map(units).fillna("")
+    dd["range"] = dd["column"].map(
+        lambda c: f"{numeric[c].min():g} to {numeric[c].max():g}" if c in numeric else "")
+    dd["allowed_values"] = dd["column"].map(
+        lambda c: ", ".join(map(str, sorted(df[c].dropna().unique(), key=str)))
+        if df[c].nunique() <= max_listed else "")
+    return dd[["column", "description", "units", "dtype", "range", "allowed_values",
+               "missing_pct", "n_unique", "example"]]
+
+
+titanic_dd = data_dictionary(
+    titanic,
+    descriptions={"Survived": "1 if the passenger survived", "Pclass": "Ticket class (1 = first)",
+                  "SibSp": "Siblings and spouses aboard", "Parch": "Parents and children aboard",
+                  "Fare": "Ticket price", "Embarked": "Port: C = Cherbourg, Q = Queenstown, S = Southampton"},
+    units={"Age": "years", "Fare": "pounds (1912)"},
+)
+titanic_dd.to_csv(OUT_DIR / "titanic_data_dictionary.csv", index=False)
+```
+
+> **Watch out:** write the descriptions **before** you clean or engineer anything, from the data source's documentation or the stakeholder, not from guesses based on the values. Keep the dictionary updated as you add features: it's the first thing a reader of your capstone needs.
+
+See also: [Data dictionary](#data-dictionary), [Data-understanding checklist](#data-understanding-checklist)
+
+<a id="standardise-text-spacing-case-and-punctuation"></a>
+
+### Standardise text: spacing, case and punctuation
+
+_pandas_
+
+The same value typed differently ("New York", "new york ", "NEW  YORK") counts as different categories, breaks joins and splits your group summaries. Standardising text means trimming the ends, collapsing repeated inner spaces, choosing one case, and normalising unusual characters (non-breaking spaces, full-width characters). Do it before counting categories, de-duplicating or joining.
+
+```python
+def clean_text(s, case="title", strip_punctuation=False):
+    """Trim, collapse inner spaces, normalise unicode and apply one case. Empty strings -> missing."""
+    out = s.astype("string").str.normalize("NFKC").str.strip()      # NFKC: odd spaces/characters -> standard
+    out = out.str.replace(r"\s+", " ", regex=True)                     # 'NEW  YORK' -> 'NEW YORK'
+    if strip_punctuation:
+        out = out.str.replace(r"[^\w\s]", "", regex=True)              # 'N.Y.' -> 'NY'
+    if case == "title":
+        out = out.str.title()
+    elif case == "lower":
+        out = out.str.lower()
+    elif case == "upper":
+        out = out.str.upper()
+    return out.replace("", pd.NA)
+
+
+cities = pd.Series(["  New York", "new york ", "NEW  YORK", "Los Angeles", "los angeles", "San Francisco\u00a0"])
+cities.nunique(), clean_text(cities).nunique()            # 6 -> 3
+
+# a real messy export: spaces in column names and values, ': z' meaning "not available"
+bonds_raw.columns = bonds_raw.columns.str.strip()
+value_cols = bonds_raw.columns[1:]
+bonds_raw[value_cols] = bonds_raw[value_cols].apply(lambda col: col.str.strip())
+bonds_raw[value_cols] = bonds_raw[value_cols].replace({": z": pd.NA, ":": pd.NA})
+bonds_raw[value_cols] = bonds_raw[value_cols].apply(pd.to_numeric)
+bonds_raw.dtypes.value_counts()                           # all value columns now numeric
+```
+
+For **matching keys** across tables (not for display), go further: lowercase, remove punctuation and accents, so "São Paulo" and "Sao Paulo" match:
+
+```python
+def match_key(s):
+    """An aggressive normalised key for joining or de-duplicating (not for display)."""
+    return (s.astype("string").str.normalize("NFKD")
+             .str.encode("ascii", errors="ignore").str.decode("ascii")    # drop accents
+             .str.lower().str.replace(r"[^a-z0-9]+", " ", regex=True).str.strip())
+
+
+match_key(pd.Series(["São Paulo", "Sao  Paulo", "SAO-PAULO"])).unique()   # ['sao paulo']
+```
+
+> **Watch out:** `.str.title()` mangles some names ("McDonald" → "Mcdonald", "USA" → "Usa"), so use it for display only on columns where that's acceptable, or keep the original and add a cleaned copy. Check `value_counts()` before and after cleaning: the number of distinct values should fall, and nothing you care about should merge by accident.
+
+See also: [String methods](#string-methods), [.str accessor](#str-accessor), [Cleaning text categories](#cleaning-text-categories), [.replace()](#replace)
+
+<a id="fix-misspelled-and-inconsistent-categories"></a>
+
+### Fix misspelled and inconsistent categories
+
+_Python, pandas_
+
+After standardising spaces and case, the remaining variants are misspellings ("Los Angles"), joined words ("Newyork") and abbreviations ("LA"). The safe approach is **suggest, review, then apply**: build a mapping from every distinct value to its closest allowed spelling, look at the mapping table yourself, fix anything wrong, and only then apply it. Python's built-in `difflib` scores how similar two strings are (0 to 1).
+
+```python
+import difflib
+
+
+def build_category_map(values, canonical, overrides=None, cutoff=0.8):
+    """Suggest the closest allowed spelling for each distinct value, as a table to review."""
+    overrides = overrides or {}
+    lookup = {c.lower().replace(" ", ""): c for c in canonical}          # 'newyork' -> 'New York'
+    rows = []
+    for value in pd.Series(values).dropna().unique():
+        key = str(value).strip().lower().replace(" ", "")
+        if value in overrides:
+            match, method = overrides[value], "override"
+        elif key in lookup:
+            match, method = lookup[key], "exact after cleaning"
+        else:
+            close = difflib.get_close_matches(key, list(lookup), n=1, cutoff=cutoff)
+            match, method = (lookup[close[0]], "fuzzy") if close else (None, "NO MATCH: review")
+        similarity = (difflib.SequenceMatcher(None, key, match.lower().replace(" ", "")).ratio()
+                      if match else None)
+        rows.append({"value": value, "suggested": match, "method": method,
+                     "similarity": round(similarity, 2) if similarity else None})
+    return pd.DataFrame(rows).sort_values(["method", "value"], ignore_index=True)
+
+
+responses = pd.Series(["New York", "new york", "Newyork", "New Yrok", "NY", "Los Angeles", "Los Angles",
+                       "LA", "San Francisco", "San Fransisco", "SF", "Chicago", "Chicgo", "Bostn", "Paris", None])
+canonical = ["New York", "Los Angeles", "San Francisco", "Chicago", "Boston"]     # the allowed spellings
+abbreviations = {"NY": "New York", "LA": "Los Angeles", "SF": "San Francisco"}   # rules fuzzy matching can't guess
+
+review = build_category_map(responses, canonical, overrides=abbreviations)
+review                               # READ THIS: 'Paris' has no match; fuzzy rows need a sanity check
+
+mapping = dict(zip(review["value"], review["suggested"]))
+cleaned = responses.map(mapping)
+cleaned.value_counts(dropna=False)   # 5 clean categories, plus NaN for 'Paris' and the missing value
+```
+
+No list of allowed values? Treat the **frequent** spellings as canonical, and map rare variants onto them. Rare categories that are genuinely different are often better grouped into "Other":
+
+```python
+counts = ufo["Shape Reported"].value_counts()
+rare = counts[counts < 50].index                      # DELTA, ROUND, CRESCENT, DOME, PYRAMID, FLARE, HEXAGON
+ufo["shape_grouped"] = ufo["Shape Reported"].where(~ufo["Shape Reported"].isin(rare), "OTHER")
+ufo["shape_grouped"].nunique()                        # 27 shapes -> 20 (rare shapes join OTHER)
+```
+
+> **Watch out:** never apply fuzzy matches unreviewed: "austria" and "australia" score 0.875, so even the default cutoff of 0.8 would silently merge two different countries. Raise `cutoff` (0.85–0.9) for short words, keep the review table in your notebook as evidence, and store the final mapping as a dictionary you can reuse on new data. For thousands of distinct values, the `rapidfuzz` package does the same job much faster.
+
+See also: [Cleaning text categories](#cleaning-text-categories), [.map()](#map), [Cardinality](#cardinality), [High-cardinality strategies](#high-cardinality-strategies)
+
+<a id="split-and-extract-values-from-text"></a>
+
+### Split and extract values from text
+
+_pandas_
+
+Text columns often pack several facts into one cell: a code and a country ("MCBY,AT"), a surname and a title ("Braund, Mr. Owen Harris"), a deck and a cabin number ("C85"), several labels ("RED GREEN BLUE") or a number with its unit ("3.5kg"). Pull each fact into its own column with `.str.split()`, `.str.extract()` (regular expressions) or `.str.get_dummies()`.
+
+```python
+# one column holding two values -> two columns
+bonds_raw = bonds_raw.rename(columns={bonds_raw.columns[0]: "key"})          # was 'int_rt,geo\time'
+bonds_raw[["indicator", "country_code"]] = bonds_raw["key"].str.split(",", expand=True)
+
+# parts of a string with regular expressions
+text = titanic[["Name", "Ticket", "Cabin"]].copy()
+text["surname"] = text["Name"].str.split(",").str[0].str.strip()                    # 'Braund'
+text["title"] = text["Name"].str.extract(r",\s*([^\.]+)\.", expand=False)          # 'Mr'
+text["ticket_prefix"] = text["Ticket"].str.extract(r"^(.*\D)\s", expand=False)     # 'A/5', 'PC', ...
+text["ticket_number"] = pd.to_numeric(text["Ticket"].str.extract(r"(\d+)$", expand=False))
+text["deck"] = text["Cabin"].str[0]                                                # 'C85' -> 'C'
+text["n_cabins"] = text["Cabin"].str.split().str.len()                             # 'C23 C25 C27' -> 3
+
+# several labels in one cell -> one 0/1 column per label
+colours = ufo["Colors Reported"].str.get_dummies(sep=" ")                          # 'RED GREEN' -> RED=1, GREEN=1
+colours.sum().sort_values(ascending=False)
+
+# numbers with units -> one consistent unit
+weights = pd.Series(["12 kg", "3.5kg", "8 lb", "450 g", "unknown", None])
+parts = weights.str.extract(r"(?P<value>\d+(?:\.\d+)?)\s*(?P<unit>kg|lb|g)\b", flags=re.IGNORECASE)
+to_kg = {"kg": 1.0, "g": 0.001, "lb": 0.453592}
+weights_kg = pd.to_numeric(parts["value"]) * parts["unit"].str.lower().map(to_kg)  # 12.0, 3.5, 3.63, 0.45, NaN, NaN
+```
+
+> **Watch out:** check what **didn't** match: rows where `.str.extract()` returns `NaN` but the original wasn't missing are values your pattern doesn't cover (`weights[parts["value"].isna() & weights.notna()]`). `str.split(expand=True)` creates as many columns as the longest split, so check the maximum number of parts before assigning to a fixed list of names.
+
+See also: [re (regular expressions)](#re-regular-expressions), [.str accessor](#str-accessor), [String methods](#string-methods), [One-hot encoding done right](#one-hot-encoding-done-right)
+
+<a id="clean-and-validate-dates-and-times"></a>
+
+### Clean and validate dates and times
+
+_pandas_
+
+Dates cause more silent errors than any other type: mixed formats, day/month ambiguity, text that won't parse, typos that put events in the future, and end dates before start dates. Parse with **explicit formats**, look at what failed, check the range is plausible, then derive the parts you'll analyse (year, month, weekday, hour, durations).
+
+```python
+def parse_dates(s, formats=("%Y-%m-%d", "%d/%m/%Y", "%b %d %Y")):
+    """Try each known format in turn; values that match none stay missing for you to review."""
+    s = s.astype("string").str.strip()
+    out = pd.Series(pd.NaT, index=s.index, dtype="datetime64[ns]")
+    for fmt in formats:
+        todo = out.isna()
+        out[todo] = pd.to_datetime(s[todo], format=fmt, errors="coerce")
+    return out
+
+
+raw_dates = pd.Series(["2024-01-15", "15/01/2024", "Jan 15 2024", "2024/13/01",
+                       "not recorded", "2031-06-01", None])
+dates = parse_dates(raw_dates)
+raw_dates[dates.isna() & raw_dates.notna()]            # '2024/13/01', 'not recorded': fix or leave missing
+dates[dates > pd.Timestamp.today()]                    # 2031: a typo, or a planned date?
+dates[dates < "1900-01-01"]                            # implausibly old
+
+# date parts for EDA and features
+ufo["Time"] = pd.to_datetime(ufo["Time"], format="%m/%d/%Y %H:%M")
+ufo["Time"].agg(["min", "max"])                        # 1930 to 2014: is that the range you expected?
+ufo["year"] = ufo["Time"].dt.year
+ufo["month"] = ufo["Time"].dt.month
+ufo["weekday"] = ufo["Time"].dt.day_name()
+ufo["hour"] = ufo["Time"].dt.hour
+ufo["is_weekend"] = ufo["Time"].dt.dayofweek >= 5      # Monday = 0
+ufo["year"].value_counts().sort_index().tail(10)       # coverage: gaps or a partial last year?
+
+# durations, and checking their logic
+shipments = pd.DataFrame({
+    "ordered": pd.to_datetime(["2024-01-02", "2024-01-05", "2024-01-09"]),
+    "delivered": pd.to_datetime(["2024-01-06", "2024-01-04", "2024-01-12"]),
+})
+shipments["days_to_deliver"] = (shipments["delivered"] - shipments["ordered"]).dt.days
+shipments[shipments["days_to_deliver"] < 0]            # delivered before ordered: a data error
+```
+
+> **Watch out:** "03/04/2024" is 3 April in the UK and 4 March in the US; pandas assumes month first unless you pass `dayfirst=True` or an explicit `format=`. Letting pandas guess (`format="mixed"`) can parse the same file both ways. Check the **last** period in time-based counts: a partial final month or year looks like a sudden drop. If times come from several time zones, convert them to one (`.dt.tz_convert("UTC")`) before comparing.
+
+See also: [pd.to_datetime()](#pd-to-datetime), [.dt accessor](#dt-accessor), [Timestamp, Timedelta and date arithmetic](#timestamp-timedelta-and-date-arithmetic), [Features from dates](#features-from-dates)
+
+<a id="define-validation-rules-and-check-your-data"></a>
+
+### Define validation rules and check your data
+
+_pandas_
+
+Validation turns what you know about the data into **rules** and counts the rows that break them: values within boundaries (age 0–100), values from an allowed list (port is S, C or Q), text in the right format (cabin codes), unique keys, required fields, logic across columns (boys titled "Master" are under 18), and keys that exist in a lookup table. Write the rules once, run them after every cleaning step, and keep the report as evidence.
+
+```python
+def in_range(col, low=-np.inf, high=np.inf):
+    """Rule: values between low and high. Missing values pass (check them with not_missing)."""
+    return lambda d: d[col].isna() | d[col].between(low, high)
+
+
+def in_set(col, allowed):
+    """Rule: values from an allowed list."""
+    return lambda d: d[col].isna() | d[col].isin(allowed)
+
+
+def matches(col, pattern):
+    """Rule: the whole text matches a regular expression."""
+    return lambda d: d[col].isna() | d[col].astype("string").str.fullmatch(pattern).fillna(False)
+
+
+def not_missing(col):
+    return lambda d: d[col].notna()
+
+
+def unique(col):
+    return lambda d: ~d[col].duplicated(keep=False)
+
+
+def check_rules(df, rules, show=3):
+    """How many rows break each rule, with example row labels."""
+    rows = []
+    for name, rule in rules.items():
+        ok = pd.Series(rule(df), index=df.index).astype(bool)
+        bad = df.index[~ok]
+        rows.append({"rule": name, "failures": len(bad),
+                     "failure_pct": round(len(bad) / len(df) * 100, 2), "examples": list(bad[:show])})
+    return pd.DataFrame(rows).sort_values("failures", ascending=False, ignore_index=True)
+
+
+def failing_rows(df, rules):
+    """The rows that break at least one rule, with the names of the rules they break."""
+    failed = pd.DataFrame({name: ~pd.Series(rule(df), index=df.index).astype(bool)
+                           for name, rule in rules.items()})
+    bad = failed.any(axis=1)
+    return df[bad].assign(failed_rules=failed[bad].apply(lambda r: "; ".join(r.index[r]), axis=1))
+
+
+titanic_rules = {
+    "PassengerId is unique": unique("PassengerId"),
+    "Survived is 0 or 1": in_set("Survived", {0, 1}),
+    "Pclass is 1, 2 or 3": in_set("Pclass", {1, 2, 3}),
+    "Sex is male or female": in_set("Sex", {"male", "female"}),
+    "Age between 0 and 100": in_range("Age", 0, 100),
+    "Fare is not negative": in_range("Fare", 0),
+    "Embarked is S, C or Q": in_set("Embarked", {"S", "C", "Q"}),
+    "Embarked is recorded": not_missing("Embarked"),
+    "Cabin looks like a cabin code": matches("Cabin", r"(?:[A-G]\d*\s?)+|T"),
+    "Masters (boys) are under 18": lambda d: ~(d["Name"].str.contains(r"\bMaster\b", na=False) & (d["Age"] >= 18)),
+}
+report = check_rules(titanic, titanic_rules)
+report                                          # 'Embarked is recorded' fails for 2 rows; the rest pass
+failing_rows(titanic, titanic_rules)[["Name", "Embarked", "failed_rules"]]
+
+# referential integrity: every key must exist in the lookup table
+check_rules(bonds, {"country code is a known ISO code": in_set("country_code", set(codes["Alpha-2 code"]))})
+
+# stop the notebook if a critical rule breaks
+critical = ["PassengerId is unique", "Survived is 0 or 1"]
+assert report.set_index("rule").loc[critical, "failures"].eq(0).all(), "a critical rule failed"
+```
+
+Where do rules come from? The data dictionary and source documentation (allowed codes, units), physical and business limits (ages, prices, dates within the study period), logic between columns, and anything surprising you found in EDA. A rule that fails isn't automatically an error to delete: investigate, then fix, set to missing, flag or drop, and record the decision in your [cleaning log](#keep-a-cleaning-log).
+
+> **Watch out:** comparisons with missing values return `False`, so a naive range rule such as `d["Age"].between(0, 100)` counts every missing age as a failure. The helpers above let missing values pass and check them separately with `not_missing`, so each report line means one thing. Libraries such as `pandera` formalise the same idea for production pipelines.
+
+See also: [assert](#assert), [Data quality assessment](#data-quality-assessment), [Validating a merge](#validating-a-merge), [Data dictionary](#data-dictionary)
+
+<a id="detect-and-treat-outliers"></a>
+
+### Detect and treat outliers
+
+_pandas, seaborn_
+
+An outlier is a value far from the rest. It might be an **error** (a typo, a unit mix-up), a **genuine extreme** (a very expensive set), or a sign that one group behaves differently. Detect candidates with a rule, **look at them**, then choose a treatment for a reason, never automatically.
+
+```python
+def outlier_report(df, cols=None, k=1.5):
+    """Values outside the IQR fences (Q1 - k*IQR, Q3 + k*IQR), per numeric column."""
+    cols = cols if cols is not None else df.select_dtypes("number").columns
+    rows = []
+    for col in cols:
+        s = df[col].dropna()
+        q1, q3 = s.quantile([0.25, 0.75])
+        low, high = q1 - k * (q3 - q1), q3 + k * (q3 - q1)
+        n_out = int(((s < low) | (s > high)).sum())
+        rows.append({"column": col, "low_fence": low, "high_fence": high, "min": s.min(), "max": s.max(),
+                     "n_outliers": n_out, "pct_outliers": round(n_out / len(s) * 100, 1)})
+    return pd.DataFrame(rows).round(2)
+
+
+outlier_report(titanic, ["Age", "Fare", "SibSp", "Parch"])   # Fare: 116 flagged (13%); Parch fences 0 to 0!
+outlier_report(lego, ["Pieces", "USD_MSRP", "Minifigures"])
+
+# z-score for roughly symmetric columns; robust z (median and MAD), which the outliers can't distort
+age_z = (titanic["Age"] - titanic["Age"].mean()) / titanic["Age"].std()
+fare = titanic["Fare"]
+mad = (fare - fare.median()).abs().median()
+fare_robust_z = 0.6745 * (fare - fare.median()) / mad
+(age_z.abs() > 3).sum(), (fare_robust_z.abs() > 3.5).sum()             # 2 ages; 160 fares
+
+# LOOK at them before deciding anything
+titanic.loc[fare_robust_z > 3.5, ["Name", "Pclass", "Fare"]].sort_values("Fare", ascending=False).head()
+
+fig, ax = plt.subplots(figsize=(7, 3))
+sns.boxplot(x=titanic["Fare"], color="lightgrey", fliersize=0, ax=ax)
+sns.stripplot(x=titanic["Fare"], size=2, alpha=0.4, ax=ax)
+ax.set_title("Fare: most tickets were cheap; a few first-class fares exceed £200")
+
+# treatments: flag, cap, transform, or (for proven errors only) remove
+treated = lego[["Name", "USD_MSRP"]].copy()
+p01, p99 = treated["USD_MSRP"].quantile([0.01, 0.99])
+treated["price_is_extreme"] = (treated["USD_MSRP"] > p99).astype(int)     # flag: keep the information
+treated["price_capped"] = treated["USD_MSRP"].clip(p01, p99)              # cap (winsorise)
+treated["log_price"] = np.log1p(treated["USD_MSRP"])                      # transform: pull in the tail
+```
+
+| Situation | Treatment |
+| --- | --- |
+| Proven error (age 250, price in pence among pounds) | Correct it if you can, otherwise set to missing |
+| Genuine but extreme value | Keep it; consider a log transform or a robust model |
+| Extremes that dominate a linear model | Cap at a percentile, and add a flag column |
+| A separate group (business accounts among consumers) | Analyse or model the group separately |
+
+> **Watch out:** every rule flags many values in naturally skewed columns, where extremes are normal rather than errors: 13% of fares by the IQR rule and even more (160) by robust z-scores. Judge skewed columns on a log scale and with domain knowledge instead. The IQR rule also breaks down for count columns where most values are the same: three-quarters of passengers have `Parch` = 0, so the fences are 0 to 0 and every parent or child aboard (24%) is "an outlier". For modelling, learn capping limits from the **training** data only. If the MAD is 0 (more than half the values identical), robust z-scores divide by zero, so use the IQR rule for that column instead.
+
+See also: [Outlier](#outlier), [IQR outlier fences](#iqr-outlier-fences), [Interquartile range (IQR)](#interquartile-range-iqr), [Outlier decisions](#outlier-decisions), [Capped values](#capped-values), [Log transformation](#log-transformation), [np.maximum() and np.clip()](#np-maximum-and-np-clip)
+
+<a id="filter-rows-a-cheat-sheet"></a>
+
+### Filter rows: a cheat sheet
+
+_pandas_
+
+Filtering means keeping the rows where a condition is `True`. Every filter is a **boolean mask**: a column of True/False values the same length as the DataFrame, placed inside `df[...]` or `df.loc[...]`. Naming your masks makes complex filters readable and lets you count how many rows each one keeps before you apply it.
+
+```python
+# one condition
+lego[lego["Year"] >= 2015]
+
+# several conditions: & (and), | (or), ~ (not); wrap EACH condition in brackets
+lego[(lego["Year"] >= 2015) & (lego["Theme"] == "Star Wars")]
+lego[(lego["Theme"] == "Star Wars") | (lego["Theme"] == "Harry Potter")]
+lego[~(lego["Theme"] == "Duplo")]
+
+# named masks: readable, reusable and countable
+recent = lego["Year"] >= 2015
+big = lego["Pieces"] > 1000
+star_wars = lego["Theme"].eq("Star Wars")
+(recent & big & star_wars).sum()                      # how many rows the filter keeps
+lego[recent & big & star_wars]
+
+# lists, ranges and text
+lego[lego["Theme"].isin(["Star Wars", "Harry Potter", "Technic"])]
+lego[~lego["Theme"].isin(["Duplo", "Gear"])]          # NOT in a list
+lego[lego["Pieces"].between(500, 1000)]               # inclusive at both ends
+lego[lego["Name"].str.contains("castle", case=False, na=False)]   # 121 sets
+lego[lego["Name"].str.startswith("Millennium", na=False)]
+
+# missing values
+titanic[titanic["Age"].isna()]                        # rows where Age is missing (177)
+titanic[titanic["Cabin"].notna()]                     # rows where Cabin is known
+titanic.dropna(subset=["Age", "Embarked"])            # rows complete in these columns
+
+# dates (convert the column to datetime first)
+ufo["Time"] = pd.to_datetime(ufo["Time"], format="%m/%d/%Y %H:%M")
+ufo[ufo["Time"].between("1990-01-01", "1999-12-31")]
+ufo[(ufo["Time"].dt.year == 1995) & (ufo["State"] == "CA")]
+ufo[ufo["Time"].dt.dayofweek >= 5]                    # weekends (Monday = 0)
+
+# .query(): the same filters as readable text; @ refers to a Python variable
+min_pieces = 1000
+themes = ["Star Wars", "Technic"]
+lego.query("Year >= 2015 and Pieces > @min_pieces and Theme in @themes")
+
+# filter rows AND choose columns in one step, or change values in matching rows
+lego.loc[recent & star_wars, ["Name", "Year", "Pieces", "USD_MSRP"]]
+lego_fixed = lego.copy()
+lego_fixed.loc[lego_fixed["Pieces"] == 0, "Pieces"] = np.nan    # 0 pieces is a placeholder
+
+# top and bottom rows by a column
+lego.nlargest(10, "Pieces")
+lego.nsmallest(5, "USD_MSRP")
+
+# keep whole groups that meet a condition (themes with at least 100 sets)
+theme_size = lego.groupby("Theme")["Set_ID"].transform("size")
+lego[theme_size >= 100]
+```
+
+When you filter to make a **new working table** that you'll change later, add `.copy()`:
+
+```python
+recent_sets = lego[lego["Year"] >= 2015].copy()
+recent_sets["price_per_piece"] = recent_sets["USD_MSRP"] / recent_sets["Pieces"]
+```
+
+> **Watch out:** using `and`, `or` or `not` instead of `&`, `|` and `~` raises "The truth value of a Series is ambiguous", and leaving out the brackets around each condition gives wrong results or errors, because `&` binds before `>=`. Text filters with `.str.contains()` need `na=False` if the column has missing values. Never change values with chained indexing such as `lego[lego["Year"] > 2015]["Pieces"] = 0`: under pandas 3's copy-on-write rules it changes nothing. Use `.loc[mask, "col"] = value` on the table you mean to change.
+
+See also: [Boolean mask (filtering)](#boolean-mask-filtering), [Combining conditions (& | ~)](#combining-conditions), [Comparison methods and .between()](#comparison-methods-and-between), [.isin()](#isin), [.loc[]](#loc), [pd.to_datetime()](#pd-to-datetime)
+
+<a id="select-drop-and-reorder-columns"></a>
+
+### Select, drop and reorder columns
+
+_pandas_
+
+Choose columns by name, by type or by a pattern in the name. Selecting by type is the quickest way to split a table into numeric and categorical parts for EDA and preprocessing.
+
+```python
+lego[["Name", "Theme", "Pieces", "USD_MSRP"]]                  # a list of names (double brackets)
+lego.drop(columns=["Packaging", "Availability"])               # everything except these
+lego.select_dtypes(include="number").columns.tolist()          # numeric columns
+lego.select_dtypes(exclude="number").columns.tolist()          # text, category, date, bool columns
+lego.filter(like="Price")                                      # names containing 'Price'
+lego.filter(regex=r"^(Theme|Sub)")                             # names matching a pattern
+lego.loc[:, lego.columns.str.endswith("_MSRP")]
+
+first = ["Set_ID", "Name", "Theme", "Year"]                    # reorder: key columns first
+lego = lego[first + [c for c in lego.columns if c not in first]]
+
+num_cols = titanic.select_dtypes(include=["number", "bool"]).columns.tolist()
+cat_cols = titanic.columns.difference(num_cols).tolist()       # everything else
+```
+
+> **Watch out:** `select_dtypes(include="number")` leaves out boolean columns, so a True/False flag can silently fall into your "categorical" list. Include `"bool"` explicitly when you split columns by type.
+
+See also: [Selecting columns](#selecting-columns), [.select_dtypes()](#select-dtypes), [.loc[]](#loc)
+
+<a id="reshape-between-wide-and-long-formats"></a>
+
+### Reshape between wide and long formats
+
+_pandas_
+
+**Wide** data has one column per period or category (the bond yields have one column per month); **long** data has one row per observation, with the period in its own column. Long format is what `groupby`, seaborn and most joins expect; wide format is easier to read in a report. `melt()` goes wide → long; `pivot()` and `pivot_table()` go long → wide.
+
+```python
+month_cols = [c for c in bonds_raw.columns if re.fullmatch(r"\d{4}M\d{2}", c)]   # '2019M02', ...
+bonds_long = bonds_raw.melt(id_vars=["country_code"], value_vars=month_cols,
+                            var_name="month", value_name="yield_pct")
+bonds_long["month"] = pd.to_datetime(bonds_long["month"], format="%YM%m")         # '2019M02' -> 2019-02-01
+bonds_long = bonds_long.sort_values(["country_code", "month"], ignore_index=True)
+bonds_long.head()                     # one row per country per month (31 x 12 = 372 rows)
+
+# plot long data directly: one line per country
+fig, ax = plt.subplots(figsize=(8, 4))
+sns.lineplot(data=bonds_long[bonds_long["country_code"].isin(["DE", "IT", "EL", "FR"])],
+             x="month", y="yield_pct", hue="country_code", ax=ax)
+ax.set(title="10-year bond yields fell through 2019", ylabel="Yield (%)", xlabel="")
+
+# long -> wide again (one value per cell)
+bonds_wide = bonds_long.pivot(index="country_code", columns="month", values="yield_pct")
+
+# pivot_table aggregates when several rows share a cell
+lego.pivot_table(index="Year", columns="Theme_Group", values="Set_ID",
+                 aggfunc="count", fill_value=0).tail()
+```
+
+> **Watch out:** `pivot()` raises "Index contains duplicate entries" if any index/column pair appears twice; use `pivot_table()` with an `aggfunc`, or find the duplicates first. After `melt`, period labels are text, so convert them to dates (as above) before sorting or plotting, or "2019M10" sorts before "2019M2"-style labels.
+
+See also: [Wide vs long (tidy) format](#wide-vs-long-tidy-format), [.melt()](#melt), [.pivot_table() and .pivot()](#pivot-table-and-pivot), [.stack() and .unstack()](#stack-and-unstack)
+
+<a id="join-dataframes-safely"></a>
+
+### Join DataFrames safely
+
+_pandas_
+
+Joining is where rows silently disappear or multiply. A safe join has four steps: **clean the keys** so they can match, **check the lookup side is unique**, **merge with `validate=` and `indicator=True`**, and **check row counts and unmatched keys** afterwards. The course's bond yields (`bonds`, keyed by `country_code`) and country codes (`codes`, keyed by `"Alpha-2 code"`) show why.
+
+```python
+# 1. clean the keys: same type, no stray spaces, same case
+bonds["country_code"] = bonds["country_code"].astype("string").str.strip().str.upper()
+codes["Alpha-2 code"] = codes["Alpha-2 code"].astype("string").str.strip().str.upper()
+
+# 2. the lookup table should have one row per key
+codes["Alpha-2 code"].is_unique                     # True
+codes["Alpha-2 code"].duplicated().sum()            # 0
+
+# 3. merge with checks: validate raises an error if the keys aren't as expected
+merged = bonds.merge(
+    codes, left_on="country_code", right_on="Alpha-2 code",
+    how="left",                                     # keep every bond row
+    validate="many_to_one",                         # many bonds rows to one code row
+    indicator=True,                                 # adds _merge: both / left_only / right_only
+    suffixes=("", "_iso"),                          # both tables have 'Country'
+)
+
+# 4. check: same number of rows as the left table, and which keys didn't match
+assert len(merged) == len(bonds)
+merged["_merge"].value_counts()                     # both 25, left_only 5
+merged.loc[merged["_merge"] == "left_only", "country_code"].tolist()
+# ['EA', 'EL', '19', '28', 'UK']: EU aggregates, plus EU codes for Greece and the UK
+```
+
+The unmatched keys tell you what to fix. Here Eurostat uses `EL` for Greece and `UK` for the United Kingdom, while ISO uses `GR` and `GB`; `EA`, `19` and `28` are EU aggregates rather than countries. Map the codes, decide what to do with the aggregates, and merge again:
+
+```python
+bonds["iso_code"] = bonds["country_code"].replace({"EL": "GR", "UK": "GB"})
+merged = bonds.merge(codes, left_on="iso_code", right_on="Alpha-2 code", how="left",
+                     validate="many_to_one", indicator=True, suffixes=("", "_iso"))
+merged["_merge"].value_counts()                     # both 27, left_only 3 (the aggregates)
+```
+
+Other joins you'll need:
+
+```python
+# rows in the left table with NO match (an anti-join): customers who never ordered, say
+no_match = merged.loc[merged["_merge"] == "left_only"]
+
+# join on several key columns at once
+# sales.merge(targets, on=["store_id", "month"], how="left", validate="many_to_one")
+
+# stack tables with the same columns on top of each other (e.g. one file per year)
+both_years = pd.concat([lego.query("Year == 2022"), lego.query("Year == 2023")],
+                       ignore_index=True)
+```
+
+| `how=` | Keeps | Use when |
+| --- | --- | --- |
+| `"left"` | Every row of the left table | Adding information to your main table (most common) |
+| `"inner"` | Only rows with a match in both | You only want complete matches; check what you lose |
+| `"outer"` | Every row from both | Auditing two sources against each other |
+| `"right"` | Every row of the right table | Rarely; swap the tables and use `"left"` instead |
+
+> **Watch out:** if the lookup table has duplicate keys, a left join quietly **adds** rows (one per match); `validate="many_to_one"` turns that into an error you can't miss. Keys that look identical can still fail to match because of trailing spaces, different case, or one side being a number (`1001`) and the other text (`"1001"`), so clean both sides the same way first. After every join, compare `len()` before and after.
+
+See also: [.merge()](#merge), [Validating a merge](#validating-a-merge), [Checking join keys](#checking-join-keys), [Left / right join](#left-right-join), [pd.concat()](#pd-concat)
+
+<a id="find-and-handle-duplicates"></a>
+
+### Find and handle duplicates
+
+_pandas_
+
+There are three kinds of duplicate to look for: **exact duplicate rows** (often from a file loaded twice or a bad join), **duplicate keys** (two rows for what should be one customer or one order), and **near-duplicates** that differ only in case or spacing. Look at the copies before deciding what to do: drop them, keep the most recent, or combine them.
+
+```python
+orders = pd.DataFrame({                                         # a small table with duplicates
+    "order_id": [1, 2, 2, 3, 4, 4],
+    "customer": ["Ann Lee", "bob ray", "Bob Ray ", "Cy Fox", "Di Moss", "Di Moss"],
+    "amount": [20.0, 35.0, 35.0, 12.5, 40.0, 42.0],
+    "updated": pd.to_datetime(["2024-01-01", "2024-01-02", "2024-01-03",
+                               "2024-01-03", "2024-01-04", "2024-01-05"]),
+})
+
+orders.duplicated().sum()                                       # exact duplicate rows: 0
+orders.duplicated(subset=["order_id"]).sum()                    # duplicate keys: 2
+orders[orders.duplicated(subset=["order_id"], keep=False)]      # see EVERY copy, side by side
+orders["order_id"].is_unique                                    # False: a quick assertion
+
+# near-duplicates: normalise text before comparing
+name_key = orders["customer"].str.lower().str.strip().str.replace(r"\s+", " ", regex=True)
+orders[name_key.duplicated(keep=False)]                         # 'bob ray' = 'Bob Ray ', plus both Di Moss rows
+
+# decide what to keep
+latest = (orders.sort_values("updated")
+                .drop_duplicates(subset=["order_id"], keep="last"))   # most recent version of each order
+per_order = orders.groupby("order_id", as_index=False).agg(             # or combine the copies
+    amount=("amount", "max"), versions=("amount", "size"))
+
+assert latest["order_id"].is_unique                             # stop the notebook if it's still wrong
+```
+
+| Situation | Usual action |
+| --- | --- |
+| Identical rows from a repeated load or bad join | `drop_duplicates()`, then fix the cause |
+| Several versions of one record over time | Keep the latest: sort by date, `keep="last"` |
+| Genuine repeated events (two orders on one day) | Keep them all: they're not duplicates; check your key |
+| Same entity spelled differently | Normalise the text, then de-duplicate or map to one ID |
+
+> **Watch out:** `drop_duplicates()` with no `subset` only removes rows identical in **every** column, so two versions of the same order with different amounts both survive. Decide which columns define "the same thing" (the key) and pass them as `subset`. Check duplicates again after every join.
+
+See also: [.duplicated()](#duplicated), [.drop_duplicates()](#drop-duplicates), [Cleaning text categories](#cleaning-text-categories), [Grain of a table](#grain-of-a-table)
+
+<a id="audit-missing-values-by-field-type"></a>
+
+### Audit missing values by field type
+
+_pandas_
+
+`df.isna().sum()` only counts values pandas already recognises as missing. Real files also hide gaps as **placeholder text** ("N/A", "-", "?", empty strings) and as **impossible numbers** (0 or -999 where a value can't be zero or negative). This report counts both, groups columns by kind (numeric, categorical/text, datetime, boolean), because each kind is filled differently, and sorts the worst columns to the top. It uses `MISSING_MARKERS` from the [Excel importer](#import-every-sheet-from-an-excel-workbook).
+
+```python
+def missing_report(df, markers=MISSING_MARKERS):
+    """Missing values per column, including placeholder text that pandas doesn't count."""
+    marker_set = {m.strip().lower() for m in markers}
+    rows = []
+    for col in df.columns:
+        s = df[col]
+        is_text = pd.api.types.is_object_dtype(s) or pd.api.types.is_string_dtype(s)
+        if pd.api.types.is_bool_dtype(s):
+            kind = "boolean"
+        elif pd.api.types.is_numeric_dtype(s):
+            kind = "numeric"
+        elif pd.api.types.is_datetime64_any_dtype(s):
+            kind = "datetime"
+        else:
+            kind = "categorical/text"
+        placeholders = s.dropna().astype(str).str.strip().str.lower().isin(marker_set).sum() if is_text else 0
+        rows.append({"column": col, "kind": kind, "dtype": str(s.dtype),
+                     "missing": int(s.isna().sum()), "placeholders": int(placeholders)})
+    report = pd.DataFrame(rows)
+    report["missing_pct"] = ((report["missing"] + report["placeholders"]) / len(df) * 100).round(1)
+    return report.sort_values("missing_pct", ascending=False, ignore_index=True)
+
+
+def placeholders_to_nan(df, markers=MISSING_MARKERS):
+    """Turn whole-cell placeholder text ('N/A', '-', '?', '') into real missing values."""
+    pattern = r"(?i)^\s*(?:" + "|".join(re.escape(m) for m in markers if m) + r")?\s*$"
+    text_cols = df.select_dtypes(include=["object", "string"]).columns
+    out = df.copy()
+    out[text_cols] = out[text_cols].replace(pattern, np.nan, regex=True)
+    return out
+
+
+missing_report(titanic)              # Cabin 77.1%, Age 19.9%, Embarked 0.2%, everything else 0
+titanic = placeholders_to_nan(titanic)
+```
+
+Then look for **impossible values** in numeric columns (these need your judgement about what the column means), and check whether missingness is **related to other columns or to the target**:
+
+```python
+numeric = titanic.select_dtypes("number")
+(numeric < 0).sum()                                     # negatives where impossible: none here
+titanic["Fare"].eq(0).sum()                             # 15 free tickets: genuine, or unknown fare?
+
+titanic.groupby("Pclass")["Age"].apply(lambda s: s.isna().mean()).round(2)
+# Pclass 1: 0.14, 2: 0.06, 3: 0.28  -> Age is missing more often in 3rd class (MAR, not MCAR)
+titanic.groupby(titanic["Cabin"].isna())["Survived"].mean().round(2)
+# Cabin known: 0.67 survived, Cabin missing: 0.30 -> the gap itself carries information
+```
+
+> **Watch out:** a column that's 77% missing (like `Cabin`) usually can't be filled reliably, but the fact that it's missing may still be useful (as here), so turn it into a flag or a "Unknown" category before you consider dropping it. Run `missing_report` again after every cleaning step, and after joins, which create new gaps.
+
+See also: [Missingness table](#missingness-table), [Placeholder values for missing data](#placeholder-values-for-missing-data), [MAR (Missing At Random)](#mar-missing-at-random), [Patterns of missingness](#patterns-of-missingness)
+
+<a id="visualise-missing-data-with-missingno"></a>
+
+### Visualise missing data with missingno
+
+_missingno, matplotlib, seaborn_
+
+Missing-data charts answer three questions: **how much** is missing per column (bar), **where** the gaps are and whether they line up across columns (matrix), and **which columns go missing together** (heatmap and dendrogram). Convert placeholders to real `NaN` first, or missingno will show them as present. Install with `%pip install missingno`.
+
+```python
+import missingno as msno
+
+ax = msno.bar(titanic, figsize=(10, 4), fontsize=10)               # 1. how much: completeness per column
+ax.set_title("Completeness by column")
+
+msno.matrix(titanic.sort_values("Pclass"), figsize=(10, 5), fontsize=10)   # 2. where: sort to reveal patterns
+msno.heatmap(titanic, figsize=(6, 4), fontsize=10)                 # 3. co-occurring gaps (-1 to 1)
+msno.dendrogram(titanic, figsize=(8, 4), fontsize=10)              # 4. columns that go missing together
+
+msno.matrix(lego.sample(1000, random_state=RANDOM_STATE), fontsize=8)  # big tables: plot a sample
+plt.savefig(OUT_DIR / "missingness_matrix.png", dpi=150, bbox_inches="tight")
+```
+
+The same views without missingno, using pandas and seaborn:
+
+```python
+(titanic.isna().mean().mul(100).sort_values()
+        .plot(kind="barh", title="% missing by column", figsize=(6, 4)))
+
+fig, ax = plt.subplots(figsize=(8, 4))
+sns.heatmap(titanic.isna(), cbar=False, yticklabels=False, ax=ax)   # light cells = missing
+ax.set_title("Missing values by row (light = missing)")
+```
+
+> **Watch out:** read the matrix **sorted by a related column** (class, date, region). Unsorted, random-looking gaps can hide a pattern that sorting reveals, such as ages missing mostly for third-class passengers. `msno.heatmap` only includes columns that are partly missing, so a column with no gaps (or only gaps) won't appear.
+
+See also: [missingno](#missingno), [Missingness heatmap](#missingness-heatmap), [Patterns of missingness](#patterns-of-missingness)
+
+<a id="fill-gaps-by-field-type"></a>
+
+### Fill gaps by field type
+
+_pandas_
+
+The right fill depends on **what kind of field** it is and **why** it's missing. Decide column by column, write the reason down, and keep a flag so the model still knows the value was missing.
+
+| Field type | Typical approach | Better when it matters | Avoid |
+| --- | --- | --- | --- |
+| Numeric, skewed (price, income, fare) | Median | Median within similar groups; a model-based fill | The mean (pulled by outliers) |
+| Numeric, roughly symmetric (age, temperature) | Mean or median | Group median; KNN or iterative imputer | Filling with 0 |
+| Count where missing means "none" | 0, if you've confirmed that meaning | — | 0 when it really means unknown |
+| Categorical, few gaps | Most frequent value (mode) | Mode within group | Dropping rows unnecessarily |
+| Categorical, many gaps | Its own category: "Unknown" | Derive a useful feature (e.g. cabin deck) | Mode (invents a false majority) |
+| Boolean flag | "Unknown" category or mode, plus a flag | — | Silently filling with False |
+| Time series (daily sales, sensor) | Carry forward within each entity (`ffill`) | Interpolation over time | Filling across different entities |
+| Free text | Empty string or "unknown" | Features such as "has comment" | — |
+| IDs, keys and the **target** | Don't impute: recover the value or drop the row | — | Any fill |
+
+```python
+titanic_filled = titanic.copy()
+
+# 1. keep the fact that a value was missing
+titanic_filled["age_missing"] = titanic_filled["Age"].isna().astype(int)
+
+# 2. categorical with 2 gaps: the most frequent value ('S')
+titanic_filled["Embarked"] = titanic_filled["Embarked"].fillna(titanic_filled["Embarked"].mode()[0])
+
+# 3. categorical with 77% gaps: its own category (and a useful feature: the cabin's deck letter)
+titanic_filled["deck"] = titanic_filled["Cabin"].str[0].fillna("Unknown")
+
+# 4. numeric: the median age of similar passengers (same class and sex)
+age_by_group = titanic_filled.groupby(["Pclass", "Sex"])["Age"].transform("median")
+titanic_filled["Age"] = titanic_filled["Age"].fillna(age_by_group)
+
+titanic_filled[["Age", "Embarked", "deck"]].isna().sum()        # check: 0, 0, 0
+```
+
+For **time series**, fill within each entity (store, sensor, customer), never across them:
+
+```python
+daily = pd.DataFrame({
+    "store": ["A"] * 6 + ["B"] * 6,
+    "date": list(pd.date_range("2024-01-01", periods=6)) * 2,
+    "sales": [10, np.nan, 12, np.nan, np.nan, 15, 7, 8, np.nan, 9, np.nan, 11],
+})
+daily["sales_ffill"] = daily.groupby("store")["sales"].ffill()       # last known value, per store
+daily["sales_interp"] = daily.groupby("store")["sales"].transform(
+    lambda s: s.interpolate(limit_direction="both"))                  # straight line between known values
+```
+
+Check that the fill hasn't distorted the distribution:
+
+```python
+fig, ax = plt.subplots(figsize=(7, 4))
+sns.kdeplot(titanic["Age"].dropna(), label="observed ages", ax=ax)
+sns.kdeplot(titanic_filled["Age"], label="after group-median fill", ax=ax)
+ax.set_title("A good fill keeps the shape of the distribution")
+ax.legend()
+```
+
+> **Watch out:** these fills look at the **whole** dataset, which is fine for EDA but leaks test-set information into training when you build a model. For modelling, learn fill values from the training rows only, inside a pipeline: see [Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline). A single median fill for many values creates a tall spike in the histogram and shrinks the spread; group medians and model-based fills spike less.
+
+See also: [.fillna()](#fillna), [Group-based imputation](#group-based-imputation), [Mean / median / mode imputation](#mean-median-mode-imputation), [Missing indicator](#missing-indicator), [Last Observation Carried Forward (LOCF)](#last-observation-carried-forward-locf), [Missing-data decisions](#missing-data-decisions)
+
+<a id="fill-gaps-with-models"></a>
+
+### Fill gaps with models
+
+_scikit-learn_
+
+When a column matters and other columns predict it, a model can fill the gaps better than one constant. Three options, from simplest to most flexible: **KNNImputer** (copy from the most similar rows), **IterativeImputer** (predict each column from the others, round and round until stable) and a **custom model** (train any regressor or classifier on the rows where the value is known). Fit every one on the **training** rows only.
+
+The best way to choose is to **test** them: hide some values you do know, fill them, and measure the error against the truth.
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import KNNImputer
+from sklearn.experimental import enable_iterative_imputer  # noqa: F401 (switches IterativeImputer on)
+from sklearn.impute import IterativeImputer
+from sklearn.ensemble import RandomForestRegressor
+
+data = titanic.assign(is_female=(titanic["Sex"] == "female").astype(int))
+features = ["Pclass", "is_female", "SibSp", "Parch", "Fare", "Age"]
+train, test = train_test_split(data[features], test_size=0.25, random_state=RANDOM_STATE)
+
+# hide 30% of the KNOWN ages in the test rows, so we can score each method against the truth
+known = test[test["Age"].notna()]
+hidden = known.sample(frac=0.3, random_state=RANDOM_STATE).index
+truth = test.loc[hidden, "Age"]
+test_masked = test.copy()
+test_masked.loc[hidden, "Age"] = np.nan
+
+results = {}
+results["overall median"] = pd.Series(train["Age"].median(), index=hidden)
+
+group_median = train.groupby(["Pclass", "is_female"])["Age"].median()
+results["group median"] = test_masked.loc[hidden].apply(
+    lambda row: group_median[(row["Pclass"], row["is_female"])], axis=1)
+
+scaler = StandardScaler().fit(train)                      # KNN uses distances: scale first
+knn = KNNImputer(n_neighbors=5).fit(scaler.transform(train))
+knn_filled = scaler.inverse_transform(knn.transform(scaler.transform(test_masked)))
+results["KNN (k=5)"] = pd.Series(knn_filled[:, features.index("Age")], index=test.index)[hidden]
+
+iterative = IterativeImputer(max_iter=10, random_state=RANDOM_STATE).fit(train)
+iter_filled = iterative.transform(test_masked)
+results["iterative"] = pd.Series(iter_filled[:, features.index("Age")], index=test.index)[hidden]
+
+predictors = [c for c in features if c != "Age"]          # custom model: predict Age from the rest
+rf = RandomForestRegressor(n_estimators=300, min_samples_leaf=5, random_state=RANDOM_STATE)
+rf.fit(train.dropna(subset=["Age"])[predictors], train["Age"].dropna())
+results["random forest"] = pd.Series(rf.predict(test_masked.loc[hidden, predictors]), index=hidden)
+
+pd.Series({name: (pred - truth).abs().mean() for name, pred in results.items()},
+          name="MAE in years").round(2).sort_values()
+```
+
+On this data the result is instructive: the iterative imputer and the random forest do best (MAE about 10.2 years), the group median is close behind (10.6), the single overall median is worse (11.3), and KNN is **worst** (12.1). More complex isn't automatically better, which is why you test. None of the methods recovers age precisely, because the other columns only partly predict it; that's normal and worth reporting honestly. The hidden sample is small (53 ages), so rerun with a few `random_state` values before trusting small differences. To use the winner for real, fit it on the training data and fill both sets:
+
+```python
+def fill_with_model(train, test, target_col, predictor_cols, model):
+    """Fill gaps in target_col by predicting them from predictor_cols, learning from training rows only."""
+    train, test = train.copy(), test.copy()
+    known = train[target_col].notna()
+    model.fit(train.loc[known, predictor_cols], train.loc[known, target_col])
+    for part in (train, test):
+        gaps = part[target_col].isna()
+        if gaps.any():
+            part.loc[gaps, target_col] = model.predict(part.loc[gaps, predictor_cols])
+    return train, test
+
+
+train_filled, test_filled = fill_with_model(train, test, "Age", predictors, rf)
+train_filled["Age"].isna().sum(), test_filled["Age"].isna().sum()   # (0, 0)
+```
+
+> **Watch out:** the predictor columns must themselves be complete and numeric (encode categories first), and the column you're filling must never be the **target** you'll later predict. Model-based fills make values look more certain than they are, so add a [missing indicator](#missing-indicator) as well. `IterativeImputer` is still marked experimental in scikit-learn, which is why it needs the extra `enable_iterative_imputer` import; check the documentation for your version.
+
+See also: [KNNImputer and IterativeImputer](#knnimputer-and-iterativeimputer), [Fill gaps by field type](#fill-gaps-by-field-type)
+
+<a id="leak-free-imputation-and-encoding-in-a-pipeline"></a>
+
+### Leak-free imputation and encoding in a pipeline
+
+_scikit-learn_
+
+For modelling, every value learned from data (medians, most frequent categories, the list of categories for one-hot encoding, scaling means) must come from the **training** rows only. A `ColumnTransformer` inside a `Pipeline` does this automatically: different steps for numeric and categorical columns, fitted on `X_train` and simply applied to `X_test`. This is the version of imputation and encoding to use in your capstone model.
+
+```python
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+X = titanic.drop(columns=["Survived", "PassengerId", "Name", "Ticket", "Cabin"])
+y = titanic["Survived"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=y)      # 1. split FIRST
+
+num_cols = X.select_dtypes(include=["number", "bool"]).columns.tolist()
+cat_cols = X.columns.difference(num_cols).tolist()
+
+preprocess = ColumnTransformer([                                      # 2. one recipe per column type
+    ("num", Pipeline([
+        ("impute", SimpleImputer(strategy="median", add_indicator=True)),   # median + missing flags
+        ("scale", StandardScaler()),
+    ]), num_cols),
+    ("cat", Pipeline([
+        ("impute", SimpleImputer(strategy="most_frequent")),
+        ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
+    ]), cat_cols),
+])
+
+model = Pipeline([("prep", preprocess), ("clf", LogisticRegression(max_iter=1000))])
+model.fit(X_train, y_train)                                           # 3. learns from training rows only
+model.score(X_test, y_test)                                           # 4. applied unchanged to test rows
+
+# see the table the model actually receives
+prep_out = model.named_steps["prep"].set_output(transform="pandas")
+prep_out.transform(X_train).head()
+```
+
+Swap in a different imputer without changing anything else, for example `KNNImputer(n_neighbors=5)` in place of `SimpleImputer` in the numeric branch, or `SimpleImputer(strategy="constant", fill_value="Unknown")` for categories.
+
+> **Watch out:** calling `fillna()`, `get_dummies()` or a scaler on the whole dataset before splitting is the most common source of leakage in capstones: the test set has then influenced the training data. Inside the pipeline it can't happen, and `cross_val_score(model, X_train, y_train, cv=5)` refits every step within each fold.
+
+See also: [Pipeline](#pipeline), [ColumnTransformer](#columntransformer), [SimpleImputer](#simpleimputer), [Pipeline with imputation](#pipeline-with-imputation), [Data leakage](#data-leakage), [Feature engineering inside pipelines](#feature-engineering-inside-pipelines)
+
+<a id="apply-functions-to-columns-rows-and-groups"></a>
+
+### Apply functions to columns, rows and groups
+
+_pandas, NumPy_
+
+Choose the fastest tool that does the job. **Vectorised** operations (arithmetic on whole columns, `np.where`, `np.select`, `.str` and `.dt` methods) are fastest and should be your default. `.map()` applies a dictionary or function to one column. `.apply(axis=1)` runs a function on every row: flexible, but slow on big tables. `groupby().transform()` computes a value per group and lines it back up with every row.
+
+```python
+sets = lego.copy()
+
+# vectorised: whole columns at once (fast)
+sets["price_per_piece"] = sets["USD_MSRP"] / sets["Pieces"].replace(0, np.nan)   # avoid dividing by 0
+sets["era"] = np.where(sets["Year"] < 2000, "classic", "modern")
+sets["size_band"] = np.select(
+    [sets["Pieces"] < 100, sets["Pieces"] < 1000], ["small", "medium"], default="large")
+sets["size_band_cut"] = pd.cut(sets["Pieces"], bins=[-1, 99, 999, np.inf],
+                               labels=["small", "medium", "large"])               # same idea, as a category
+
+# .map(): a dictionary lookup or a function on ONE column
+port_names = {"S": "Southampton", "C": "Cherbourg", "Q": "Queenstown"}
+titanic["port"] = titanic["Embarked"].map(port_names)              # unmapped values become NaN
+titanic["title"] = titanic["Name"].str.extract(r",\s*([^\.]+)\.", expand=False)   # Mr, Mrs, Miss...
+
+
+def tidy_label(text):
+    """Strip spaces and use title case; leave missing values alone."""
+    return text.strip().title() if isinstance(text, str) else text
+
+
+sets["Theme"] = sets["Theme"].map(tidy_label)
+
+# .apply(axis=1): a function that needs several columns of the same row (slower)
+def family_size(row):
+    return row["SibSp"] + row["Parch"] + 1
+
+
+titanic["family_size"] = titanic.apply(family_size, axis=1)
+titanic["family_size_fast"] = titanic["SibSp"] + titanic["Parch"] + 1   # same result, vectorised
+
+# groupby().transform(): a group statistic on every row
+sets["pieces_vs_theme"] = sets["Pieces"] / sets.groupby("Theme")["Pieces"].transform("median")
+sets["rank_in_theme"] = sets.groupby("Theme")["USD_MSRP"].rank(ascending=False)
+
+# .pipe(): chain your own cleaning functions in a readable order
+def drop_free_sets(df):
+    return df[df["USD_MSRP"] > 0]
+
+
+def add_value_flag(df):
+    return df.assign(good_value=df["price_per_piece"] < df["price_per_piece"].median())
+
+
+clean_sets = sets.pipe(drop_free_sets).pipe(add_value_flag)
+```
+
+> **Watch out:** `.map()` with a dictionary turns any value that isn't a key into `NaN`, so check `.isna().sum()` afterwards (or use `.replace()` to change only the listed values). Avoid `.apply(axis=1)` and `for` loops over rows when a vectorised version exists: on a million rows the difference is seconds versus minutes. Functions you apply should handle missing values (`isinstance(text, str)` above) or they'll raise errors on the first `NaN`.
+
+See also: [.apply()](#apply), [.map()](#map), [Split-apply-combine](#split-apply-combine), [Creating a new column](#creating-a-new-column), [Binning (discretization)](#binning-discretization), [np.where() and np.select()](#np-where-and-np-select)
+
+<a id="one-hot-encoding-done-right"></a>
+
+### One-hot encoding done right
+
+_pandas, scikit-learn_
+
+One-hot encoding turns a categorical column into one 0/1 column per category, so models that need numbers can use it. Use `pd.get_dummies()` for quick EDA and correlation checks; use scikit-learn's `OneHotEncoder` inside a pipeline for anything you'll model, because it remembers the categories it saw in training and handles new ones safely.
+
+```python
+# quick EDA with pandas
+pd.get_dummies(titanic[["Sex", "Embarked"]], dtype=int).head()              # 0/1, one column per category
+pd.get_dummies(titanic["Embarked"], prefix="Embarked", dummy_na=True, dtype=int).sum()   # missing as its own column
+pd.get_dummies(titanic, columns=["Sex", "Embarked"], drop_first=True, dtype=int).columns.tolist()
+
+# modelling with scikit-learn: learn categories from training data only
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
+
+train_cats, test_cats = train_test_split(titanic[["Sex", "Embarked"]],
+                                         test_size=0.2, random_state=RANDOM_STATE)
+ohe = OneHotEncoder(handle_unknown="ignore",      # a category unseen in training -> all zeros
+                    min_frequency=10,             # rare categories grouped into 'infrequent'
+                    sparse_output=False)
+ohe.fit(train_cats)
+ohe.get_feature_names_out()                       # ['Sex_female', 'Sex_male', 'Embarked_C', ...]
+encoded_test = pd.DataFrame(ohe.transform(test_cats), columns=ohe.get_feature_names_out(),
+                            index=test_cats.index)
+
+# ordered categories: one column with the order kept, instead of one-hot
+condition_order = [["Poor", "Fair", "Good", "Excellent"]]
+OrdinalEncoder(categories=condition_order).fit_transform(housing[["condition"]])[:5]
+```
+
+If you must use `get_dummies` on a train/test split, make the test columns match the training columns:
+
+```python
+train_d = pd.get_dummies(train_cats, dtype=int)
+test_d = pd.get_dummies(test_cats, dtype=int).reindex(columns=train_d.columns, fill_value=0)
+```
+
+| Choice | When |
+| --- | --- |
+| `drop_first=True` / `OneHotEncoder(drop="first")` | Unregularised linear and logistic regression (avoids the dummy variable trap) |
+| Keep all columns | Tree-based models, regularised models, kNN |
+| `min_frequency=` or group rare levels into "Other" | Columns with many rare categories (high cardinality) |
+| `OrdinalEncoder` with an explicit order | Ordered categories (Poor < Fair < Good < Excellent) |
+| Keep missing as its own category | When missingness is informative (`dummy_na=True`) |
+
+> **Watch out:** `get_dummies` applied separately to train and test gives different columns whenever a category appears in only one of them, and returns `True`/`False` instead of 0/1 unless you pass `dtype=int`. A column with hundreds of categories (postcodes, product IDs) explodes into hundreds of columns: group rare levels or use a different encoding. Encoding an ordered scale as one-hot throws away the order.
+
+See also: [One-hot encoding](#one-hot-encoding), [pd.get_dummies()](#pd-get-dummies), [Dummy variable trap](#dummy-variable-trap), [Label encoding](#label-encoding), [Curse of dimensionality](#curse-of-dimensionality)
+
+<a id="summarise-by-group"></a>
+
+### Summarise by group
+
+_pandas_
+
+Most EDA findings are comparisons between groups: survival by class, price by theme, sightings by state. Build compact summary tables with named aggregations, add counts so readers know how much data sits behind each figure, and compare each group with the overall value.
+
+```python
+# several statistics per group, with readable column names
+theme_summary = (
+    lego.groupby("Theme_Group")
+        .agg(n_sets=("Set_ID", "size"),
+             median_price=("USD_MSRP", "median"),
+             median_pieces=("Pieces", "median"),
+             share_priced=("USD_MSRP", lambda s: s.notna().mean()))
+        .sort_values("n_sets", ascending=False)
+        .round(2)
+)
+theme_summary.head()
+
+# two grouping columns, with an "All" row and column
+pd.crosstab(titanic["Pclass"], titanic["Sex"], values=titanic["Survived"],
+            aggfunc="mean", margins=True).round(2)
+
+# each group against the overall rate, with its size
+by_port = titanic.groupby("Embarked")["Survived"].agg(rate="mean", passengers="size")
+by_port["vs_overall"] = (by_port["rate"] - titanic["Survived"].mean()).round(3)
+by_port
+
+# full distribution summaries per group
+titanic.groupby("Pclass")["Fare"].describe().round(1)
+
+# the top N rows within each group
+(lego.sort_values("USD_MSRP", ascending=False)
+     .groupby("Theme_Group").head(3)[["Theme_Group", "Name", "USD_MSRP"]]
+     .sort_values(["Theme_Group", "USD_MSRP"], ascending=[True, False]))
+```
+
+> **Watch out:** always show the group size next to a group statistic; a 100% rate from three rows is noise. `groupby` drops rows whose group value is missing unless you pass `dropna=False`, so missing categories can silently vanish from your summaries.
+
+See also: [groupby()](#groupby), [.agg()](#agg), [Named aggregation](#named-aggregation), [Split-apply-combine](#split-apply-combine), [pd.crosstab()](#pd-crosstab), [.pivot_table() and .pivot()](#pivot-table-and-pivot)
+
+<a id="eda-charts-distributions"></a>
+
+### EDA charts: distributions
+
+_pandas, matplotlib, seaborn_
+
+Plot every column you might model, one at a time, before modelling anything. Distribution charts show skew, outliers, impossible values and gaps. Start each chart with its own `fig, ax = plt.subplots()`: separate figures stop charts in one cell from drawing on top of each other, and the `ax` lets you set a title that states what the chart shows.
+
+```python
+# quick look with pandas
+fig, ax = plt.subplots(figsize=(6, 3.5))
+titanic["Fare"].plot(kind="hist", bins=40, ax=ax, title="Fare: most tickets were cheap")
+
+# histogram + box plot side by side with seaborn
+fig, axes = plt.subplots(1, 2, figsize=(11, 3.5))
+sns.histplot(data=titanic, x="Age", bins=30, kde=True, ax=axes[0])
+axes[0].set_title("Age: centred on the late 20s")
+sns.boxplot(data=titanic, x="Fare", ax=axes[1])
+axes[1].set_title("Fare: long right tail with outliers")
+fig.tight_layout()
+
+# skewed money columns: a log scale shows the shape
+fig, ax = plt.subplots(figsize=(6, 3.5))
+sns.histplot(lego["USD_MSRP"].dropna(), bins=40, log_scale=True, ax=ax)
+ax.set_title("LEGO prices range from about $1.50 to $850")
+
+# compare a distribution across groups
+fig, ax = plt.subplots(figsize=(7, 4))
+sns.histplot(data=titanic, x="Age", hue="Survived", bins=30, element="step",
+             stat="density", common_norm=False, ax=ax)          # each group scaled to its own total
+ax.set_title("Children were more likely to survive")
+
+fig, ax = plt.subplots(figsize=(7, 4))
+sns.violinplot(data=titanic, x="Pclass", y="Age", hue="Survived", split=True, ax=ax)
+ax.set_title("Age by class and survival")
+
+# numbers to back up the pictures
+titanic[["Age", "Fare", "SibSp", "Parch"]].skew().round(2)      # > 1: strongly right-skewed
+```
+
+> **Watch out:** without `fig, ax = plt.subplots()`, consecutive seaborn calls in one notebook cell draw onto the **same** axes and produce a confusing overlay. When comparing groups of different sizes, use `stat="density", common_norm=False`, or the bigger group dominates the picture.
+
+See also: [Histogram](#histogram), [Choosing histogram bins](#choosing-histogram-bins), [Box plot](#box-plot), [Density plot / KDE](#density-plot-kde), [seaborn distribution plots](#seaborn-distribution-plots), [Skewness](#skewness)
+
+<a id="eda-charts-categories-and-the-target"></a>
+
+### EDA charts: categories and the target
+
+_pandas, matplotlib, seaborn_
+
+For categorical columns, check how many rows fall in each category (including missing), then how the **target** varies across categories. For a yes/no target, the mean of a 0/1 column is a **rate** (here, the survival rate), so a bar chart of the mean answers "which groups have the outcome most often?".
+
+```python
+# counts, including missing, in a sensible order
+fig, ax = plt.subplots(figsize=(6, 3))
+titanic["Embarked"].value_counts(dropna=False).plot(kind="barh", ax=ax, title="Passengers by port")
+
+# many categories: show the top N only, sorted
+top_themes = lego["Theme"].value_counts().head(15)
+fig, ax = plt.subplots(figsize=(7, 5))
+sns.barplot(x=top_themes.values, y=top_themes.index, ax=ax)
+ax.set(title="The 15 biggest LEGO themes", xlabel="Number of sets", ylabel="")
+
+# target RATE by category (classification): the bar is the mean, the line its 95% interval
+fig, ax = plt.subplots(figsize=(6, 4))
+sns.barplot(data=titanic, x="Pclass", y="Survived", hue="Sex", ax=ax)
+ax.set(title="Survival rate by class and sex", ylabel="Survival rate")
+
+# shares within each category with a crosstab
+shares = pd.crosstab(titanic["Pclass"], titanic["Survived"], normalize="index")
+ax = shares.plot(kind="bar", stacked=True, figsize=(6, 4), title="Share surviving within each class")
+ax.set_ylabel("Share of passengers")
+
+# numeric target across categories (regression): box plots, ordered by median
+order = lego.groupby("Theme_Group")["USD_MSRP"].median().sort_values().index
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.boxplot(data=lego, x="USD_MSRP", y="Theme_Group", order=order, ax=ax)
+ax.set(xscale="log", title="Price by theme group (log scale)", xlabel="Price (USD)", ylabel="")
+```
+
+> **Watch out:** a bar of a group mean hides how many rows are behind it: a category with five rows can show an extreme rate by chance. Check the counts alongside (`value_counts()`), and treat categories with very few rows with caution. Sort bars by value (or by a natural order) rather than alphabetically.
+
+See also: [Bar chart](#bar-chart), [.value_counts()](#value-counts), [pd.crosstab()](#pd-crosstab), [sns.lineplot(), sns.barplot() and error bars](#sns-lineplot-sns-barplot-and-error-bars), [seaborn relationship and category plots](#seaborn-relationship-and-category-plots)
+
+<a id="eda-charts-relationships-correlation-and-time"></a>
+
+### EDA charts: relationships, correlation and time
+
+_pandas, matplotlib, seaborn_
+
+Relationship charts show how two numeric columns move together, which features are strongly related to the target (candidate predictors) or to each other (multicollinearity), and how values change over time.
+
+```python
+# two numeric columns
+fig, ax = plt.subplots(figsize=(6, 4))
+sns.scatterplot(data=lego, x="Pieces", y="USD_MSRP", alpha=0.3, ax=ax)
+ax.set(xscale="log", yscale="log", title="Price rises with piece count")
+
+fig, ax = plt.subplots(figsize=(6, 4))
+sns.regplot(data=auto, x="weight", y="mpg", scatter_kws={"alpha": 0.4}, ax=ax)   # with a trend line
+ax.set_title("Heavier cars do fewer miles per gallon")
+
+# correlation heatmap: lower triangle only, annotated
+cols = ["Survived", "Pclass", "Age", "SibSp", "Parch", "Fare"]
+corr = titanic[cols].corr()
+mask = np.triu(np.ones_like(corr, dtype=bool))             # hide the mirror-image upper half
+fig, ax = plt.subplots(figsize=(6, 5))
+sns.heatmap(corr, mask=mask, annot=True, fmt=".2f", cmap="coolwarm",
+            vmin=-1, vmax=1, center=0, ax=ax)
+ax.set_title("Correlations (Pearson)")
+
+corr["Survived"].drop("Survived").sort_values()            # features ranked by correlation with the target
+
+# several relationships at once on a sample (pair plots are slow on big tables)
+sample = titanic[["Age", "Fare", "Pclass", "Survived"]].dropna().sample(300, random_state=RANDOM_STATE)
+sns.pairplot(sample, hue="Survived", corner=True)
+
+# over time: resample to a regular period, then smooth with a rolling mean
+yearly = ufo.set_index("Time").resample("YE").size()         # sightings per year ("Y" in pandas < 2.2)
+fig, ax = plt.subplots(figsize=(8, 3.5))
+yearly.plot(ax=ax, label="sightings per year")
+yearly.rolling(5).mean().plot(ax=ax, label="5-year rolling average")
+ax.set(title="UFO sightings rose sharply after the mid-1990s", xlabel="")
+ax.legend()
+
+fig, ax = plt.subplots(figsize=(6, 3))
+ufo["Time"].dt.month.value_counts().sort_index().plot(kind="bar", ax=ax,
+                                                       title="Sightings by month: a summer peak")
+```
+
+> **Watch out:** a correlation measures **linear** association only (a strong curve can score near 0), it's sensitive to outliers, and it never shows causation. Read the scatter plot behind any correlation you report. Use `.corr(method="spearman")` for skewed or ranked data.
+
+See also: [Scatter plot](#scatter-plot), [Trend lines: regplot and lmplot](#trend-lines-regplot-and-lmplot), [Heatmap](#heatmap), [Correlation matrix](#correlation-matrix), [Pair plot / scatter matrix](#pair-plot-scatter-matrix), [Line chart](#line-chart), [.resample()](#resample)
+
+<a id="reusable-eda-plotting-helpers"></a>
+
+### Reusable EDA plotting helpers
+
+_matplotlib, seaborn_
+
+Three functions that chart a whole table in a few lines: every numeric column, every categorical column, and the target against every feature. They choose the right chart for each column type automatically, so they work on your capstone data as well as on the course datasets. Each returns the figure, so you can save it.
+
+```python
+def plot_numeric_grid(df, cols=None, ncols=3, bins=30):
+    """Histogram with KDE for every numeric column, titled with the median and % missing."""
+    cols = cols or df.select_dtypes("number").columns.tolist()
+    nrows = math.ceil(len(cols) / ncols)
+    fig, axes = plt.subplots(nrows, ncols, figsize=(5 * ncols, 3.2 * nrows), squeeze=False)
+    for ax, col in zip(axes.flat, cols):
+        values = df[col].dropna()
+        sns.histplot(values, bins=bins, kde=True, ax=ax)
+        ax.set_title(f"{col}: median {values.median():,.2f}, {df[col].isna().mean():.0%} missing",
+                     fontsize=10)
+        ax.set_xlabel("")
+    for ax in axes.flat[len(cols):]:
+        ax.remove()                                              # remove unused panels
+    fig.tight_layout()
+    return fig
+
+
+def plot_category_grid(df, cols=None, top_n=10, ncols=2):
+    """Bar chart of the top categories (missing included) for every categorical column."""
+    cols = cols or df.select_dtypes(exclude=["number", "datetime"]).columns.tolist()
+    nrows = math.ceil(len(cols) / ncols)
+    fig, axes = plt.subplots(nrows, ncols, figsize=(6 * ncols, 3.2 * nrows), squeeze=False)
+    for ax, col in zip(axes.flat, cols):
+        counts = df[col].astype("string").fillna("(missing)").value_counts().head(top_n)
+        sns.barplot(x=counts.values, y=counts.index, ax=ax)
+        ax.set_title(f"{col}: {df[col].nunique()} categories", fontsize=10)
+        ax.set(xlabel="rows", ylabel="")
+    for ax in axes.flat[len(cols):]:
+        ax.remove()
+    fig.tight_layout()
+    return fig
+
+
+def plot_target_by_features(df, target, features, ncols=3, top_n=10, max_points=2000):
+    """The target against each feature, with the right chart for each combination of types."""
+    numeric_target = pd.api.types.is_numeric_dtype(df[target]) and df[target].nunique() > 10
+    nrows = math.ceil(len(features) / ncols)
+    fig, axes = plt.subplots(nrows, ncols, figsize=(5 * ncols, 3.6 * nrows), squeeze=False)
+    sample = df.sample(min(len(df), max_points), random_state=0)
+    for ax, feat in zip(axes.flat, features):
+        numeric_feat = pd.api.types.is_numeric_dtype(df[feat]) and df[feat].nunique() > 10
+        if numeric_feat and numeric_target:                      # number vs number: scatter
+            sns.scatterplot(data=sample, x=feat, y=target, alpha=0.4, ax=ax)
+        elif numeric_feat:                                       # number vs class: box plot per class
+            sns.boxplot(data=df, x=target, y=feat, ax=ax)
+        else:                                                    # category: top categories only
+            top = df[feat].value_counts().head(top_n).index
+            if pd.api.types.is_numeric_dtype(df[feat]):
+                top = top.sort_values()                          # 1, 2, 3 rather than by count
+            subset = df[df[feat].isin(top)]
+            if numeric_target:
+                sns.boxplot(data=subset, x=target, y=feat, order=top, ax=ax)
+            else:
+                sns.barplot(data=subset, x=feat, y=target, order=top, ax=ax)   # mean = rate
+                ax.set_ylabel(f"{target} rate")
+                ax.tick_params(axis="x", rotation=45)
+        ax.set_title(f"{target} vs {feat}", fontsize=10)
+    for ax in axes.flat[len(features):]:
+        ax.remove()
+    fig.tight_layout()
+    return fig
+
+
+plot_numeric_grid(titanic, ["Age", "Fare", "SibSp", "Parch"])
+plot_category_grid(titanic, ["Sex", "Embarked", "Pclass", "Cabin"])
+fig = plot_target_by_features(titanic, "Survived", ["Sex", "Pclass", "Embarked", "Age", "Fare", "SibSp"])
+fig.savefig(OUT_DIR / "survival_by_feature.png", dpi=150, bbox_inches="tight")
+```
+
+> **Watch out:** helpers are for **exploring**. For the few charts you'll present, make each one individually, with a title that states the finding, labelled axes with units, and a note of the data source. Very high-cardinality columns (names, IDs) make unreadable category charts; leave them out of the column list.
+
+See also: [plt.subplots()](#plt-subplots), [Subplot grids: subplot, add_subplot, delaxes and suptitle](#subplot-grids-subplot-add-subplot-delaxes-and-suptitle), [Figure-level vs axes-level seaborn functions](#figure-level-vs-axes-level-seaborn-functions)
+
+<a id="export-clean-data-and-figures"></a>
+
+### Export clean data and figures
+
+_pandas, matplotlib_
+
+Save the outputs of the data stage so the modelling notebook starts from the clean table rather than repeating the cleaning. Use **Parquet** for the clean data (it keeps the types), CSV when someone needs to open it elsewhere, one **Excel workbook** for the tables you'll put in your report, and image files for your figures.
+
+```python
+titanic_filled.to_parquet(OUT_DIR / "titanic_clean.parquet", index=False)   # for your next notebook
+titanic_filled.to_csv(OUT_DIR / "titanic_clean.csv", index=False)           # for sharing
+
+report_tables = {                                                           # several tables, one workbook
+    "clean_data": titanic_filled,
+    "missing_report": missing_report(titanic),
+    "numeric_summary": titanic_filled.describe().T,
+}
+with pd.ExcelWriter(OUT_DIR / "capstone_tables.xlsx") as writer:
+    for sheet, table in report_tables.items():
+        table.to_excel(writer, sheet_name=sheet[:31], index=(sheet == "numeric_summary"))
+
+with pd.ExcelWriter(OUT_DIR / "workbook_clean.xlsx") as writer:              # the Excel import, cleaned
+    for name, frame in workbook.items():
+        frame.to_excel(writer, sheet_name=name[:31], index=False)
+
+fig.savefig(OUT_DIR / "survival_by_feature.png", dpi=150, bbox_inches="tight")   # every figure you present
+```
+
+> **Watch out:** Excel sheet names are limited to 31 characters (hence `[:31]`), and Excel can't store timezone-aware dates; remove the timezone with `.dt.tz_localize(None)` first. Saving with `bbox_inches="tight"` stops titles and labels being cut off.
+
+See also: [.to_csv()](#to-csv), [Excel files: read_excel() and to_excel()](#excel-files-read-excel-and-to-excel), [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats), [Saving a fitted pipeline (joblib)](#saving-a-fitted-pipeline-joblib)
+
+---
+
 <a id="course-materials-map"></a>
 
 ## Course materials map
@@ -7340,6 +9316,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [API key](#api-key)
 - [API risks: cost and maintenance](#api-risks-cost-and-maintenance)
 - [API wrapper](#api-wrapper)
+- [Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups)
 - [.apply()](#apply)
 - [np.arange() and np.linspace()](#np-arange-and-np-linspace)
 - [Arguments and parameters](#arguments-and-parameters)
@@ -7347,6 +9324,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [assert](#assert)
 - [.assign()](#assign)
 - [.astype()](#astype)
+- [Audit missing values by field type](#audit-missing-values-by-field-type)
 - [Axes](#axes)
 - [Axes methods](#axes-methods)
 - [axis](#axis)
@@ -7356,6 +9334,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Bar chart](#bar-chart)
 - [Baseline model](#baseline-model)
 - [Bessel's correction (ddof)](#bessel-s-correction-ddof)
+- [Better-than-default data types](#better-than-default-data-types)
 - [Between-subject design](#between-subject-design)
 - [Bias](#bias)
 - [Bimodal / multimodal distribution](#bimodal-multimodal-distribution)
@@ -7365,6 +9344,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Boolean (bool)](#boolean-bool)
 - [Boolean mask (filtering)](#boolean-mask-filtering)
 - [Box plot](#box-plot)
+- [Build a data dictionary from your data](#build-a-data-dictionary-from-your-data)
 - [Built-in functions](#built-in-functions)
 
 **C**
@@ -7373,6 +9353,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [calendar module](#calendar-module)
 - [Capped values](#capped-values)
 - [Capstone common-mistakes checklist](#capstone-common-mistakes-checklist)
+- [Capstone notebook setup](#capstone-notebook-setup)
 - [Cardinality](#cardinality)
 - [Causation](#causation)
 - [Central tendency](#central-tendency)
@@ -7383,6 +9364,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Class imbalance](#class-imbalance)
 - [Classifying missingness: the survey exercise](#classifying-missingness-the-survey-exercise)
 - [Classifying variables in code](#classifying-variables-in-code)
+- [Clean and validate dates and times](#clean-and-validate-dates-and-times)
 - [Cleaning text categories](#cleaning-text-categories)
 - [Cleaning workflow](#cleaning-workflow)
 - [Colorbar](#colorbar)
@@ -7429,10 +9411,12 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Data-understanding checklist](#data-understanding-checklist)
 - [DataFrame](#dataframe)
 - [datetime module](#datetime-module)
+- [Define validation rules and check your data](#define-validation-rules-and-check-your-data)
 - [Deletion methods](#deletion-methods)
 - [Density plot / KDE](#density-plot-kde)
 - [.describe()](#describe)
 - [Descriptive statistics](#descriptive-statistics)
+- [Detect and treat outliers](#detect-and-treat-outliers)
 - [Deviation](#deviation)
 - [Dictionary (dict)](#dictionary-dict)
 - [Dictionary and set comprehensions](#dictionary-and-set-comprehensions)
@@ -7453,6 +9437,9 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 
 **E**
 
+- [EDA charts: categories and the target](#eda-charts-categories-and-the-target)
+- [EDA charts: distributions](#eda-charts-distributions)
+- [EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time)
 - [EDA findings that shape model choice](#eda-findings-that-shape-model-choice)
 - [EDA for exploration](#eda-for-exploration)
 - [EDA for modeling](#eda-for-modeling)
@@ -7471,6 +9458,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Experiment](#experiment)
 - [Experimental unit](#experimental-unit)
 - [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+- [Export clean data and figures](#export-clean-data-and-figures)
 
 **F**
 
@@ -7482,9 +9470,15 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Features from dates](#features-from-dates)
 - [Figure](#figure)
 - [Figure-level vs axes-level seaborn functions](#figure-level-vs-axes-level-seaborn-functions)
+- [Fill gaps by field type](#fill-gaps-by-field-type)
+- [Fill gaps with models](#fill-gaps-with-models)
 - [.fillna()](#fillna)
+- [Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet)
+- [Find and handle duplicates](#find-and-handle-duplicates)
+- [Find the code you need](#find-the-code-you-need)
 - [fit / predict](#fit-predict)
 - [Five-number summary](#five-number-summary)
+- [Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories)
 - [flatten() and ravel()](#flatten-and-ravel)
 - [Float](#float)
 - [.floordiv() and .mul()](#floordiv-and-mul)
@@ -7527,6 +9521,9 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [if / elif / else](#if-elif-else)
 - [.iloc[]](#iloc)
 - [import](#import)
+- [Import CSV and TSV files](#import-csv-and-tsv-files)
+- [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook)
+- [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats)
 - [Imputation](#imputation)
 - [Index](#index)
 - [Indexing and slicing](#indexing-and-slicing)
@@ -7548,6 +9545,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 **J**
 
 - [Join](#join)
+- [Join DataFrames safely](#join-dataframes-safely)
 - [JSON](#json)
 - [pd.json_normalize()](#pd-json-normalize)
 - [Jupyter notebook](#jupyter-notebook)
@@ -7555,6 +9553,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 **K**
 
 - [KBinsDiscretizer](#kbinsdiscretizer)
+- [Keep a cleaning log](#keep-a-cleaning-log)
 - [Keeping API keys secret](#keeping-api-keys-secret)
 - [Kendall's tau](#kendall-s-tau)
 - [KNNImputer and IterativeImputer](#knnimputer-and-iterativeimputer)
@@ -7565,6 +9564,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Label encoding](#label-encoding)
 - [lambda](#lambda)
 - [Last Observation Carried Forward (LOCF)](#last-observation-carried-forward-locf)
+- [Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline)
 - [Leakage check: known at prediction time?](#leakage-check-known-at-prediction-time)
 - [Left / right join](#left-right-join)
 - [Library version changes to know](#library-version-changes-to-know)
@@ -7574,6 +9574,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [sns.lineplot(), sns.barplot() and error bars](#sns-lineplot-sns-barplot-and-error-bars)
 - [List](#list)
 - [List comprehension](#list-comprehension)
+- [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns)
 - [Listwise deletion (complete-case analysis)](#listwise-deletion-complete-case-analysis)
 - [.loc[]](#loc)
 - [Log transformation](#log-transformation)
@@ -7632,6 +9633,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Observation](#observation)
 - [Observational study](#observational-study)
 - [One-hot encoding](#one-hot-encoding)
+- [One-hot encoding done right](#one-hot-encoding-done-right)
 - [One-tailed vs two-tailed test](#one-tailed-vs-two-tailed-test)
 - [OneHotEncoder options](#onehotencoder-options)
 - [Operators](#operators)
@@ -7670,8 +9672,10 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Population vs sample](#population-vs-sample)
 - [Power transformation (Box-Cox, Yeo-Johnson)](#power-transformation-box-cox-yeo-johnson)
 - [Principal Component Analysis (PCA)](#principal-component-analysis-pca)
+- [Profile a dataset quickly](#profile-a-dataset-quickly)
 - [Proxy metric](#proxy-metric)
 - [pyplot (state-based) interface](#pyplot-state-based-interface)
+- [Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns)
 
 **Q**
 
@@ -7708,8 +9712,10 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Request and response](#request-and-response)
 - [requests library](#requests-library)
 - [.resample()](#resample)
+- [Reshape between wide and long formats](#reshape-between-wide-and-long-formats)
 - [reshape(-1, 1)](#reshape-1-1)
 - [Residual](#residual)
+- [Reusable EDA plotting helpers](#reusable-eda-plotting-helpers)
 - [Reverse causality](#reverse-causality)
 - [Robust scaling](#robust-scaling)
 - [Robust statistic](#robust-statistic)
@@ -7728,6 +9734,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [seaborn](#seaborn)
 - [seaborn distribution plots](#seaborn-distribution-plots)
 - [seaborn relationship and category plots](#seaborn-relationship-and-category-plots)
+- [Select, drop and reorder columns](#select-drop-and-reorder-columns)
 - [.select_dtypes()](#select-dtypes)
 - [Selecting columns](#selecting-columns)
 - [Selection bias](#selection-bias)
@@ -7747,11 +9754,13 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [.sort_values() and .sort_index()](#sort-values-and-sort-index)
 - [sorted(), .sort() and reversed()](#sorted-sort-and-reversed)
 - [Spearman rank correlation](#spearman-rank-correlation)
+- [Split and extract values from text](#split-and-extract-values-from-text)
 - [Split-apply-combine](#split-apply-combine)
 - [Spread (dispersion)](#spread-dispersion)
 - [Spurious correlation](#spurious-correlation)
 - [.stack() and .unstack()](#stack-and-unstack)
 - [Standard deviation](#standard-deviation)
+- [Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation)
 - [Standardization / feature scaling](#standardization-feature-scaling)
 - [StandardScaler, MinMaxScaler, RobustScaler](#standardscaler-minmaxscaler-robustscaler)
 - [Statistic](#statistic)
@@ -7765,6 +9774,8 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Style sheets and rcParams](#style-sheets-and-rcparams)
 - [Subplot grids: subplot, add_subplot, delaxes and suptitle](#subplot-grids-subplot-add-subplot-delaxes-and-suptitle)
 - [plt.subplots()](#plt-subplots)
+- [Summarise by group](#summarise-by-group)
+- [sweetviz EDA visualisation library](#sweetviz-eda-visualisation-library)
 - [Synthetic and toy datasets](#synthetic-and-toy-datasets)
 
 **T**
@@ -7818,6 +9829,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [Variance](#variance)
 - [Variance inflation factor (VIF)](#variance-inflation-factor-vif)
 - [Vectorized operation](#vectorized-operation)
+- [Visualise missing data with missingno](#visualise-missing-data-with-missingno)
 
 **W**
 
@@ -7828,6 +9840,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 - [np.where() and np.select()](#np-where-and-np-select)
 - [Wide vs long (tidy) format](#wide-vs-long-tidy-format)
 - [Within-subject design](#within-subject-design)
+- [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory)
 - [Worked example: mean vs median with an outlier](#worked-example-mean-vs-median-with-an-outlier)
 - [Writing your own class](#writing-your-own-class)
 
