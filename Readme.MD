@@ -2,6 +2,8 @@
 
 # Data Science Glossary: Python, pandas and Exploratory Data Analysis
 
+[Repository guide and slide-deck completeness tracker](UNIT_GUIDE.md) — unit contents, PDF slide decks, and missing materials.
+
 Key terms, functions and methods from the EDA unit (Unit 2), running from Python basics to APIs. Each of the 476 entries says what the term means, where it appears in the course, and (where relevant) shows working code you can copy into your own notebooks. The [Unit 3 glossary](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD) (machine learning) continues the numbering from section 12 and links back to entries here.
 
 <a id="how-to-read-the-examples"></a>
@@ -7436,43 +7438,43 @@ _Complete, copy-paste recipes for the data stage of a capstone, named by the job
 
 _Concept_
 
-| I want to… | Recipe | Background entries |
-| --- | --- | --- |
-| Set up a capstone notebook (imports, display options, folders, seed) | [Capstone notebook setup](#capstone-notebook-setup) | [Jupyter notebook](#jupyter-notebook), [Random seed](#random-seed) |
-| Record every cleaning step and how many rows it removed | [Keep a cleaning log](#keep-a-cleaning-log) | [Cleaning workflow](#cleaning-workflow), [Method chaining](#method-chaining) |
-| Load a CSV or TSV file, or a whole folder of them | [Import CSV and TSV files](#import-csv-and-tsv-files) | [pd.read_csv()](#pd-read-csv), [read_csv() options for messy files](#read-csv-options-for-messy-files) |
-| Load Parquet, JSON, SQL or a web table | [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats) | [pd.read_json()](#pd-read-json), [pd.json_normalize()](#pd-json-normalize) |
-| Load a file that's too big, or make a table use less memory | [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory) | [.info()](#info), [.sample()](#sample) |
-| Load **every sheet** of an Excel workbook into its own DataFrame | [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook) | [Excel files](#excel-files-read-excel-and-to-excel) |
-| Make sheet and column names Python-style (no spaces) | [Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns) | [.rename()](#rename), [.columns](#columns) |
-| Fix "everything is text" columns: numbers, dates, yes/no, categories | [Better-than-default data types](#better-than-default-data-types) | [.astype()](#astype), [dtype](#dtype) |
-| See every DataFrame I've created and the columns in each | [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns) | [.info()](#info), [.describe()](#describe) |
-| Get a quick list of likely problems in every column | [Profile a dataset quickly](#profile-a-dataset-quickly) | [.describe()](#describe), [sweetviz](#sweetviz-eda-visualisation-library) |
-| Write a data dictionary for my dataset | [Build a data dictionary from your data](#build-a-data-dictionary-from-your-data) | [Data dictionary](#data-dictionary) |
-| Fix spacing, capitalisation and odd characters in text | [Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation) | [String methods](#string-methods), [.str accessor](#str-accessor) |
-| Fix misspelled categories, abbreviations and rare labels | [Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories) | [Cleaning text categories](#cleaning-text-categories), [Cardinality](#cardinality) |
-| Split combined columns; pull codes, numbers and units out of text | [Split and extract values from text](#split-and-extract-values-from-text) | [re (regular expressions)](#re-regular-expressions) |
-| Parse messy dates, find impossible ones, and get date parts | [Clean and validate dates and times](#clean-and-validate-dates-and-times) | [pd.to_datetime()](#pd-to-datetime), [.dt accessor](#dt-accessor) |
-| Set boundaries and rules for columns, and find rows that break them | [Define validation rules and check your data](#define-validation-rules-and-check-your-data) | [assert](#assert), [Data quality assessment](#data-quality-assessment) |
-| Find outliers and decide what to do with them | [Detect and treat outliers](#detect-and-treat-outliers) | [Outlier](#outlier), [IQR outlier fences](#iqr-outlier-fences) |
-| Keep only the rows I want (conditions, lists, ranges, text, dates) | [Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet) | [Boolean mask (filtering)](#boolean-mask-filtering), [.isin()](#isin), [.loc[]](#loc) |
-| Pick, drop or reorder columns | [Select, drop and reorder columns](#select-drop-and-reorder-columns) | [Selecting columns](#selecting-columns), [.select_dtypes()](#select-dtypes) |
-| Turn columns into rows (wide → long) or back again | [Reshape between wide and long formats](#reshape-between-wide-and-long-formats) | [.melt()](#melt), [Wide vs long (tidy) format](#wide-vs-long-tidy-format) |
-| Join two tables without losing or duplicating rows | [Join DataFrames safely](#join-dataframes-safely) | [.merge()](#merge), [Validating a merge](#validating-a-merge) |
-| Find and deal with duplicate rows or keys | [Find and handle duplicates](#find-and-handle-duplicates) | [.duplicated()](#duplicated), [.drop_duplicates()](#drop-duplicates) |
-| See how much is missing, by column and by type, including "N/A" text | [Audit missing values by field type](#audit-missing-values-by-field-type) | [Missingness table](#missingness-table), [Placeholder values](#placeholder-values-for-missing-data) |
-| Draw missing-data charts | [Visualise missing data with missingno](#visualise-missing-data-with-missingno) | [missingno](#missingno), [Patterns of missingness](#patterns-of-missingness) |
-| Fill gaps sensibly (median, group median, mode, flags, time series) | [Fill gaps by field type](#fill-gaps-by-field-type) | [.fillna()](#fillna), [Missing indicator](#missing-indicator) |
-| Fill gaps with a model (KNN, iterative, random forest) | [Fill gaps with models](#fill-gaps-with-models) | [KNNImputer and IterativeImputer](#knnimputer-and-iterativeimputer) |
-| Impute and encode without leakage, ready for modelling | [Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline) | [Pipeline](#pipeline), [ColumnTransformer](#columntransformer), [Data leakage](#data-leakage) |
-| Create or transform columns with functions | [Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups) | [.apply()](#apply), [.map()](#map), [Split-apply-combine](#split-apply-combine) |
-| Turn categories into numbers (one-hot, ordinal) | [One-hot encoding done right](#one-hot-encoding-done-right) | [One-hot encoding](#one-hot-encoding), [pd.get_dummies()](#pd-get-dummies) |
-| Compare groups in a summary table | [Summarise by group](#summarise-by-group) | [groupby()](#groupby), [Named aggregation](#named-aggregation) |
-| Plot distributions of every column | [EDA charts: distributions](#eda-charts-distributions) | [Histogram](#histogram), [Box plot](#box-plot) |
-| Plot categories and how the target varies | [EDA charts: categories and the target](#eda-charts-categories-and-the-target) | [Bar chart](#bar-chart), [pd.crosstab()](#pd-crosstab) |
-| Plot relationships, correlations and trends over time | [EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time) | [Scatter plot](#scatter-plot), [Heatmap](#heatmap) |
-| Make every chart in one go with reusable functions | [Reusable EDA plotting helpers](#reusable-eda-plotting-helpers) | [plt.subplots()](#plt-subplots) |
-| Save clean data and figures | [Export clean data and figures](#export-clean-data-and-figures) | [.to_csv()](#to-csv) |
+| I want to…                                                           | Recipe                                                                                                        | Background entries                                                                                     |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Set up a capstone notebook (imports, display options, folders, seed) | [Capstone notebook setup](#capstone-notebook-setup)                                                           | [Jupyter notebook](#jupyter-notebook), [Random seed](#random-seed)                                     |
+| Record every cleaning step and how many rows it removed              | [Keep a cleaning log](#keep-a-cleaning-log)                                                                   | [Cleaning workflow](#cleaning-workflow), [Method chaining](#method-chaining)                           |
+| Load a CSV or TSV file, or a whole folder of them                    | [Import CSV and TSV files](#import-csv-and-tsv-files)                                                         | [pd.read_csv()](#pd-read-csv), [read_csv() options for messy files](#read-csv-options-for-messy-files) |
+| Load Parquet, JSON, SQL or a web table                               | [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats)                              | [pd.read_json()](#pd-read-json), [pd.json_normalize()](#pd-json-normalize)                             |
+| Load a file that's too big, or make a table use less memory          | [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory)                           | [.info()](#info), [.sample()](#sample)                                                                 |
+| Load **every sheet** of an Excel workbook into its own DataFrame     | [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook)                       | [Excel files](#excel-files-read-excel-and-to-excel)                                                    |
+| Make sheet and column names Python-style (no spaces)                 | [Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns)                       | [.rename()](#rename), [.columns](#columns)                                                             |
+| Fix "everything is text" columns: numbers, dates, yes/no, categories | [Better-than-default data types](#better-than-default-data-types)                                             | [.astype()](#astype), [dtype](#dtype)                                                                  |
+| See every DataFrame I've created and the columns in each             | [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns) | [.info()](#info), [.describe()](#describe)                                                             |
+| Get a quick list of likely problems in every column                  | [Profile a dataset quickly](#profile-a-dataset-quickly)                                                       | [.describe()](#describe), [sweetviz](#sweetviz-eda-visualisation-library)                              |
+| Write a data dictionary for my dataset                               | [Build a data dictionary from your data](#build-a-data-dictionary-from-your-data)                             | [Data dictionary](#data-dictionary)                                                                    |
+| Fix spacing, capitalisation and odd characters in text               | [Standardise text: spacing, case and punctuation](#standardise-text-spacing-case-and-punctuation)             | [String methods](#string-methods), [.str accessor](#str-accessor)                                      |
+| Fix misspelled categories, abbreviations and rare labels             | [Fix misspelled and inconsistent categories](#fix-misspelled-and-inconsistent-categories)                     | [Cleaning text categories](#cleaning-text-categories), [Cardinality](#cardinality)                     |
+| Split combined columns; pull codes, numbers and units out of text    | [Split and extract values from text](#split-and-extract-values-from-text)                                     | [re (regular expressions)](#re-regular-expressions)                                                    |
+| Parse messy dates, find impossible ones, and get date parts          | [Clean and validate dates and times](#clean-and-validate-dates-and-times)                                     | [pd.to_datetime()](#pd-to-datetime), [.dt accessor](#dt-accessor)                                      |
+| Set boundaries and rules for columns, and find rows that break them  | [Define validation rules and check your data](#define-validation-rules-and-check-your-data)                   | [assert](#assert), [Data quality assessment](#data-quality-assessment)                                 |
+| Find outliers and decide what to do with them                        | [Detect and treat outliers](#detect-and-treat-outliers)                                                       | [Outlier](#outlier), [IQR outlier fences](#iqr-outlier-fences)                                         |
+| Keep only the rows I want (conditions, lists, ranges, text, dates)   | [Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet)                                                      | [Boolean mask (filtering)](#boolean-mask-filtering), [.isin()](#isin), [.loc[]](#loc)                  |
+| Pick, drop or reorder columns                                        | [Select, drop and reorder columns](#select-drop-and-reorder-columns)                                          | [Selecting columns](#selecting-columns), [.select_dtypes()](#select-dtypes)                            |
+| Turn columns into rows (wide → long) or back again                   | [Reshape between wide and long formats](#reshape-between-wide-and-long-formats)                               | [.melt()](#melt), [Wide vs long (tidy) format](#wide-vs-long-tidy-format)                              |
+| Join two tables without losing or duplicating rows                   | [Join DataFrames safely](#join-dataframes-safely)                                                             | [.merge()](#merge), [Validating a merge](#validating-a-merge)                                          |
+| Find and deal with duplicate rows or keys                            | [Find and handle duplicates](#find-and-handle-duplicates)                                                     | [.duplicated()](#duplicated), [.drop_duplicates()](#drop-duplicates)                                   |
+| See how much is missing, by column and by type, including "N/A" text | [Audit missing values by field type](#audit-missing-values-by-field-type)                                     | [Missingness table](#missingness-table), [Placeholder values](#placeholder-values-for-missing-data)    |
+| Draw missing-data charts                                             | [Visualise missing data with missingno](#visualise-missing-data-with-missingno)                               | [missingno](#missingno), [Patterns of missingness](#patterns-of-missingness)                           |
+| Fill gaps sensibly (median, group median, mode, flags, time series)  | [Fill gaps by field type](#fill-gaps-by-field-type)                                                           | [.fillna()](#fillna), [Missing indicator](#missing-indicator)                                          |
+| Fill gaps with a model (KNN, iterative, random forest)               | [Fill gaps with models](#fill-gaps-with-models)                                                               | [KNNImputer and IterativeImputer](#knnimputer-and-iterativeimputer)                                    |
+| Impute and encode without leakage, ready for modelling               | [Leak-free imputation and encoding in a pipeline](#leak-free-imputation-and-encoding-in-a-pipeline)           | [Pipeline](#pipeline), [ColumnTransformer](#columntransformer), [Data leakage](#data-leakage)          |
+| Create or transform columns with functions                           | [Apply functions to columns, rows and groups](#apply-functions-to-columns-rows-and-groups)                    | [.apply()](#apply), [.map()](#map), [Split-apply-combine](#split-apply-combine)                        |
+| Turn categories into numbers (one-hot, ordinal)                      | [One-hot encoding done right](#one-hot-encoding-done-right)                                                   | [One-hot encoding](#one-hot-encoding), [pd.get_dummies()](#pd-get-dummies)                             |
+| Compare groups in a summary table                                    | [Summarise by group](#summarise-by-group)                                                                     | [groupby()](#groupby), [Named aggregation](#named-aggregation)                                         |
+| Plot distributions of every column                                   | [EDA charts: distributions](#eda-charts-distributions)                                                        | [Histogram](#histogram), [Box plot](#box-plot)                                                         |
+| Plot categories and how the target varies                            | [EDA charts: categories and the target](#eda-charts-categories-and-the-target)                                | [Bar chart](#bar-chart), [pd.crosstab()](#pd-crosstab)                                                 |
+| Plot relationships, correlations and trends over time                | [EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time)             | [Scatter plot](#scatter-plot), [Heatmap](#heatmap)                                                     |
+| Make every chart in one go with reusable functions                   | [Reusable EDA plotting helpers](#reusable-eda-plotting-helpers)                                               | [plt.subplots()](#plt-subplots)                                                                        |
+| Save clean data and figures                                          | [Export clean data and figures](#export-clean-data-and-figures)                                               | [.to_csv()](#to-csv)                                                                                   |
 
 <a id="capstone-notebook-setup"></a>
 
@@ -8011,7 +8013,7 @@ See also: [Data dictionary](#data-dictionary), [Data-understanding checklist](#d
 
 _pandas_
 
-The same value typed differently ("New York", "new york ", "NEW  YORK") counts as different categories, breaks joins and splits your group summaries. Standardising text means trimming the ends, collapsing repeated inner spaces, choosing one case, and normalising unusual characters (non-breaking spaces, full-width characters). Do it before counting categories, de-duplicating or joining.
+The same value typed differently ("New York", "new york ", "NEW YORK") counts as different categories, breaks joins and splits your group summaries. Standardising text means trimming the ends, collapsing repeated inner spaces, choosing one case, and normalising unusual characters (non-breaking spaces, full-width characters). Do it before counting categories, de-duplicating or joining.
 
 ```python
 def clean_text(s, case="title", strip_punctuation=False):
@@ -8333,12 +8335,12 @@ treated["price_capped"] = treated["USD_MSRP"].clip(p01, p99)              # cap 
 treated["log_price"] = np.log1p(treated["USD_MSRP"])                      # transform: pull in the tail
 ```
 
-| Situation | Treatment |
-| --- | --- |
-| Proven error (age 250, price in pence among pounds) | Correct it if you can, otherwise set to missing |
-| Genuine but extreme value | Keep it; consider a log transform or a robust model |
-| Extremes that dominate a linear model | Cap at a percentile, and add a flag column |
-| A separate group (business accounts among consumers) | Analyse or model the group separately |
+| Situation                                            | Treatment                                           |
+| ---------------------------------------------------- | --------------------------------------------------- |
+| Proven error (age 250, price in pence among pounds)  | Correct it if you can, otherwise set to missing     |
+| Genuine but extreme value                            | Keep it; consider a log transform or a robust model |
+| Extremes that dominate a linear model                | Cap at a percentile, and add a flag column          |
+| A separate group (business accounts among consumers) | Analyse or model the group separately               |
 
 > **Watch out:** every rule flags many values in naturally skewed columns, where extremes are normal rather than errors: 13% of fares by the IQR rule and even more (160) by robust z-scores. Judge skewed columns on a log scale and with domain knowledge instead. The IQR rule also breaks down for count columns where most values are the same: three-quarters of passengers have `Parch` = 0, so the fences are 0 to 0 and every parent or child aboard (24%) is "an outlier". For modelling, learn capping limits from the **training** data only. If the MAD is 0 (more than half the values identical), robust z-scores divide by zero, so use the IQR rule for that column instead.
 
@@ -8534,12 +8536,12 @@ both_years = pd.concat([lego.query("Year == 2022"), lego.query("Year == 2023")],
                        ignore_index=True)
 ```
 
-| `how=` | Keeps | Use when |
-| --- | --- | --- |
-| `"left"` | Every row of the left table | Adding information to your main table (most common) |
+| `how=`    | Keeps                          | Use when                                            |
+| --------- | ------------------------------ | --------------------------------------------------- |
+| `"left"`  | Every row of the left table    | Adding information to your main table (most common) |
 | `"inner"` | Only rows with a match in both | You only want complete matches; check what you lose |
-| `"outer"` | Every row from both | Auditing two sources against each other |
-| `"right"` | Every row of the right table | Rarely; swap the tables and use `"left"` instead |
+| `"outer"` | Every row from both            | Auditing two sources against each other             |
+| `"right"` | Every row of the right table   | Rarely; swap the tables and use `"left"` instead    |
 
 > **Watch out:** if the lookup table has duplicate keys, a left join quietly **adds** rows (one per match); `validate="many_to_one"` turns that into an error you can't miss. Keys that look identical can still fail to match because of trailing spaces, different case, or one side being a number (`1001`) and the other text (`"1001"`), so clean both sides the same way first. After every join, compare `len()` before and after.
 
@@ -8580,12 +8582,12 @@ per_order = orders.groupby("order_id", as_index=False).agg(             # or com
 assert latest["order_id"].is_unique                             # stop the notebook if it's still wrong
 ```
 
-| Situation | Usual action |
-| --- | --- |
-| Identical rows from a repeated load or bad join | `drop_duplicates()`, then fix the cause |
-| Several versions of one record over time | Keep the latest: sort by date, `keep="last"` |
-| Genuine repeated events (two orders on one day) | Keep them all: they're not duplicates; check your key |
-| Same entity spelled differently | Normalise the text, then de-duplicate or map to one ID |
+| Situation                                       | Usual action                                           |
+| ----------------------------------------------- | ------------------------------------------------------ |
+| Identical rows from a repeated load or bad join | `drop_duplicates()`, then fix the cause                |
+| Several versions of one record over time        | Keep the latest: sort by date, `keep="last"`           |
+| Genuine repeated events (two orders on one day) | Keep them all: they're not duplicates; check your key  |
+| Same entity spelled differently                 | Normalise the text, then de-duplicate or map to one ID |
 
 > **Watch out:** `drop_duplicates()` with no `subset` only removes rows identical in **every** column, so two versions of the same order with different amounts both survive. Decide which columns define "the same thing" (the key) and pass them as `subset`. Check duplicates again after every join.
 
@@ -8698,17 +8700,17 @@ _pandas_
 
 The right fill depends on **what kind of field** it is and **why** it's missing. Decide column by column, write the reason down, and keep a flag so the model still knows the value was missing.
 
-| Field type | Typical approach | Better when it matters | Avoid |
-| --- | --- | --- | --- |
-| Numeric, skewed (price, income, fare) | Median | Median within similar groups; a model-based fill | The mean (pulled by outliers) |
-| Numeric, roughly symmetric (age, temperature) | Mean or median | Group median; KNN or iterative imputer | Filling with 0 |
-| Count where missing means "none" | 0, if you've confirmed that meaning | — | 0 when it really means unknown |
-| Categorical, few gaps | Most frequent value (mode) | Mode within group | Dropping rows unnecessarily |
-| Categorical, many gaps | Its own category: "Unknown" | Derive a useful feature (e.g. cabin deck) | Mode (invents a false majority) |
-| Boolean flag | "Unknown" category or mode, plus a flag | — | Silently filling with False |
-| Time series (daily sales, sensor) | Carry forward within each entity (`ffill`) | Interpolation over time | Filling across different entities |
-| Free text | Empty string or "unknown" | Features such as "has comment" | — |
-| IDs, keys and the **target** | Don't impute: recover the value or drop the row | — | Any fill |
+| Field type                                    | Typical approach                                | Better when it matters                           | Avoid                             |
+| --------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ | --------------------------------- |
+| Numeric, skewed (price, income, fare)         | Median                                          | Median within similar groups; a model-based fill | The mean (pulled by outliers)     |
+| Numeric, roughly symmetric (age, temperature) | Mean or median                                  | Group median; KNN or iterative imputer           | Filling with 0                    |
+| Count where missing means "none"              | 0, if you've confirmed that meaning             | —                                                | 0 when it really means unknown    |
+| Categorical, few gaps                         | Most frequent value (mode)                      | Mode within group                                | Dropping rows unnecessarily       |
+| Categorical, many gaps                        | Its own category: "Unknown"                     | Derive a useful feature (e.g. cabin deck)        | Mode (invents a false majority)   |
+| Boolean flag                                  | "Unknown" category or mode, plus a flag         | —                                                | Silently filling with False       |
+| Time series (daily sales, sensor)             | Carry forward within each entity (`ffill`)      | Interpolation over time                          | Filling across different entities |
+| Free text                                     | Empty string or "unknown"                       | Features such as "has comment"                   | —                                 |
+| IDs, keys and the **target**                  | Don't impute: recover the value or drop the row | —                                                | Any fill                          |
 
 ```python
 titanic_filled = titanic.copy()
@@ -8981,13 +8983,13 @@ train_d = pd.get_dummies(train_cats, dtype=int)
 test_d = pd.get_dummies(test_cats, dtype=int).reindex(columns=train_d.columns, fill_value=0)
 ```
 
-| Choice | When |
-| --- | --- |
-| `drop_first=True` / `OneHotEncoder(drop="first")` | Unregularised linear and logistic regression (avoids the dummy variable trap) |
-| Keep all columns | Tree-based models, regularised models, kNN |
-| `min_frequency=` or group rare levels into "Other" | Columns with many rare categories (high cardinality) |
-| `OrdinalEncoder` with an explicit order | Ordered categories (Poor < Fair < Good < Excellent) |
-| Keep missing as its own category | When missingness is informative (`dummy_na=True`) |
+| Choice                                             | When                                                                          |
+| -------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `drop_first=True` / `OneHotEncoder(drop="first")`  | Unregularised linear and logistic regression (avoids the dummy variable trap) |
+| Keep all columns                                   | Tree-based models, regularised models, kNN                                    |
+| `min_frequency=` or group rare levels into "Other" | Columns with many rare categories (high cardinality)                          |
+| `OrdinalEncoder` with an explicit order            | Ordered categories (Poor < Fair < Good < Excellent)                           |
+| Keep missing as its own category                   | When missingness is informative (`dummy_na=True`)                             |
 
 > **Watch out:** `get_dummies` applied separately to train and test gives different columns whenever a category appears in only one of them, and returns `True`/`False` instead of 0/1 unless you pass `dtype=int`. A column with hundreds of categories (postcodes, product IDs) explodes into hundreds of columns: group rare levels or use a different encoding. Encoding an ordered scale as one-hot throws away the order.
 
