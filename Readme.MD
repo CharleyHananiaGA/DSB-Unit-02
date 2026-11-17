@@ -4,7 +4,7 @@
 
 [Repository guide and slide-deck completeness tracker](UNIT_GUIDE.md) — unit contents, PDF slide decks, and missing materials.
 
-Key terms, functions and methods from the EDA unit (Unit 2), running from Python basics to APIs. Each of the 476 entries says what the term means, where it appears in the course, and (where relevant) shows working code you can copy into your own notebooks. The [Unit 3 glossary](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD) (machine learning) continues the numbering from section 12 and links back to entries here.
+Key terms, functions and methods from the EDA unit (Unit 2), running from Python basics to APIs. Each of the 483 entries says what the term means, where it appears in the course, and (where relevant) shows working code you can copy into your own notebooks. The [Unit 3 glossary](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD) (machine learning) continues the numbering from section 12 and links back to entries here.
 
 <a id="how-to-read-the-examples"></a>
 
@@ -78,17 +78,17 @@ A few entries build a small table on the spot (such as the four-customer table f
 
 <a id="for-your-capstone"></a>
 
-**For your capstone.** Every section opens with an **In your capstone** line saying when to reach for its methods. Section 00, the [Capstone playbook: the data stage](#s00-capstone-playbook-the-data-stage) (placed after section 11), walks the data stage of a project from question to model-ready table. It includes a tested EDA template notebook and a common-mistakes checklist. Unit 3's [Capstone playbook](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#s38-capstone-playbook) picks up from there with modelling. Section 00b, the [Capstone code cookbook](#s00b-capstone-code-cookbook), has complete, tested recipes for every step of the data stage, from importing every sheet of an Excel workbook, through fixing misspelled categories, validation rules and outliers, to charting the target against each feature; its [code finder](#find-the-code-you-need) maps the task you have to the recipe you need.
+**For your capstone.** Every section opens with an **In your capstone** line saying when to reach for its methods. Section 00, the [Capstone playbook: the data stage](#s00-capstone-playbook-the-data-stage) (placed after section 11), walks the data stage of a project from question to model-ready table. It includes a tested EDA template notebook and a common-mistakes checklist. Unit 3's [Capstone playbook](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#s38-capstone-playbook) picks up from there with modelling. Section 00b, the [Capstone code cookbook](#s00b-capstone-code-cookbook), has complete, tested recipes for every step of the data stage, from importing every sheet of an Excel workbook, through fixing misspelled categories, validation rules and outliers, to charting the target against each feature; its [code finder](#find-the-code-you-need) maps the task you have to the recipe you need. To plan the EDA for the model you're heading for, start with the [EDA checklist by model type](#eda-checklist-by-model-type).
 
 <a id="audio-summary"></a>
 
 **AI audio summary.** An AI-generated audio overview of the glossary's contents and key ideas, useful for revision on the go. It's a summary, not a substitute: where anything differs, the written entries are the reference.
 
 <audio controls preload="none" style="width:100%;max-width:560px">
-  <source src="assets/AISummaryEDA.m4a" type="audio/mp4">
+  <source src="assets/AIAudioSummaryEDA.m4a" type="audio/mp4">
 </audio>
 
-[Listen to or download the audio summary (AISummaryEDA.m4a)](assets/AISummaryEDA.m4a). GitHub doesn't play audio inside a README, so on github.com this link opens the file's page instead. The file is stored with Git LFS, so use the **Download** button there (**View raw** also works). It plays directly in the [HTML glossary](https://charleyhananiaga.github.io/DSB-Unit-02/#audio-summary).
+[Listen to or download the audio summary (AIAudioSummaryEDA.m4a)](assets/AIAudioSummaryEDA.m4a). GitHub doesn't play audio inside a README, so on github.com this link opens the file's page instead. Use the **Download** or **View raw** button there to play it. It plays directly in the [HTML glossary](https://charleyhananiaga.github.io/DSB-Unit-02/assets/ds-eda-glossary.html#audio-summary).
 
 <a id="contents"></a>
 
@@ -118,11 +118,11 @@ A few entries build a small table on the spot (such as the four-customer table f
 
 ## Concept map
 
-The whole unit on one page: 12 modules, grouped into themes, with 245 key concepts. Modules run clockwise from the top right, and every concept has a matching entry.
+The whole unit on one page: 13 modules, grouped into themes, with 287 key concepts. Modules run clockwise from the top right, and every concept has a matching entry.
 
 [![Concept map of the EDA unit](assets/ds-eda-glossary-mindmap.png)](https://charleyhananiaga.github.io/DSB-Unit-02/assets/ds-eda-glossary-mindmap.svg)
 
-GitHub shows SVG files as static pictures, so the links inside the map only work in two places: the [interactive map on the glossary website](https://charleyhananiaga.github.io/DSB-Unit-02/assets/ds-eda-glossary-mindmap.svg) (also embedded in the [HTML glossary](https://charleyhananiaga.github.io/DSB-Unit-02/#concept-map)), or a downloaded copy of [`assets/ds-eda-glossary-mindmap.svg`](assets/ds-eda-glossary-mindmap.svg) opened in a browser. On GitHub, use the linked outline below instead: it is the same map, and every link works here.
+GitHub shows SVG files as static pictures, so the links inside the map only work in two places: the [interactive map on the glossary website](https://charleyhananiaga.github.io/DSB-Unit-02/assets/ds-eda-glossary-mindmap.svg) (also embedded in the [HTML glossary](https://charleyhananiaga.github.io/DSB-Unit-02/assets/ds-eda-glossary.html#concept-map)), or a downloaded copy of [`assets/ds-eda-glossary-mindmap.svg`](assets/ds-eda-glossary-mindmap.svg) opened in a browser. On GitHub, use the linked outline below instead: it is the same map, and every link works here.
 
 The same map as a linked outline:
 
@@ -186,8 +186,16 @@ The same map as a linked outline:
   - _Using APIs well:_ [API key](#api-key), [Environment variables](#environment-variables-and-env-files), [Rate limit](#rate-limit), [Pagination](#pagination), [Caching API responses](#caching-api-responses), [API documentation](#api-documentation)
 - **[00. Capstone playbook](#s00-capstone-playbook-the-data-stage)**
   - _Plan:_ [Frame the question](#frame-the-question-and-the-target), [Data checklist](#data-understanding-checklist), [Cleaning workflow](#cleaning-workflow)
-  - _Decide:_ [Missing-data decisions](#missing-data-decisions), [Outlier decisions](#outlier-decisions), [Leakage check](#leakage-check-known-at-prediction-time), [Model choice](#eda-findings-that-shape-model-choice)
+  - _Decide:_ [Missing-data decisions](#missing-data-decisions), [Outlier decisions](#outlier-decisions), [Leakage check](#leakage-check-known-at-prediction-time), [Model choice](#eda-findings-that-shape-model-choice), [EDA by model type](#eda-checklist-by-model-type)
   - _Deliver:_ [Pipelines](#feature-engineering-inside-pipelines), [EDA template](#eda-template-notebook), [Mistakes checklist](#capstone-common-mistakes-checklist), [Version changes](#library-version-changes-to-know), [Reproducibility](#reproducibility-habits)
+- **[00b. Code cookbook](#s00b-capstone-code-cookbook)**
+  - _Set up and import:_ [Notebook setup](#capstone-notebook-setup), [Cleaning log](#keep-a-cleaning-log), [CSV and TSV](#import-csv-and-tsv-files), [Parquet, JSON, SQL](#import-parquet-json-and-other-formats), [Every Excel sheet](#import-every-sheet-from-an-excel-workbook), [Read and save any file](#read-and-save-every-file-type), [Large files](#work-with-large-files-and-reduce-memory)
+  - _Inspect:_ [List your DataFrames](#list-the-dataframes-you-ve-created-and-their-columns), [Quick profile](#profile-a-dataset-quickly), [Data dictionary](#build-a-data-dictionary-from-your-data), [Better data types](#better-than-default-data-types), [Python-style names](#python-style-names-for-sheets-and-columns)
+  - _Clean:_ [Standardise text](#standardise-text-spacing-case-and-punctuation), [Fix misspellings](#fix-misspelled-and-inconsistent-categories), [Extract from text](#split-and-extract-values-from-text), [Clean dates](#clean-and-validate-dates-and-times), [Validation rules](#define-validation-rules-and-check-your-data), [Outliers](#detect-and-treat-outliers)
+  - _Shape and combine:_ [Filter rows](#filter-rows-a-cheat-sheet), [Select columns](#select-drop-and-reorder-columns), [Wide and long](#reshape-between-wide-and-long-formats), [Join safely](#join-dataframes-safely), [Duplicates](#find-and-handle-duplicates)
+  - _Missing data:_ [Missing audit](#audit-missing-values-by-field-type), [missingno charts](#visualise-missing-data-with-missingno), [Fill by field type](#fill-gaps-by-field-type), [Fill with models](#fill-gaps-with-models), [Leak-free pipeline](#leak-free-imputation-and-encoding-in-a-pipeline)
+  - _Transform and chart:_ [Apply functions](#apply-functions-to-columns-rows-and-groups), [One-hot encoding](#one-hot-encoding-done-right), [Group summaries](#summarise-by-group), [Distributions](#eda-charts-distributions), [Categories and target](#eda-charts-categories-and-the-target), [Relationships and time](#eda-charts-relationships-correlation-and-time), [Plot helpers](#reusable-eda-plotting-helpers), [Export](#export-clean-data-and-figures)
+  - _EDA by model type:_ [Regression target](#eda-for-a-regression-target), [Classification target](#eda-for-a-classification-target), [Time series and panels](#eda-for-time-series-and-panel-data), [Clustering and PCA](#eda-for-clustering-and-pca), [Recommender data](#eda-for-recommender-data)
 
 ---
 
@@ -1550,7 +1558,7 @@ See also: [np.polyfit()](#np-polyfit), [Scatter plot](#scatter-plot), [Simple li
 
 _pandas is the main tool of the course. This section covers getting data in, looking at it, and picking out the rows and columns you want. Most examples use the LEGO dataset from the course repo. pandas 3 changed two things you'll meet at once: text columns have their own `str` dtype, and Copy-on-Write decides when a selection is a separate copy._
 
-**In your capstone:** this is the first hour of every project. Load the raw file with explicit options (separator, missing-value markers, dates), then run `.shape`, `.info()`, `.describe()`, `.head()` and `.value_counts()` on every column you plan to use. Write down what each column means and its unit before you change anything. Copy-paste recipes: [Import CSV and TSV files](#import-csv-and-tsv-files), [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook), [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory), [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns), [Profile a dataset quickly](#profile-a-dataset-quickly), [Build a data dictionary from your data](#build-a-data-dictionary-from-your-data), [Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet).
+**In your capstone:** this is the first hour of every project. Load the raw file with explicit options (separator, missing-value markers, dates), then run `.shape`, `.info()`, `.describe()`, `.head()` and `.value_counts()` on every column you plan to use. Write down what each column means and its unit before you change anything. Copy-paste recipes: [Import CSV and TSV files](#import-csv-and-tsv-files), [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook), [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory), [List the DataFrames you've created and their columns](#list-the-dataframes-you-ve-created-and-their-columns), [Profile a dataset quickly](#profile-a-dataset-quickly), [Build a data dictionary from your data](#build-a-data-dictionary-from-your-data), [Filter rows: a cheat sheet](#filter-rows-a-cheat-sheet). For every other format and for saving, see [Read and save every file type](#read-and-save-every-file-type).
 
 <a id="pandas"></a>
 
@@ -1699,7 +1707,7 @@ rock.head(2)
 
 > **Watch out:** `na_filter=False` matters for the drinks data: the continent code for North America is `"NA"`, which pandas would otherwise turn into missing values.
 
-See also: [Cookbook: Import CSV and TSV files](#import-csv-and-tsv-files)
+See also: [Cookbook: Import CSV and TSV files](#import-csv-and-tsv-files), [Cookbook: Read and save every file type](#read-and-save-every-file-type)
 
 <a id="read-csv-options-for-messy-files"></a>
 
@@ -1751,7 +1759,7 @@ cpi = pd.read_json("https://raw.githubusercontent.com/CharleyHananiaGA/DSB-Unit-
 
 > **Watch out:** check what a column really measures before you trust its name. The course's `cpi.json` has a column called `avg_cpi`, but according to the course notes each value is the **March** index for that year (80.1 for 1980, 312.332 for 2024), not the annual average. That's fine for practising joins, but describe it accurately in any analysis.
 
-See also: [Cookbook: Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats)
+See also: [Cookbook: Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats), [Cookbook: Read and save every file type](#read-and-save-every-file-type)
 
 <a id="to-csv"></a>
 
@@ -1767,7 +1775,7 @@ filtered.to_csv("lego_filtered.csv", index=False)   # index=False: don't write 0
 pd.read_csv("lego_filtered.csv").shape == filtered.shape   # True: the round trip worked
 ```
 
-See also: [Cookbook: Export clean data and figures](#export-clean-data-and-figures)
+See also: [Cookbook: Export clean data and figures](#export-clean-data-and-figures), [Cookbook: Read and save every file type](#read-and-save-every-file-type)
 
 <a id="excel-files-read-excel-and-to-excel"></a>
 
@@ -1790,7 +1798,7 @@ pd.read_excel("lego_summary.xlsx", sheet_name="by_theme_group").head(3)
 
 > **Watch out:** if `read_excel` fails with `ImportError: Missing optional dependency 'openpyxl'`, install it (`%pip install openpyxl`) and restart the kernel. Excel can't hold more than 1,048,576 rows on a sheet, so keep large tables as CSV.
 
-See also: [.to_csv()](#to-csv), [pd.read_csv()](#pd-read-csv), [Data dictionary](#data-dictionary), [Cookbook: Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook)
+See also: [.to_csv()](#to-csv), [pd.read_csv()](#pd-read-csv), [Data dictionary](#data-dictionary), [Cookbook: Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook), [Cookbook: Read and save every file type](#read-and-save-every-file-type)
 
 <a id="head-and-tail"></a>
 
@@ -2644,7 +2652,7 @@ sets["prev_price_in_theme"] = sets.groupby("Theme")["USD_MSRP"].shift(1)
 
 > **Watch out:** a feature such as "average of all this customer's visits" that includes the current and later rows leaks the future into each row. Use `shift(1)` before `cumsum()` or `expanding().mean()` so each row only uses earlier ones.
 
-See also: [.transform()](#transform), [Data leakage](#data-leakage), [Lag, backshift and shift (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#lag-backshift-and-shift)
+See also: [.transform()](#transform), [Data leakage](#data-leakage), [Lag, backshift and shift (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#lag-backshift-and-shift), [Cookbook: EDA for time series and panel data](#eda-for-time-series-and-panel-data)
 
 <a id="size-and-count"></a>
 
@@ -3015,7 +3023,7 @@ annual_price = lego.set_index("year_date").resample("YS")["USD_MSRP"].median()
 
 > **Watch out:** pandas 2.2 renamed the "end of period" codes and pandas 3 removed the old ones: `"M"` is now `"ME"` (month end), `"Y"`/`"A"` is `"YE"`, `"Q"` is `"QE"` and `"H"` is `"h"`. The "start of period" codes `"MS"`, `"QS"` and `"YS"` are unchanged. Older notebooks that use `resample("M")` now raise a `ValueError`.
 
-See also: [Granularity](#granularity)
+See also: [Granularity](#granularity), [Cookbook: EDA for time series and panel data](#eda-for-time-series-and-panel-data)
 
 <a id="to-period"></a>
 
@@ -5216,7 +5224,7 @@ See also: [SimpleImputer](#simpleimputer), [MAR (Missing At Random)](#mar-missin
 
 _Exploring data with a machine learning model in mind: random variables, distributions and model choice, correlation, standardization, correlation vs causation, plus the handful of scikit-learn basics the notebooks use to show why all this matters._
 
-**In your capstone:** this is the bridge from cleaning to modelling. Identify the target and decide regression or classification, check class balance, look for features that are suspiciously strong (leakage) or redundant (multicollinearity), and let what you find decide the model family and the preprocessing. Fit a simple baseline before anything clever. Copy-paste recipes: [Profile a dataset quickly](#profile-a-dataset-quickly), [Define validation rules and check your data](#define-validation-rules-and-check-your-data), [Detect and treat outliers](#detect-and-treat-outliers), [Summarise by group](#summarise-by-group).
+**In your capstone:** this is the bridge from cleaning to modelling. Identify the target and decide regression or classification, check class balance, look for features that are suspiciously strong (leakage) or redundant (multicollinearity), and let what you find decide the model family and the preprocessing. Fit a simple baseline before anything clever. Copy-paste recipes: [Profile a dataset quickly](#profile-a-dataset-quickly), [Define validation rules and check your data](#define-validation-rules-and-check-your-data), [Detect and treat outliers](#detect-and-treat-outliers), [Summarise by group](#summarise-by-group). Model-specific checks: the [EDA checklist by model type](#eda-checklist-by-model-type), with recipes for [regression](#eda-for-a-regression-target), [classification](#eda-for-a-classification-target), [time series and panel data](#eda-for-time-series-and-panel-data), [clustering and PCA](#eda-for-clustering-and-pca) and [recommenders](#eda-for-recommender-data).
 
 <a id="eda-for-modeling"></a>
 
@@ -5225,6 +5233,8 @@ _Exploring data with a machine learning model in mind: random variables, distrib
 _Concept_
 
 Exploration aimed at building a model: finding relationships in the data, seeing which features correlate with the target, checking model assumptions, and creating new features. Goals from the slides: understand structure and quality, find patterns and anomalies, detect issues to clean, generate hypotheses, inform feature selection and engineering, and guide the choice of algorithm.
+
+See also: [Cookbook: EDA checklist by model type](#eda-checklist-by-model-type)
 
 <a id="garbage-in-garbage-out"></a>
 
@@ -5322,6 +5332,8 @@ See also: [Histogram](#histogram), [Outlier decisions](#outlier-decisions), [Dat
 _Concept_
 
 When one category of the target is much more common than another, e.g. 98% "not fraud" and 2% "fraud". A model can score 98% accuracy by always guessing the majority class, so imbalance changes how you train and evaluate.
+
+See also: [Cookbook: EDA for a classification target](#eda-for-a-classification-target)
 
 <a id="cardinality"></a>
 
@@ -5431,6 +5443,8 @@ X = housing.drop(columns=["price"])
 y = housing["price"]
 ```
 
+See also: [Cookbook: EDA checklist by model type](#eda-checklist-by-model-type)
+
 <a id="regression-vs-classification"></a>
 
 ### Regression vs classification
@@ -5439,6 +5453,8 @@ _Concept_
 
 Two main kinds of supervised machine learning. **Regression** predicts a number (house price). **Classification** predicts a category (species, fraud or not). **Clustering** is unsupervised: it groups rows without a target.
 
+See also: [Cookbook: EDA checklist by model type](#eda-checklist-by-model-type)
+
 <a id="linear-model-assumptions"></a>
 
 ### Linear model assumptions
@@ -5446,6 +5462,8 @@ Two main kinds of supervised machine learning. **Regression** predicts a number 
 _Concept_
 
 Ordinary linear regression assumes a **linear relationship** between features and target, **normally distributed residuals** (the errors), and **homoscedasticity** (residuals with constant spread). Logistic regression assumes a linear relationship with the **log-odds** of the target, but not the other two. Breaking the normality or constant-spread assumptions mainly makes confidence intervals and p-values unreliable. A non-linear relationship is the one that biases the coefficients and the predictions. The fixes are transforming variables (log, square root, Box-Cox) or switching model family.
+
+See also: [Cookbook: EDA for a regression target](#eda-for-a-regression-target)
 
 <a id="residual"></a>
 
@@ -5462,6 +5480,8 @@ The difference between an actual value and the model's prediction for it (actual
 _Concept_
 
 Residuals having roughly the same spread at every level of the prediction. The opposite, **heteroscedasticity**, looks like a funnel shape in a residual plot and is common with skewed targets such as prices.
+
+See also: [Cookbook: EDA for a regression target](#eda-for-a-regression-target)
 
 <a id="tree-based-models"></a>
 
@@ -5535,7 +5555,7 @@ target_corr = (housing_df.corr(numeric_only=True)["median_house_value"]
 target_corr.round(3)            # median_income comes first
 ```
 
-See also: [Correlation matrix](#correlation-matrix), [Pearson correlation coefficient (r)](#pearson-correlation-coefficient-r), [Data leakage](#data-leakage)
+See also: [Correlation matrix](#correlation-matrix), [Pearson correlation coefficient (r)](#pearson-correlation-coefficient-r), [Data leakage](#data-leakage), [Cookbook: EDA for a classification target](#eda-for-a-classification-target)
 
 <a id="anscombe-s-quartet"></a>
 
@@ -5570,7 +5590,7 @@ from scipy import stats
 round(stats.pearsonr(x, y_exp)[0], 3), round(stats.spearmanr(x, y_exp)[0], 3)   # Spearman = 1.0
 ```
 
-See also: [Pearson correlation coefficient (r)](#pearson-correlation-coefficient-r), [Spearman rank correlation](#spearman-rank-correlation), [Anscombe's quartet](#anscombe-s-quartet)
+See also: [Pearson correlation coefficient (r)](#pearson-correlation-coefficient-r), [Spearman rank correlation](#spearman-rank-correlation), [Anscombe's quartet](#anscombe-s-quartet), [Cookbook: EDA for a regression target](#eda-for-a-regression-target)
 
 <a id="spearman-rank-correlation"></a>
 
@@ -5607,6 +5627,8 @@ _Concept_
 
 **Point-biserial**: between a continuous and a binary variable. **Distance correlation**: detects non-linear dependence. **Mutual information**: from information theory, can capture almost any kind of relationship.
 
+See also: [Cookbook: EDA for a classification target](#eda-for-a-classification-target)
+
 <a id="multicollinearity"></a>
 
 ### Multicollinearity
@@ -5635,7 +5657,7 @@ vif = pd.Series([variance_inflation_factor(X.values, i) for i in range(1, X.shap
 vif                       # rooms, bedrooms and households overlap heavily
 ```
 
-See also: [Multicollinearity](#multicollinearity), [Correlation matrix](#correlation-matrix), [Variance inflation factor (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#variance-inflation-factor-vif)
+See also: [Multicollinearity](#multicollinearity), [Correlation matrix](#correlation-matrix), [Variance inflation factor (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#variance-inflation-factor-vif), [Cookbook: EDA for a regression target](#eda-for-a-regression-target)
 
 <a id="principal-component-analysis-pca"></a>
 
@@ -5645,6 +5667,8 @@ _Concept_
 
 A technique that turns many correlated features into fewer uncorrelated "components" capturing most of the variation. Used for multivariate exploration and dimensionality reduction. It needs standardized data. Mentioned in the course; covered properly later.
 
+See also: [Cookbook: EDA for clustering and PCA](#eda-for-clustering-and-pca)
+
 <a id="standardization-feature-scaling"></a>
 
 ### Standardization / feature scaling
@@ -5653,7 +5677,7 @@ _Concept, scikit-learn_
 
 Putting features on comparable scales so that large-valued ones (income in tens of thousands) don't dominate small ones (age). Required or strongly helpful for k-means, PCA, neural networks, regularised regression (Lasso, Ridge), support vector machines and KNN; it also speeds up training and makes coefficients comparable. Tree models barely need it.
 
-See also: [Z-score standardization](#z-score-standardization), [Min-max scaling (normalisation)](#min-max-scaling-normalisation), [Robust scaling](#robust-scaling)
+See also: [Z-score standardization](#z-score-standardization), [Min-max scaling (normalisation)](#min-max-scaling-normalisation), [Robust scaling](#robust-scaling), [Cookbook: EDA for clustering and PCA](#eda-for-clustering-and-pca)
 
 <a id="scaling-and-linear-regression-predictions"></a>
 
@@ -6500,7 +6524,7 @@ np.allclose(pipe.predict(housing[["sqft", "bedrooms"]].head()),
             reloaded.predict(housing[["sqft", "bedrooms"]].head()))     # True
 ```
 
-See also: [Pipeline](#pipeline), [make_pipeline (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#make-pipeline)
+See also: [Pipeline](#pipeline), [make_pipeline (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#make-pipeline), [Cookbook: Read and save every file type](#read-and-save-every-file-type)
 
 <a id="feature-engineering-pitfalls"></a>
 
@@ -6999,7 +7023,7 @@ See also: [Query parameters](#query-parameters), [Rate limit](#rate-limit), [API
 
 _The data stage of a capstone, from question to a clean, model-ready table, in the order you'll do it. Each step links back to the entries that explain the methods. Section 00 is placed after section 11 because it uses all of them. Unit 3's [Capstone playbook](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#s38-capstone-playbook) takes over at modelling._
 
-**In your capstone:** work through these steps in order, keep the checklist answers in your notebook as markdown, and start from the [EDA template notebook](#eda-template-notebook). The decisions you write down here (what you dropped, imputed, capped or engineered, and why) become the methods section of your write-up. For the code itself, use the [Capstone code cookbook](#s00b-capstone-code-cookbook), starting with a [cleaning log](#keep-a-cleaning-log) and [validation rules](#define-validation-rules-and-check-your-data).
+**In your capstone:** work through these steps in order, keep the checklist answers in your notebook as markdown, and start from the [EDA template notebook](#eda-template-notebook). The decisions you write down here (what you dropped, imputed, capped or engineered, and why) become the methods section of your write-up. For the code itself, use the [Capstone code cookbook](#s00b-capstone-code-cookbook), starting with a [cleaning log](#keep-a-cleaning-log) and [validation rules](#define-validation-rules-and-check-your-data). Plan model-specific checks with the [EDA checklist by model type](#eda-checklist-by-model-type).
 
 <a id="frame-the-question-and-the-target"></a>
 
@@ -7206,7 +7230,30 @@ Let what you found decide the next step:
 | Few rows                                                              | simple models, cross-validation, fewer features                                                                                               |
 | Values capped or censored                                             | say so; expect biased errors near the cap                                                                                                     |
 
-See also: [EDA for modeling](#eda-for-modeling), [Tree-based models](#tree-based-models), [Linear model assumptions](#linear-model-assumptions), [Comparing models on the same scale (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#comparing-models-on-the-same-scale), [Choosing a classification metric (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#choosing-a-classification-metric)
+See also: [EDA for modeling](#eda-for-modeling), [Tree-based models](#tree-based-models), [Linear model assumptions](#linear-model-assumptions), [Comparing models on the same scale (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#comparing-models-on-the-same-scale), [Choosing a classification metric (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#choosing-a-classification-metric), [Cookbook: EDA checklist by model type](#eda-checklist-by-model-type)
+
+<a id="eda-checklist-by-model-type"></a>
+
+### EDA checklist by model type
+
+_Concept_
+
+Every capstone EDA covers the basics (target definition, leakage, duplicates, missing values, outliers, a baseline); beyond those, what you must check depends on the **model family** you're heading for. Use this table to plan the EDA notebook, and the linked recipe for the code.
+
+| Model family (Unit 3) | Must check in EDA | Recipe |
+| --- | --- | --- |
+| **Regression**: linear, ridge/lasso, kNN, trees, boosting | Target distribution and skew (log?); shape of each relationship; outliers and leverage; multicollinearity (VIF); spread growing with the target; feature scales (for linear, regularised and kNN models) | [EDA for a regression target](#eda-for-a-regression-target) |
+| **Classification**: logistic, kNN, trees, SVM, boosting | Class balance and the majority baseline; separability by feature; target rate by category, with counts; mutual-information ranking; leakage (a "perfect" feature); stratified split | [EDA for a classification target](#eda-for-a-classification-target) |
+| **Time series forecasting**: ARIMA, SARIMA, VAR, GARCH, lag-feature models | Regular index and gaps; trend; seasonality; changing variance; stationarity (ADF); ACF/PACF; structural breaks; partial last period; chronological split | [EDA for time series and panel data](#eda-for-time-series-and-panel-data) |
+| **Panel data** (many entities over time) | Coverage per entity; gaps; differences between entities; lags and differences within each entity only | [EDA for time series and panel data](#eda-for-time-series-and-panel-data) |
+| **Clustering**: k-means, DBSCAN, hierarchical | Scales and skew; outliers; correlated features; categorical features; PCA projection; spread of distances | [EDA for clustering and PCA](#eda-for-clustering-and-pca) |
+| **Dimensionality reduction**: PCA | Scaling; correlation structure; explained variance | [EDA for clustering and PCA](#eda-for-clustering-and-pca) |
+| **Recommenders** | Sparsity; rating scale and distribution; long tail; user generosity; cold start; popularity baseline | [EDA for recommender data](#eda-for-recommender-data) |
+| **Every model** | Target and unit of analysis; leakage; duplicates; missing values; outliers; baseline; EDA on the training split | [Data-understanding checklist](#data-understanding-checklist), [Leakage check](#leakage-check-known-at-prediction-time), [Audit missing values](#audit-missing-values-by-field-type) |
+
+Finish the EDA notebook with a short table of findings and the decision each one leads to (transformations, exclusions, features, split, metric), so the modelling notebook can start from it.
+
+See also: [EDA findings that shape model choice](#eda-findings-that-shape-model-choice), [EDA template notebook](#eda-template-notebook), [Choosing an approach by question type (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#choosing-an-approach-by-question-type)
 
 <a id="eda-template-notebook"></a>
 
@@ -7428,7 +7475,7 @@ See also: [Random seed](#random-seed), [random_state](#random-state), [Caching A
 
 ## 00b. Capstone code cookbook
 
-_Complete, copy-paste recipes for the data stage of a capstone, named by the job you're trying to do rather than by the function that does it. They run in the order you'll need them: set up the notebook and a cleaning log; import the data (CSV, TSV, Parquet, Excel with every sheet, large files); see and profile what you've loaded; standardise text and fix misspelled categories; extract values from text; clean dates; check the data against validation rules; handle outliers; filter, reshape and join; find duplicates; audit and fill missing values; apply functions; encode categories; summarise by group; and chart everything. Every block runs as written after the [setup block](#how-to-read-the-examples); the entries in sections 3–10 explain the methods behind each line._
+_Complete, copy-paste recipes for the data stage of a capstone, named by the job you're trying to do rather than by the function that does it. They run in the order you'll need them: set up the notebook and a cleaning log; import and save the data (CSV, TSV, Parquet, Excel with every sheet, every other common format, large files); see and profile what you've loaded; standardise text and fix misspelled categories; extract values from text; clean dates; check the data against validation rules; handle outliers; filter, reshape and join; find duplicates; audit and fill missing values; apply functions; encode categories; summarise by group; chart everything; and run the extra checks your model type needs (regression, classification, time series and panel data, clustering and PCA, recommenders). Every block runs as written after the [setup block](#how-to-read-the-examples); the entries in sections 3–10 explain the methods behind each line._
 
 **In your capstone:** start from the [code finder](#find-the-code-you-need) below, copy the recipe that matches your task, then change the file names and column names to your own. Keep the helper functions (the Excel importer, the reports and the chart helpers) in one cell near the top of your notebook, or in a `helpers.py` file you import.
 
@@ -7445,6 +7492,7 @@ _Concept_
 | Load a CSV or TSV file, or a whole folder of them                    | [Import CSV and TSV files](#import-csv-and-tsv-files)                                                         | [pd.read_csv()](#pd-read-csv), [read_csv() options for messy files](#read-csv-options-for-messy-files) |
 | Load Parquet, JSON, SQL or a web table                               | [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats)                              | [pd.read_json()](#pd-read-json), [pd.json_normalize()](#pd-json-normalize)                             |
 | Load a file that's too big, or make a table use less memory          | [Work with large files and reduce memory](#work-with-large-files-and-reduce-memory)                           | [.info()](#info), [.sample()](#sample)                                                                 |
+| Read or save any file type (CSV, Excel, Parquet, Feather, pickle, JSON, SQL, text, zip) | [Read and save every file type](#read-and-save-every-file-type) | [Excel files](#excel-files-read-excel-and-to-excel), [.to_csv()](#to-csv) |
 | Load **every sheet** of an Excel workbook into its own DataFrame     | [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook)                       | [Excel files](#excel-files-read-excel-and-to-excel)                                                    |
 | Make sheet and column names Python-style (no spaces)                 | [Python-style names for sheets and columns](#python-style-names-for-sheets-and-columns)                       | [.rename()](#rename), [.columns](#columns)                                                             |
 | Fix "everything is text" columns: numbers, dates, yes/no, categories | [Better-than-default data types](#better-than-default-data-types)                                             | [.astype()](#astype), [dtype](#dtype)                                                                  |
@@ -7474,6 +7522,12 @@ _Concept_
 | Plot categories and how the target varies                            | [EDA charts: categories and the target](#eda-charts-categories-and-the-target)                                | [Bar chart](#bar-chart), [pd.crosstab()](#pd-crosstab)                                                 |
 | Plot relationships, correlations and trends over time                | [EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time)             | [Scatter plot](#scatter-plot), [Heatmap](#heatmap)                                                     |
 | Make every chart in one go with reusable functions                   | [Reusable EDA plotting helpers](#reusable-eda-plotting-helpers)                                               | [plt.subplots()](#plt-subplots)                                                                        |
+| Explore a numeric target before regression | [EDA for a regression target](#eda-for-a-regression-target) | [Linear model assumptions](#linear-model-assumptions), [VIF](#variance-inflation-factor-vif) |
+| Explore a categorical target before classification | [EDA for a classification target](#eda-for-a-classification-target) | [Class imbalance](#class-imbalance), [Correlation with the target](#correlation-with-the-target) |
+| Explore a time series or many entities over time before forecasting | [EDA for time series and panel data](#eda-for-time-series-and-panel-data) | [.resample()](#resample), [shift(), diff() and cumulative sums](#shift-diff-and-cumulative-sums) |
+| Explore data before clustering or PCA | [EDA for clustering and PCA](#eda-for-clustering-and-pca) | [Principal Component Analysis (PCA)](#principal-component-analysis-pca), [Standardization / feature scaling](#standardization-feature-scaling) |
+| Explore ratings or clicks before building a recommender | [EDA for recommender data](#eda-for-recommender-data) | [Summarise by group](#summarise-by-group) |
+| Plan which EDA checks my model type needs | [EDA checklist by model type](#eda-checklist-by-model-type) | [EDA findings that shape model choice](#eda-findings-that-shape-model-choice) |
 | Save clean data and figures                                          | [Export clean data and figures](#export-clean-data-and-figures)                                               | [.to_csv()](#to-csv)                                                                                   |
 
 <a id="capstone-notebook-setup"></a>
@@ -7674,6 +7728,101 @@ Other levers: `usecols=` and `dtype=` in `read_csv` (load only what you need, wi
 > **Watch out:** downcasting floats to `float32` loses precision, so only do it when you're sure it doesn't matter (this helper leaves floats alone). Results from a sample are estimates: say so, and confirm key numbers on the full data.
 
 See also: [.info()](#info), [.sample()](#sample), [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats), [Better-than-default data types](#better-than-default-data-types)
+
+<a id="read-and-save-every-file-type"></a>
+
+### Read and save every file type
+
+_pandas, Python_
+
+One place for the read and write call of every format you're likely to meet in a capstone, with the options that matter. Each pair writes a file to `outputs/` and reads it back, so you can run the cell and compare. Choose the format with the table at the end: the key question is whether it **keeps your data types**.
+
+```python
+import io
+import sqlite3
+import zipfile
+
+sample = titanic.head(100)
+
+# CSV: universal, but every column comes back as text or numbers (re-parse dates, categories, codes)
+sample.to_csv(OUT_DIR / "titanic.csv", index=False)                    # index=False: no 'Unnamed: 0' column on reload
+pd.read_csv(OUT_DIR / "titanic.csv")
+sample.to_csv(OUT_DIR / "titanic_for_excel.csv", index=False, encoding="utf-8-sig")   # accents display correctly in Excel
+sample.to_csv(OUT_DIR / "titanic_eu.csv", index=False, sep=";", decimal=",")          # European Excel convention
+pd.read_csv(OUT_DIR / "titanic_eu.csv", sep=";", decimal=",")
+sample.to_csv(OUT_DIR / "titanic.csv.gz", index=False)                 # compressed: inferred from the extension
+pd.read_csv(OUT_DIR / "titanic.csv.gz")                                # .gz, .zip, .bz2, .xz read the same way
+dated = ufo.head(50).assign(Time=lambda d: pd.to_datetime(d["Time"], format="mixed"))
+dated.to_csv(OUT_DIR / "ufo_sample.csv", index=False, date_format="%Y-%m-%d %H:%M")   # control how dates are written
+pd.read_csv(OUT_DIR / "ufo_sample.csv", parse_dates=["Time"])          # ...and parse them again on the way back
+sample.to_csv(OUT_DIR / "titanic.tsv", sep="\t", index=False)          # TSV: tab-separated
+pd.read_csv(OUT_DIR / "titanic.tsv", sep="\t")
+
+# Excel (needs openpyxl): one sheet, several sheets, or add a sheet to an existing workbook
+sample.to_excel(OUT_DIR / "titanic.xlsx", sheet_name="passengers", index=False)
+pd.read_excel(OUT_DIR / "titanic.xlsx", sheet_name="passengers")
+with pd.ExcelWriter(OUT_DIR / "report.xlsx") as writer:
+    sample.to_excel(writer, sheet_name="data", index=False)
+    sample.describe().to_excel(writer, sheet_name="summary")
+with pd.ExcelWriter(OUT_DIR / "report.xlsx", mode="a", engine="openpyxl",   # appending needs openpyxl
+                    if_sheet_exists="replace") as writer:
+    sample.head(10).to_excel(writer, sheet_name="first_10", index=False)
+list(pd.read_excel(OUT_DIR / "report.xlsx", sheet_name=None))         # every sheet: ['data', 'summary', 'first_10']
+
+# Parquet and Feather (need pyarrow): fast, compact, and they keep every dtype
+sample.to_parquet(OUT_DIR / "titanic.parquet", index=False)
+pd.read_parquet(OUT_DIR / "titanic.parquet", columns=["Name", "Survived"])   # read only some columns
+sample.reset_index(drop=True).to_feather(OUT_DIR / "titanic.feather")         # Feather needs a default index
+pd.read_feather(OUT_DIR / "titanic.feather")
+
+# Pickle: any Python object, exactly as it was (trusted files only; see Watch out)
+sample.to_pickle(OUT_DIR / "titanic.pkl")
+pd.read_pickle(OUT_DIR / "titanic.pkl")
+
+# JSON: records (a list of objects) or JSON Lines (one object per line, good for logs and API dumps)
+sample.to_json(OUT_DIR / "titanic.json", orient="records", indent=2)
+pd.read_json(OUT_DIR / "titanic.json", orient="records")
+sample.to_json(OUT_DIR / "titanic.jsonl", orient="records", lines=True)
+pd.read_json(OUT_DIR / "titanic.jsonl", lines=True)
+
+# SQL (SQLite needs no server): write tables, then query them with SQL
+with sqlite3.connect(OUT_DIR / "capstone.db") as con:
+    sample.to_sql("titanic", con, if_exists="replace", index=False)
+    by_class = pd.read_sql("SELECT Pclass, AVG(Survived) AS survival_rate FROM titanic GROUP BY Pclass", con)
+
+# plain text, fixed-width text and HTML tables
+(OUT_DIR / "notes.txt").write_text("first line\nsecond line\n", encoding="utf-8")
+lines = (OUT_DIR / "notes.txt").read_text(encoding="utf-8").splitlines()
+pd.read_fwf(io.StringIO("id  name   score\n1   Ann    91.5\n2   Bob    78.0\n"))   # columns aligned by position
+pd.read_html(io.StringIO("<table><tr><th>a</th><th>b</th></tr><tr><td>1</td><td>2</td></tr></table>"))[0]
+# pd.read_html("https://...") returns every <table> on a web page as a list of DataFrames (needs lxml)
+
+# a zip archive holding several files
+with zipfile.ZipFile(OUT_DIR / "bundle.zip", "w") as z:
+    z.write(OUT_DIR / "titanic.csv", arcname="titanic.csv")
+    z.write(OUT_DIR / "titanic.tsv", arcname="titanic.tsv")
+with zipfile.ZipFile(OUT_DIR / "bundle.zip") as z:
+    names = z.namelist()                                               # ['titanic.csv', 'titanic.tsv']
+    with z.open("titanic.tsv") as f:
+        from_zip = pd.read_csv(f, sep="\t")
+```
+
+| Format | Keeps dtypes? | Size and speed | Opens in Excel? | Best for |
+| --- | --- | --- | --- | --- |
+| CSV / TSV | No: dates, categories and leading zeros are lost | Large, slow | Yes | Sharing, submissions, any tool |
+| Compressed CSV (`.csv.gz`) | No | Small, slow | After unzipping | Large exports and downloads |
+| Excel (`.xlsx`) | Partly: numbers and dates, not categories | Slow | Yes | Tables for stakeholders, several sheets |
+| Parquet | Yes | Small, fast | No | Clean data passed between notebooks |
+| Feather | Yes | Very fast | No | Short-term caches on one machine |
+| Pickle | Yes, any Python object | Fast | No | Temporary saves you created yourself |
+| JSON / JSON Lines | No: everything is text, numbers or true/false | Large | No | API responses, nested data |
+| SQLite | Basic types | Medium | No | Several related tables; querying data too big for memory |
+
+Figures are saved with `fig.savefig(path, dpi=150, bbox_inches="tight")`, and fitted models or pipelines with `joblib.dump()`.
+
+> **Watch out:** never `read_pickle` (or `joblib.load`) a file from a source you don't trust: unpickling can run arbitrary code. Pickles can also fail to load under a different pandas version, so use Parquet for anything you'll keep. Appending a sheet to an existing workbook only works with the `openpyxl` engine, so name it: if `xlsxwriter` is installed (it comes with Anaconda), pandas uses it by default for writing and raises "Append mode is not supported". Watch for values that pandas turns into missing on reading: by default `"NA"`, `"N/A"`, `"null"` and empty strings all become `NaN`, which silently deletes North America (`"NA"`) from the course's `drinks` data. Use `keep_default_na=False, na_values=[""]` when a real code looks like a missing-value marker.
+
+See also: [Import CSV and TSV files](#import-csv-and-tsv-files), [Import Parquet, JSON and other formats](#import-parquet-json-and-other-formats), [Import every sheet from an Excel workbook](#import-every-sheet-from-an-excel-workbook), [Export clean data and figures](#export-clean-data-and-figures), [Saving a fitted pipeline (joblib)](#saving-a-fitted-pipeline-joblib)
 
 <a id="python-style-names-for-sheets-and-columns"></a>
 
@@ -9254,6 +9403,324 @@ fig.savefig(OUT_DIR / "survival_by_feature.png", dpi=150, bbox_inches="tight")
 
 See also: [plt.subplots()](#plt-subplots), [Subplot grids: subplot, add_subplot, delaxes and suptitle](#subplot-grids-subplot-add-subplot-delaxes-and-suptitle), [Figure-level vs axes-level seaborn functions](#figure-level-vs-axes-level-seaborn-functions)
 
+<a id="eda-for-a-regression-target"></a>
+
+### EDA for a regression target
+
+_pandas, seaborn, scikit-learn, statsmodels_
+
+Before a regression model (linear, ridge/lasso, kNN, trees, boosting), check five things: the **shape of the target** (is a log transform worth trying?), the **shape of each relationship** (straight lines or curves?), **outliers and leverage**, **multicollinearity** among the features, and **spread that grows with the target** (heteroscedasticity). Explore the training split only, so nothing you learn comes from the test rows. The course's car data (`auto`) predicts fuel economy (`mpg`).
+
+```python
+from scipy import stats
+import statsmodels.api as sm
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.model_selection import train_test_split
+
+cars = auto.copy()
+cars["horsepower"] = pd.to_numeric(cars["horsepower"], errors="coerce")   # '?' placeholders -> missing (6 cars)
+target = "mpg"
+features = ["weight", "horsepower", "displacement", "acceleration", "model year", "cylinders"]
+train, test = train_test_split(cars, test_size=0.2, random_state=RANDOM_STATE)   # explore TRAIN only
+
+# 1. the target's shape: skew, and whether a log scale makes it more symmetric
+fig, axes = plt.subplots(1, 3, figsize=(14, 3.5))
+sns.histplot(train[target], kde=True, ax=axes[0])
+axes[0].set_title(f"{target}: skew {train[target].skew():.2f}")
+sns.histplot(np.log(train[target]), kde=True, ax=axes[1])
+axes[1].set_title(f"log({target}): skew {np.log(train[target]).skew():.2f}")
+stats.probplot(np.log(train[target]), dist="norm", plot=axes[2])
+axes[2].set_title(f"Q-Q plot of log({target})")
+fig.tight_layout()
+
+
+# 2. the shape of each relationship: the mean target in equal-sized bins of each feature
+def binned_means(df, feature, target, bins=10):
+    """Mean target per equal-count bin of a feature: reveals curves a correlation would miss."""
+    groups = pd.qcut(df[feature], q=bins, duplicates="drop")
+    return df.groupby(groups, observed=True)[target].agg(["mean", "size"])
+
+
+fig, axes = plt.subplots(1, len(features), figsize=(3.2 * len(features), 3.2), sharey=True)
+for ax, feature in zip(axes, features):
+    means = binned_means(train, feature, target)
+    ax.plot([interval.mid for interval in means.index], means["mean"], marker="o")
+    ax.set(title=feature, xlabel="")
+axes[0].set_ylabel(f"mean {target}")
+fig.suptitle("Curves here suggest log transforms or polynomial terms")
+fig.tight_layout()
+
+# 3. strength of each relationship; a big Pearson/Spearman gap signals a curve or outliers
+pd.DataFrame({"pearson": train[features].corrwith(train[target]),
+              "spearman": train[features].corrwith(train[target], method="spearman")}).round(2)
+
+# 4. multicollinearity: VIF above about 5-10 means a feature is largely predictable from the others
+X_vif = sm.add_constant(train[features].dropna())
+pd.Series([variance_inflation_factor(X_vif.values, i) for i in range(1, X_vif.shape[1])],
+          index=features, name="VIF").round(1).sort_values(ascending=False)
+
+# 5. a first look at curvature and spread: residuals from a straight-line fit on the strongest feature
+fig, ax = plt.subplots(figsize=(6, 3.5))
+sns.residplot(data=train, x="weight", y=target, lowess=True, ax=ax,
+              scatter_kws={"alpha": 0.4}, line_kws={"color": "orange"})
+ax.set_title("Curved residuals and a widening spread: try log(mpg)")
+```
+
+On this data, `displacement` (VIF 19), `cylinders`, `weight` and `horsepower` (each around 10) are strongly related to each other (they measure engine size in different ways), so keep one or two of them, combine them, or use regularisation. The binned means and residual plot show curved relationships, which a log of the target or of the features usually straightens.
+
+> **Watch out:** a target that's skewed isn't automatically a problem (the model's **residuals** are what the assumptions are about), but a long right tail often means a log transform helps both fit and interpretation. Decide on transformations from the training split, and apply the same ones to the test split.
+
+See also: [Linear model assumptions](#linear-model-assumptions), [Variance inflation factor (VIF)](#variance-inflation-factor-vif), [Correlation with the target](#correlation-with-the-target), [Nonlinear relationships and correlation](#nonlinear-relationships-and-correlation), [Log-transforming the target (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#log-transforming-the-target), [Residual plot (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#residual-plot)
+
+<a id="eda-for-a-classification-target"></a>
+
+### EDA for a classification target
+
+_pandas, seaborn, scikit-learn_
+
+Before a classifier (logistic regression, kNN, trees, SVM, boosting), check: the **class balance** (which sets the baseline and the metric), **how well each feature separates the classes**, **target rates by category with their counts**, and a **ranking of features** by how much information they carry about the target. Explore the training split only, stratified so it keeps the class balance.
+
+```python
+from sklearn.feature_selection import mutual_info_classif
+
+target = "Survived"
+train, test = train_test_split(titanic, test_size=0.2, stratify=titanic[target], random_state=RANDOM_STATE)
+
+# 1. class balance -> the majority-class baseline and the right metric
+balance = train[target].value_counts(normalize=True).round(3)
+balance                                       # 0: 0.617, 1: 0.383 -> "always predict 0" scores 61.7% accuracy
+
+# 2. separability: does each numeric feature's distribution differ between the classes?
+numeric = ["Age", "Fare", "SibSp", "Parch"]
+fig, axes = plt.subplots(1, len(numeric), figsize=(15, 3.2))
+for ax, feature in zip(axes, numeric):
+    sns.kdeplot(data=train, x=feature, hue=target, common_norm=False, fill=True, alpha=0.3,
+                log_scale=(feature == "Fare"), ax=ax)
+    ax.set_title(feature)
+fig.tight_layout()
+
+# effect size: difference in class means, in standard deviations (about 0.2 small, 0.5 medium, 0.8 large)
+means = train.groupby(target)[numeric].mean()
+((means.loc[1] - means.loc[0]) / train[numeric].std()).round(2).sort_values()
+
+# 3. target rate by category, with the number of rows behind each rate
+for col in ["Sex", "Pclass", "Embarked"]:
+    display(train.groupby(col)[target].agg(rate="mean", rows="size").round(3))
+
+# 4. rank every feature by mutual information (captures non-linear and categorical relationships)
+X = train[["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]].copy()
+X["Sex"] = (X["Sex"] == "female").astype(int)
+X["Embarked"] = X["Embarked"].astype("category").cat.codes        # -1 = missing
+X["Age"] = X["Age"].fillna(X["Age"].median())                      # MI needs complete values (EDA only)
+discrete = [c in ("Pclass", "Sex", "SibSp", "Parch", "Embarked") for c in X.columns]
+mi = mutual_info_classif(X, train[target], discrete_features=discrete, random_state=RANDOM_STATE)
+pd.Series(mi, index=X.columns, name="mutual information").sort_values(ascending=False).round(3)
+
+# 5. two features at once: is there a visible boundary between the classes?
+fig, ax = plt.subplots(figsize=(6, 4))
+sns.scatterplot(data=train, x="Age", y="Fare", hue=target, style="Sex", alpha=0.6, ax=ax)
+ax.set(yscale="symlog", title="Survival by age, fare and sex")
+```
+
+`Fare` and `Sex` carry the most information (mutual information about 0.17 and 0.15), well ahead of `Pclass` (0.06); `Age` carries little on its own (0.04, effect size −0.17), which the density plots also show: children are the exception, not the rule.
+
+> **Watch out:** with an imbalanced target (say 5% positives), accuracy is misleading from the start: plan to report recall, precision, F1 or PR AUC, and use a stratified split. A feature that separates the classes **perfectly** is a red flag for leakage, not a reason to celebrate.
+
+See also: [Class imbalance](#class-imbalance), [Correlation with the target](#correlation-with-the-target), [Other correlation measures](#other-correlation-measures), [EDA charts: categories and the target](#eda-charts-categories-and-the-target), [Imbalanced classes (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#imbalanced-classes), [Logistic regression (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#logistic-regression)
+
+<a id="eda-for-time-series-and-panel-data"></a>
+
+### EDA for time series and panel data
+
+_pandas, statsmodels, matplotlib_
+
+Forecasting models (ARIMA, SARIMA, VAR, and tree models on lag features) need a different EDA: check the **time index** (sorted, unique, regular, no gaps), the **trend**, **seasonality** and **changing variance**, **stationarity**, and **autocorrelation**. For **panel data** (many entities, each with its own series: companies, stores, countries), check coverage per entity and remember that every lag, difference and rolling statistic must be computed **within** each entity. The examples use monthly UFO sightings and the monthly bond yields of 30 countries.
+
+```python
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+sightings = (pd.to_datetime(ufo["Time"], format="mixed").to_frame("time")
+               .set_index("time").resample("MS").size().rename("sightings"))
+sightings = sightings.loc["1995":"2013"]          # steady period after the mid-1990s jump; 2014 is partial
+
+
+# 1. the time index: sorted, unique, one regular step, no gaps
+def check_time_index(s):
+    steps = s.index.to_series().diff().value_counts()
+    return {"sorted": s.index.is_monotonic_increasing, "duplicates": int(s.index.duplicated().sum()),
+            "inferred_frequency": pd.infer_freq(s.index), "distinct_steps": len(steps), "missing_values": int(s.isna().sum())}
+
+
+check_time_index(sightings)                       # monthly ('MS'), sorted, no duplicates, no gaps
+
+# 2. trend and changing variance: rolling mean and standard deviation over a year
+fig, ax = plt.subplots(figsize=(10, 3.5))
+sightings.plot(ax=ax, alpha=0.5, label="monthly sightings")
+sightings.rolling(12).mean().plot(ax=ax, label="12-month mean")
+sightings.rolling(12).std().plot(ax=ax, label="12-month standard deviation")
+ax.set(title="Sightings rose until about 2012, and swings grew with the level", xlabel="")
+ax.legend()
+
+# 3. seasonality: the profile across the months of the year
+by_month = sightings.to_frame().assign(month=sightings.index.month, year=sightings.index.year)
+fig, ax = plt.subplots(figsize=(8, 3.5))
+sns.boxplot(data=by_month, x="month", y="sightings", ax=ax)
+ax.set_title("A summer peak every year (July)")
+by_month.pivot_table(index="year", columns="month", values="sightings").tail(3)   # year x month table
+
+# 4. decomposition: multiplicative, because the seasonal swings grow with the level
+seasonal_decompose(sightings, model="multiplicative", period=12).plot()
+
+# 5. stationarity: ADF p-value < 0.05 suggests stationary
+for name, series in [("level", sightings), ("log, differenced", np.log(sightings).diff()),
+                     ("log, seasonally differenced", np.log(sightings).diff(12))]:
+    print(f"{name:28s} ADF p-value {adfuller(series.dropna())[1]:.3f}")
+
+# 6. autocorrelation: spikes at lag 12 confirm the yearly cycle
+fig, axes = plt.subplots(1, 3, figsize=(15, 3.2))
+plot_acf(np.log(sightings).diff().dropna(), lags=36, ax=axes[0])
+plot_pacf(np.log(sightings).diff().dropna(), lags=36, ax=axes[1])
+pd.plotting.lag_plot(np.log(sightings), lag=12, ax=axes[2])
+axes[2].set_title("this month vs 12 months earlier (log)")
+fig.tight_layout()
+```
+
+**Panel data:** first check each entity's coverage, then look at the spread across entities over time, not just one total line.
+
+```python
+month_cols = [c for c in bonds.columns if re.fullmatch(r"\d{4}M\d{2}", c)]
+panel = bonds.melt(id_vars=["country_code"], value_vars=month_cols, var_name="month", value_name="yield_pct")
+panel["month"] = pd.to_datetime(panel["month"], format="%YM%m")
+panel = panel.sort_values(["country_code", "month"]).reset_index(drop=True)   # sort by entity, then time
+
+coverage = panel.dropna(subset=["yield_pct"]).groupby("country_code")["month"].agg(["min", "max", "size"])
+coverage["gaps"] = panel.groupby("country_code")["yield_pct"].apply(lambda s: int(s.isna().sum()))
+coverage.sort_values("size").head()               # entities with short histories or gaps
+
+band = panel.groupby("month")["yield_pct"].quantile([0.25, 0.5, 0.75]).unstack()
+fig, ax = plt.subplots(figsize=(8, 3.5))
+ax.fill_between(band.index, band[0.25], band[0.75], alpha=0.3, label="middle 50% of countries")
+ax.plot(band.index, band[0.5], label="median country")
+ax.set(title="Bond yields fell across most countries through 2019", ylabel="yield (%)")
+ax.legend()
+
+panel["change"] = panel.groupby("country_code")["yield_pct"].diff()   # WITHIN each entity, never across
+```
+
+> **Watch out:** never shuffle or randomly split a time series: explore the earlier period and keep the latest period for testing. A lag or difference computed **without** `groupby` takes the previous row, which at an entity boundary belongs to a different company or country. Check the last period for partial data (a month or quarter still in progress looks like a sudden drop), and mark known structural breaks such as 2020.
+
+See also: [.resample()](#resample), [shift(), diff() and cumulative sums](#shift-diff-and-cumulative-sums), [Clean and validate dates and times](#clean-and-validate-dates-and-times), [Reshape between wide and long formats](#reshape-between-wide-and-long-formats), [Stationarity (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#stationarity), [ACF plot (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#acf-plot), [Classical decomposition (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#classical-decomposition), [Time series train/test split (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#time-series-train-test-split)
+
+<a id="eda-for-clustering-and-pca"></a>
+
+### EDA for clustering and PCA
+
+_pandas, seaborn, scikit-learn_
+
+Clustering (k-means, DBSCAN, hierarchical) and PCA have no target, and they work on **distances** and **variances**, so EDA focuses on what distorts those: features on **different scales**, **skewed** features and **outliers** (which dominate distances), and **highly correlated** features (which count the same information twice). A PCA projection then shows whether there's any visible structure to find. The examples use the course's `drinks` data (alcohol servings by country).
+
+```python
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.metrics import pairwise_distances
+
+features = ["beer_servings", "spirit_servings", "wine_servings", "total_litres_of_pure_alcohol"]
+X = drinks[features]
+
+# 1. scales and skew: unscaled, the column with the biggest numbers decides every distance
+X.describe().T[["mean", "std", "min", "max"]].round(1)
+X.skew().round(2)                                  # wine is strongly right-skewed (many countries near 0)
+
+# 2. transform, then scale; compare the shapes before and after
+X_log = np.log1p(X)                                # log1p handles the zeros
+X_scaled = pd.DataFrame(StandardScaler().fit_transform(X_log), columns=features, index=X.index)
+fig, axes = plt.subplots(1, 2, figsize=(11, 3.5))
+sns.boxplot(data=X, orient="h", ax=axes[0])
+axes[0].set_title("Raw: very different scales")
+sns.boxplot(data=X_scaled, orient="h", ax=axes[1])
+axes[1].set_title("log1p + standardised: comparable")
+fig.tight_layout()
+
+# 3. correlated features: total alcohol is largely the sum of the others
+fig, ax = plt.subplots(figsize=(5, 4))
+sns.heatmap(X.corr(method="spearman"), annot=True, fmt=".2f", cmap="coolwarm", vmin=-1, vmax=1, ax=ax)
+
+# 4. outliers in scaled space: rows far from everything can form their own "clusters"
+X_scaled.abs().max(axis=1).sort_values(ascending=False).head()
+
+# 5. PCA: how many dimensions hold the variation, and is there visible structure?
+pca = PCA().fit(X_scaled)
+pca.explained_variance_ratio_.cumsum().round(3)    # the first two components hold most of it
+coords = pd.DataFrame(pca.transform(X_scaled)[:, :2], columns=["PC1", "PC2"], index=X.index)
+fig, ax = plt.subplots(figsize=(6, 4))
+sns.scatterplot(data=coords.assign(continent=drinks["continent"].fillna("NA (North America)")),
+                x="PC1", y="PC2", hue="continent", ax=ax)
+ax.set_title("Countries in PCA space, coloured by continent (a sanity check, not a target)")
+
+# 6. distances: a wide spread of pairwise distances suggests groups worth finding
+distances = pairwise_distances(X_scaled)[np.triu_indices(len(X_scaled), k=1)]
+fig, ax = plt.subplots(figsize=(6, 3))
+sns.histplot(distances, bins=50, ax=ax)
+ax.set_title("Pairwise distances between countries (scaled)")
+```
+
+> **Watch out:** the `drinks` file codes North America as `"NA"`, which `read_csv` turns into a missing value by default: 23 countries lose their continent. Read it with `keep_default_na=False, na_values=[""]` if you need that column. Categorical features don't fit Euclidean distances; leave them out of k-means, or encode them carefully and check how much they dominate. Colouring by a known label is only a sanity check: clustering never sees it.
+
+See also: [Principal Component Analysis (PCA)](#principal-component-analysis-pca), [Standardization / feature scaling](#standardization-feature-scaling), [Detect and treat outliers](#detect-and-treat-outliers), [Correlation matrix](#correlation-matrix), [k-means (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#k-means), [Scaling for distance-based models (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#scaling-for-distance-based-models), [When to use PCA (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#when-to-use-pca-and-when-not)
+
+<a id="eda-for-recommender-data"></a>
+
+### EDA for recommender data
+
+_pandas, matplotlib_
+
+Recommender data is a table of **interactions** (user, item, rating or click), so EDA asks: how **sparse** is the user-item matrix, how are **ratings distributed**, how **long is the tail** of rarely rated items and inactive users, how much do users differ in **how generously they rate** (which mean-centring removes), and how many items are **cold-start** (too few ratings to recommend from). The example uses the MovieLens data from the Unit 3 recommender lesson.
+
+```python
+UNIT3_DATA = "https://raw.githubusercontent.com/CharleyHananiaGA/DSB-Unit-03/main/data/"
+ratings = pd.read_csv(UNIT3_DATA + "ratings.csv")       # userId, movieId, rating, timestamp
+films = pd.read_csv(UNIT3_DATA + "movies.csv")          # 'movies' already holds the IMDb data in the setup
+
+# 1. size and sparsity: the share of the user x item matrix with no rating
+n_users, n_items = ratings["userId"].nunique(), ratings["movieId"].nunique()
+sparsity = 1 - len(ratings) / (n_users * n_items)
+print(f"{len(ratings):,} ratings, {n_users:,} users, {n_items:,} movies, sparsity {sparsity:.1%}")   # 98.3% empty
+
+# 2. the rating scale: half stars, and a skew towards high ratings
+fig, axes = plt.subplots(1, 3, figsize=(15, 3.2))
+ratings["rating"].value_counts().sort_index().plot(kind="bar", ax=axes[0], title="Ratings given")
+
+# 3. the long tail: most movies have very few ratings, most users rate a little
+per_movie = ratings.groupby("movieId").size()
+per_user = ratings.groupby("userId").size()
+per_movie.plot(kind="hist", bins=60, logy=True, ax=axes[1], title="Ratings per movie (log count)")
+per_user.plot(kind="hist", bins=60, logy=True, ax=axes[2], title="Ratings per user (log count)")
+fig.tight_layout()
+print(f"movies with 1 rating: {(per_movie == 1).mean():.0%} | "
+      f"top 10% of movies receive {per_movie.nlargest(len(per_movie) // 10).sum() / len(ratings):.0%} of ratings")
+
+# 4. user generosity: average rating per user varies widely -> mean-centre before similarity
+ratings.groupby("userId")["rating"].mean().describe().round(2)
+
+# 5. popularity vs quality: rank by average rating only with a minimum number of ratings
+movie_stats = (ratings.groupby("movieId")["rating"].agg(mean_rating="mean", n_ratings="size")
+                      .join(films.set_index("movieId")["title"]))
+movie_stats[movie_stats["n_ratings"] >= 50].nlargest(5, "mean_rating")
+
+# 6. cold start and time: how many items are too rare to recommend from, and when ratings happened
+cold = (per_movie < 5).mean()
+ratings["date"] = pd.to_datetime(ratings["timestamp"], unit="s")
+print(f"movies with fewer than 5 ratings: {cold:.0%} | ratings from "
+      f"{ratings['date'].min():%Y} to {ratings['date'].max():%Y}")
+films["genres"].str.get_dummies(sep="|").sum().sort_values(ascending=False).head(8)   # genre coverage
+```
+
+> **Watch out:** an average rating from two ratings is noise: always show the count, and set a minimum (as above) before ranking items. The most-popular-items list is the baseline every recommender must beat. Ratings are not missing at random: people rate what they chose to watch, so the empty cells aren't "dislikes".
+
+See also: [Summarise by group](#summarise-by-group), [Recommender system (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#recommender-system), [Sparse matrix (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#sparse-matrix), [Mean-centering ratings (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#mean-centering-ratings), [Collaborative filtering (Unit 3)](https://github.com/CharleyHananiaGA/DSB-Unit-03/blob/main/Readme.MD#collaborative-filtering)
+
 <a id="export-clean-data-and-figures"></a>
 
 ### Export clean data and figures
@@ -9442,9 +9909,15 @@ See also: [.to_csv()](#to-csv), [Excel files: read_excel() and to_excel()](#exce
 - [EDA charts: categories and the target](#eda-charts-categories-and-the-target)
 - [EDA charts: distributions](#eda-charts-distributions)
 - [EDA charts: relationships, correlation and time](#eda-charts-relationships-correlation-and-time)
+- [EDA checklist by model type](#eda-checklist-by-model-type)
 - [EDA findings that shape model choice](#eda-findings-that-shape-model-choice)
+- [EDA for a classification target](#eda-for-a-classification-target)
+- [EDA for a regression target](#eda-for-a-regression-target)
+- [EDA for clustering and PCA](#eda-for-clustering-and-pca)
 - [EDA for exploration](#eda-for-exploration)
 - [EDA for modeling](#eda-for-modeling)
+- [EDA for recommender data](#eda-for-recommender-data)
+- [EDA for time series and panel data](#eda-for-time-series-and-panel-data)
 - [EDA template notebook](#eda-template-notebook)
 - [Effect size (Cohen's d)](#effect-size-cohen-s-d)
 - [Encoding categorical data](#encoding-categorical-data)
@@ -9701,6 +10174,7 @@ See also: [.to_csv()](#to-csv), [Excel files: read_excel() and to_excel()](#exce
 - [Ratio](#ratio)
 - [Raw string (r"...")](#raw-string-r)
 - [re (regular expressions)](#re-regular-expressions)
+- [Read and save every file type](#read-and-save-every-file-type)
 - [pd.read_csv()](#pd-read-csv)
 - [read_csv() options for messy files](#read-csv-options-for-messy-files)
 - [pd.read_json()](#pd-read-json)
